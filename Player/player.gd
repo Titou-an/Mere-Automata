@@ -50,7 +50,6 @@ func process_input(delta):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	
 
 func process_motion(delta):
 	 

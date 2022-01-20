@@ -11,12 +11,12 @@ export var world_seed = 1.0
 func _ready():
 	
 	noise.seed = world_seed
-	noise.octaves = 4 
-	noise.period = 20
-	noise.persistence = 0.8
+	noise.octaves = 3
+	noise.period = 15
+	noise.persistence = 0.2
 	
-	for x in range(2):
-		for z in range(2):
+	for x in range(3):
+		for z in range(3):
 			var chunk = Chunk.new()
 			var chunk_pos = Vector3(x,0,z)
 			chunk.chunk_pos = chunk_pos
