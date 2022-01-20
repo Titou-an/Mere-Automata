@@ -9,13 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "StaticBody",
+"class": "Chunk",
+"language": "GDScript",
+"path": "res://World/chunky.gd"
+}, {
 "base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
+"base": "Resource",
+"class": "TerrainGenerator",
+"language": "GDScript",
+"path": "res://World/generator.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"Chunk": "",
+"GitAPI": "",
+"TerrainGenerator": ""
 }
 
 [application]
