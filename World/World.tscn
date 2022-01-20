@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://World/world_builder.gd" type="Script" id=1]
+[ext_resource path="res://Player/PlayerFreeCam.tscn" type="PackedScene" id=2]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -8,8 +9,6 @@
 background_mode = 2
 background_sky = SubResource( 1 )
 ssao_enabled = true
-
-[sub_resource type="QuadMesh" id=3]
 
 [node name="World" type="Spatial"]
 
@@ -24,10 +23,5 @@ environment = SubResource( 2 )
 transform = Transform( 0.898725, -0.141549, 0.415038, -0.0833791, 0.874042, 0.478642, -0.430513, -0.464773, 0.773721, 0, 0, 0 )
 shadow_enabled = true
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 31.6408, 0, 0, 0, -4.37114e-08, 1, 0, -31.6408, -1.38306e-06, 8, 0, 8 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( -0.0338004, 0.375007, -0.926406, 0, 0.926935, 0.375221, 0.999429, 0.0126826, -0.0313308, -8.19863, 11.2055, 14.1802 )
+[node name="PlayerFreeCam" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.22134, 19.6717, -6.66162 )

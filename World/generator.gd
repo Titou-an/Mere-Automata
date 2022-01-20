@@ -2,8 +2,8 @@ class_name TerrainGenerator
 extends Resource
 
 const CHUNK_SIZE = 16 #must be sync with chunk
-const MAX_H = 6
-
+const MAX_H = 8
+const water_lvl = 5
 
 
 static func empty():
@@ -12,7 +12,7 @@ static func empty():
 
 static func hill_terrain(noise, chunk_pos):
 	var data = {}
-	var water_lvl = 3
+	
 	
 	for x in range(CHUNK_SIZE):
 		for z in range(CHUNK_SIZE):
@@ -23,10 +23,10 @@ static func hill_terrain(noise, chunk_pos):
 			for y in (top_h):
 				vec = Vector3(x,y,z)
 				data[vec] = 3
-			print(top_h)
 			
-			var water_h =Vector3(x,water_lvl,z)
-			if !data.has(water_h):
-				data[water_h] = 2
+			for i in water_lvl:
+				var water_h =Vector3(x,i,z)
+				if !data.has(water_h):
+					data[water_h] = 2
 			
 	return data

@@ -28,7 +28,6 @@ func _reload_chunks():
 func _ready():
 	transform.origin = chunk_pos * CHUNK_SIZE
 	name = str(chunk_pos)
-	print(chunk_pos)
 	data = TerrainGenerator.hill_terrain(world_builder.get_noise(),transform.origin)
 	
 	_generate_collider()
