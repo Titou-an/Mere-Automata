@@ -11,6 +11,7 @@ var data = {}
 var chunk_pos = Vector3()
 
 var thread
+var thread2
 
 var block_mesh 
 onready var world_builder = get_parent()
@@ -27,12 +28,16 @@ func _reload_chunks():
 func _ready():
 	transform.origin = chunk_pos * CHUNK_SIZE
 	name = str(chunk_pos)
-	data = TerrainGenerator.hill_terrain()
+	print(chunk_pos)
+	data = TerrainGenerator.hill_terrain(world_builder.get_noise(),transform.origin)
 	
 	_generate_collider()
 	
 	thread = Thread.new()
+	thread2 = Thread.new()
+	
 	thread.start(self, "_generate_mesh")
+	thread2.start(self, "_generate_water")
 	
 
 func _generate_collider():
@@ -59,6 +64,8 @@ func _generate_mesh():
 	
 	for block_pos in data.keys():
 		var block_id = data[block_pos]
+		if block_id == 2:
+			continue
 		_draw_mesh(surface_tool, block_pos, block_id)
 	
 	surface_tool.generate_normals()
@@ -67,9 +74,35 @@ func _generate_mesh():
 	var array_mesh = surface_tool.commit()
 	var mi = MeshInstance.new()
 	mi.mesh = array_mesh
+	
 	mi.material_override = preload("res://World/Textures/material.tres")
 	add_child(mi)
 	
+
+func _generate_water():
+	
+	if data.empty():
+		print("The chunk has no data")
+		return
+	
+	var surface_tool = SurfaceTool.new()
+	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+	
+	for block_pos in data.keys():
+		var block_id = data[block_pos]
+		if block_id != 2:
+			continue
+		_draw_mesh(surface_tool, block_pos, block_id)
+	
+	surface_tool.generate_normals()
+	surface_tool.generate_tangents()
+	surface_tool.index()
+	var array_mesh = surface_tool.commit()
+	var mi = MeshInstance.new()
+	mi.mesh = array_mesh
+	
+	mi.material_override = preload("res://World/Textures/water.tres")
+	add_child(mi)
 
 func _draw_mesh(surface_tool, block_pos, block_id):
 	var verts = calculate_verts(block_pos)
@@ -177,4 +210,4 @@ static func calculate_uvs(block_id):
 	]
 
 static func is_transparent(block_id):
-	return block_id == 0
+	return block_id == 0 or block_id == 2
