@@ -8,13 +8,15 @@
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
+ambient_light_color = Color( 0.760784, 0.760784, 0.760784, 1 )
+ambient_light_sky_contribution = 0.0
 ssao_enabled = true
 
 [node name="World" type="Spatial"]
 
 [node name="WorldGeneration" type="Node" parent="."]
 script = ExtResource( 1 )
-world_seed = 69420.0
+world_seed = 7.67868e+06
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
@@ -24,4 +26,4 @@ transform = Transform( 0.898725, -0.141549, 0.415038, -0.0833791, 0.874042, 0.47
 shadow_enabled = true
 
 [node name="PlayerFreeCam" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.22134, 19.6717, -6.66162 )
+transform = Transform( 0.252711, 0, 0.967542, 0, 1, 0, -0.967542, 0, 0.252711, 7.22134, 19.6717, -6.66162 )

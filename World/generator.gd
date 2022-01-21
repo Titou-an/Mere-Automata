@@ -16,7 +16,7 @@ static func hill_terrain(noise, chunk_pos):
 	
 	for x in range(CHUNK_SIZE):
 		for z in range(CHUNK_SIZE):
-			var top_h = round((noise.get_noise_2d(x + (chunk_pos.x),z + (chunk_pos.z)) + 1.0)/2 * MAX_H)
+			var top_h = round((noise.get_noise_2d(x + (chunk_pos.x),z + (chunk_pos.z)) + 1)/2 * MAX_H)
 			var vec = Vector3(x,top_h,z)
 			if top_h < water_lvl :
 				data[vec] = 5

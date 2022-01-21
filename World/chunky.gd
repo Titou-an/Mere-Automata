@@ -1,11 +1,10 @@
-class_name Chunk
+class_name Cube_Chunk
 extends StaticBody
 
 const CHUNK_SIZE = 16 #must be sync with generator
 const TEXTURE_TILE_WIDTH = 8
 
 const TEXTURE_TILE_SIZE = 1.0 / TEXTURE_TILE_WIDTH
-
 
 var data = {}
 var chunk_pos = Vector3()
@@ -15,6 +14,9 @@ var thread2
 
 var block_mesh 
 onready var world_builder = get_parent()
+
+func _init(c_data):
+	data = c_data
 
 func _reload_chunks():
 	
@@ -28,7 +30,6 @@ func _reload_chunks():
 func _ready():
 	transform.origin = chunk_pos * CHUNK_SIZE
 	name = str(chunk_pos)
-	data = TerrainGenerator.hill_terrain(world_builder.get_noise(),transform.origin)
 	
 	_generate_collider()
 	
