@@ -18,17 +18,16 @@ func _physics_process(delta):
 	_velocity = move_and_slide(_velocity, Vector3.UP)
 	
 	
-	
-	
 	timer += delta
 	
 	#Nothing to do, move in a random direction
+	
 	if (timer > timer_limit):
 		
 		timer = 0
 		rng.randomize()
 		numba = round(rng.randf_range(0, 7))
-		
+		#Dir and rotate depending
 		if numba == 10:
 			_velocity.x = 5
 			_velocity.z = 0
