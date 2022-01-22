@@ -28,36 +28,37 @@ func _physics_process(delta):
 		rng.randomize()
 		numba = round(rng.randf_range(0, 7))
 		#Dir and rotate depending
-		if numba == 10:
-			_velocity.x = 5
+		if numba == 0:
+			_velocity.x = lerp(5, 0, 0.85)
 			_velocity.z = 0
 			self.rotation = Vector3(0, 0 , 0)
 		if numba == 1:
-			_velocity.z = 5
+			_velocity.z = lerp(5, 0, 0.85)
 			_velocity.x = 0
 			self.rotation = Vector3(0, PI * 3/2 , 0)
 		if numba == 2:
-			_velocity.x = -5
+			_velocity.x = lerp(-5, 0, 0.85)
 			_velocity.z = 0
 			self.rotation = Vector3(0, PI , 0)
 		if numba == 3:
-			_velocity.z = -5
+			_velocity.z = lerp(-5, 0, 0.85)
 			_velocity.x = 0
 			self.rotation = Vector3(0, PI/2 , 0)
 		if numba == 4:
-			_velocity.x = 5 * sqrt(2)/2
-			_velocity.z = 5 * sqrt(2)/2
+			_velocity.x = lerp((5 * sqrt(2)/2), 0, 0.85)
+			_velocity.z = lerp((5 * sqrt(2)/2), 0, 0.85)
 			self.rotation = Vector3(0, PI * 7/4 , 0)
 		if numba == 5:
-			_velocity.z = 5 * sqrt(2)/2
-			_velocity.x = -5 * sqrt(2)/2
+			_velocity.z = lerp((5 * sqrt(2)/2), 0, 0.85)
+			_velocity.x = lerp((-5 * sqrt(2)/2), 0, 0.85)
 			self.rotation = Vector3(0, PI * 5/4 , 0)
 		if numba == 6:
-			_velocity.x = 5 * sqrt(2)/2
-			_velocity.z = -5 * sqrt(2)/2
-			self.rotation = Vector3(0, PI/4 , 0)
+			_velocity.x = lerp((5 * sqrt(2)/2), 0, 0.85)
+			_velocity.z = lerp((-5 * sqrt(2)/2), 0, 0.85)
+			self.rotation = Vector3(0, PI * 1/4 , 0)
 		if numba == 7:
-			_velocity.z = -5 * sqrt(2)/2
-			_velocity.x = -5 * sqrt(2)/2
-			self.rotation = Vector3(0, 3/4 * PI , 0)
-	
+			_velocity.z = lerp((-5 * sqrt(2)/2), 0, 0.85)
+			_velocity.x = lerp((-5 * sqrt(2)/2), 0, 0.85)
+			self.rotation = Vector3(0, PI * 3/4 , 0)
+		
+		
