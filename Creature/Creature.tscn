@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Creature/imalive.gd" type="Script" id=1]
+[ext_resource path="res://Creature/animu.glb" type="PackedScene" id=2]
+[ext_resource path="res://uwu/Material_001.material" type="Material" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+height = 0.042654
+
+[node name="KinematicBody" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="animu" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+
+[node name="Circle" parent="animu" index="0"]
+material/0 = ExtResource( 3 )
+
+[node name="Circle001" parent="animu" index="1"]
+material/0 = ExtResource( 3 )
+
+[editable path="animu"]

@@ -12,17 +12,12 @@ _global_script_classes=[ {
 "base": "StaticBody",
 "class": "Cube_Chunk",
 "language": "GDScript",
-"path": "res://World/cube_chunk.gd"
+"path": "res://World/chunky.gd"
 }, {
-"base": "EditorVCSInterface",
+"base": "",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
-}, {
-"base": "StaticBody",
-"class": "Hex_Chunk",
-"language": "GDScript",
-"path": "res://World/hex_chunk.gd"
 }, {
 "base": "Resource",
 "class": "TerrainGenerator",
@@ -32,7 +27,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Cube_Chunk": "",
 "GitAPI": "",
-"Hex_Chunk": "",
 "TerrainGenerator": ""
 }
 

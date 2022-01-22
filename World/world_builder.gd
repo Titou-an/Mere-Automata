@@ -3,7 +3,7 @@ extends Node
 #const CHUNK_MIDPOINT = Vector3(0.5, 0.5, 0.5) * Cube_Chunk.CHUNK_SIZE
 #const CHUNK_END_SIZE = Cube_Chunk.CHUNK_SIZE - 1
 
-var hex_offset = round((sqrt(3)/2)*100)/100
+
 var chunk_data = {}
 var _chunks = {}
 
@@ -30,18 +30,14 @@ func _ready():
 				chunk_data[chunk_pos] = data
 	
 	
-	for i in chunk_data:
-		var chunk = Cube_Chunk.new(chunk_data[i])
-		chunk.chunk_pos = i
-		_chunks[i] = chunk
-		add_child(chunk)
-				
-	
-	#var chunk = Hex_Chunk.new(TerrainGenerator.single())
-	#chunk.chunk_pos = Vector3.ZERO
-	#_chunks[Vector3.ZERO] = chunk
-	#add_child(chunk)
-	
+	for y in range(chunk_y):
+		for x in range(chunk_x):
+			for z in range(chunk_z):
+				var chunk_pos = Vector3(x,y,z)
+				var chunk = Cube_Chunk.new(chunk_data[chunk_pos])
+				chunk.chunk_pos = chunk_pos
+				_chunks[chunk_pos] = chunk
+				add_child(chunk)
 
 func clean_up():
 	for chunk_position_key in _chunks.keys():
