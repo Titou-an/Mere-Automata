@@ -29,5 +29,5 @@ shadow_enabled = true
 [node name="PlayerFreeCam" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.252711, 0, 0.967542, 0, 1, 0, -0.967542, 0, 0.252711, 7.22134, 19.6717, -6.66162 )
 
-[node name="Node" type="Node" parent="."]
+[node name="Spawner" type="Node" parent="."]
 script = ExtResource( 3 )
