@@ -2,29 +2,28 @@ extends KinematicBody
 var rng = RandomNumberGenerator.new()
 export var gravity := 9.8
 var _velocity := Vector3()
-var numba
+var numba = 0
 var jump = 5
 var timer = 0
 var timer_limit = 2
+var deg
 func _ready():
 	print("sup")
 	
 	
 	
 func _physics_process(delta):
-	
+	rotateCreature(numba)
+	_velocity = move_and_slide(_velocity, Vector3.UP)
 	if not is_on_floor():
 		_velocity.y -= gravity * delta
 	
-	_velocity = move_and_slide(_velocity, Vector3.UP)
-	
-	
 	timer += delta
 	if is_on_wall():
-		print("yeet")
+		
 		_velocity.y = jump
-		move(numba)
-		timer - 0
+		moveCreature(numba)
+		timer = 0
 	#Nothing to do, move in a random direction
 	
 	if (timer > timer_limit):
@@ -32,40 +31,61 @@ func _physics_process(delta):
 		timer = 0
 		rng.randomize()
 		numba = round(rng.randf_range(0, 7))
-		move(numba)
+		moveCreature(numba)
 		
-		
-func move(numba):
-	#Dir and rotate depending
+	
+func moveCreature(numba):
+	#move in dir
 		if numba == 0:
 			_velocity.x = lerp(5, 0, 0.85)
 			_velocity.z = 0
-			self.rotation = Vector3(0, 0 , 0)
+			
 		if numba == 1:
 			_velocity.z = lerp(5, 0, 0.85)
 			_velocity.x = 0
-			self.rotation = Vector3(0, PI * 3/2 , 0)
+			
 		if numba == 2:
 			_velocity.x = lerp(-5, 0, 0.85)
 			_velocity.z = 0
-			self.rotation = Vector3(0, PI , 0)
+			
 		if numba == 3:
 			_velocity.z = lerp(-5, 0, 0.85)
 			_velocity.x = 0
-			self.rotation = Vector3(0, PI/2 , 0)
+			
 		if numba == 4:
 			_velocity.x = lerp((5 * sqrt(2)/2), 0, 0.85)
 			_velocity.z = lerp((5 * sqrt(2)/2), 0, 0.85)
-			self.rotation = Vector3(0, PI * 7/4 , 0)
+			
 		if numba == 5:
 			_velocity.z = lerp((5 * sqrt(2)/2), 0, 0.85)
 			_velocity.x = lerp((-5 * sqrt(2)/2), 0, 0.85)
-			self.rotation = Vector3(0, PI * 5/4 , 0)
+			
 		if numba == 6:
 			_velocity.x = lerp((5 * sqrt(2)/2), 0, 0.85)
 			_velocity.z = lerp((-5 * sqrt(2)/2), 0, 0.85)
-			self.rotation = Vector3(0, PI * 1/4 , 0)
+			
 		if numba == 7:
 			_velocity.z = lerp((-5 * sqrt(2)/2), 0, 0.85)
 			_velocity.x = lerp((-5 * sqrt(2)/2), 0, 0.85)
-			self.rotation = Vector3(0, PI * 3/4 , 0)
+			
+func rotateCreature(numba):
+	#rotate according to dir
+	if numba == 0:
+		deg = 0
+	if numba == 1:
+		deg = 270
+	if numba == 2:
+		deg = 180
+	if numba == 3:
+		deg = 90
+	if numba == 4:
+		deg = 315
+	if numba == 5:
+		deg = 225
+	if numba == 6:
+		deg = 45
+	if numba == 7:
+		deg = 135
+	#lerp(self.rotation_degrees.y,deg,0.1)
+	self.rotation_degrees.y = rad2deg(lerp_angle(deg2rad(self.rotation_degrees.y),deg2rad(deg),0.1))
+	
