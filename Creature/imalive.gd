@@ -5,7 +5,8 @@ export var speedWeight := 0.85
 var _velocity := Vector3()
 var numba = 0
 var jump = 5
-var energy = 10
+var energy = 100
+var enConv
 var timer = 0
 var timer_limit = 2
 var deg
@@ -21,9 +22,12 @@ func _physics_process(delta):
 		death()
 	if self.transform.origin.y < 0:
 		death()
-	bar.update_bar(energy, 10)
+	
 	
 	rotateCreature(numba)
+	enConv = energy
+	energy -= speedWeight/10
+	energyUpdate()
 	_velocity.y -= gravity * delta
 	_velocity = move_and_slide(_velocity, Vector3.UP)
 	if is_on_wall():
@@ -41,7 +45,6 @@ func _physics_process(delta):
 		rng.randomize()
 		numba = round(rng.randf_range(0, 7))
 		moveCreature(numba)
-		
 	
 func moveCreature(numba):
 	#move in dir
@@ -77,7 +80,7 @@ func moveCreature(numba):
 			_velocity.z = lerp((-5 * sqrt(2)/2), 0, speedWeight)
 			_velocity.x = lerp((-5 * sqrt(2)/2), 0, speedWeight)
 			
-		energy -= speedWeight
+		
 func rotateCreature(numba):
 	#rotate according to dir
 	if numba == 0:
@@ -101,3 +104,6 @@ func rotateCreature(numba):
 	
 func death():
 	self.queue_free()
+func energyUpdate():
+	bar.update_bar(energy, 100)
+	
