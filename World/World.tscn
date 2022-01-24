@@ -17,7 +17,7 @@ ssao_enabled = true
 
 [node name="WorldGeneration" type="Node" parent="."]
 script = ExtResource( 1 )
-world_seed = 7777.0
+world_seed = 420.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )

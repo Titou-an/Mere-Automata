@@ -1,12 +1,14 @@
 extends KinematicBody
 var rng = RandomNumberGenerator.new()
 export var gravity := 9.8
+export var speedWeight := 0.85
 var _velocity := Vector3()
 var numba = 0
 var jump = 5
 var timer = 0
 var timer_limit = 2
 var deg
+
 func _ready():
 	print("sup")
 	
@@ -14,18 +16,17 @@ func _ready():
 	
 func _physics_process(delta):
 	rotateCreature(numba)
+	_velocity.y -= gravity * delta
 	_velocity = move_and_slide(_velocity, Vector3.UP)
-	if not is_on_floor():
-		_velocity.y -= gravity * delta
-	
-	timer += delta
 	if is_on_wall():
 		
 		_velocity.y = jump
 		moveCreature(numba)
 		timer = 0
-	#Nothing to do, move in a random direction
 	
+	timer += delta
+	
+	#Nothing to do, move in a random direction
 	if (timer > timer_limit):
 		
 		timer = 0
@@ -37,36 +38,36 @@ func _physics_process(delta):
 func moveCreature(numba):
 	#move in dir
 		if numba == 0:
-			_velocity.x = lerp(5, 0, 0.85)
+			_velocity.x = lerp(5, 0, speedWeight)
 			_velocity.z = 0
 			
 		if numba == 1:
-			_velocity.z = lerp(5, 0, 0.85)
+			_velocity.z = lerp(5, 0, speedWeight)
 			_velocity.x = 0
 			
 		if numba == 2:
-			_velocity.x = lerp(-5, 0, 0.85)
+			_velocity.x = lerp(-5, 0, speedWeight)
 			_velocity.z = 0
 			
 		if numba == 3:
-			_velocity.z = lerp(-5, 0, 0.85)
+			_velocity.z = lerp(-5, 0, speedWeight)
 			_velocity.x = 0
 			
 		if numba == 4:
-			_velocity.x = lerp((5 * sqrt(2)/2), 0, 0.85)
-			_velocity.z = lerp((5 * sqrt(2)/2), 0, 0.85)
+			_velocity.x = lerp((5 * sqrt(2)/2), 0, speedWeight)
+			_velocity.z = lerp((5 * sqrt(2)/2), 0, speedWeight)
 			
 		if numba == 5:
-			_velocity.z = lerp((5 * sqrt(2)/2), 0, 0.85)
-			_velocity.x = lerp((-5 * sqrt(2)/2), 0, 0.85)
+			_velocity.z = lerp((5 * sqrt(2)/2), 0, speedWeight)
+			_velocity.x = lerp((-5 * sqrt(2)/2), 0, speedWeight)
 			
 		if numba == 6:
-			_velocity.x = lerp((5 * sqrt(2)/2), 0, 0.85)
-			_velocity.z = lerp((-5 * sqrt(2)/2), 0, 0.85)
+			_velocity.x = lerp((5 * sqrt(2)/2), 0, speedWeight)
+			_velocity.z = lerp((-5 * sqrt(2)/2), 0, speedWeight)
 			
 		if numba == 7:
-			_velocity.z = lerp((-5 * sqrt(2)/2), 0, 0.85)
-			_velocity.x = lerp((-5 * sqrt(2)/2), 0, 0.85)
+			_velocity.z = lerp((-5 * sqrt(2)/2), 0, speedWeight)
+			_velocity.x = lerp((-5 * sqrt(2)/2), 0, speedWeight)
 			
 func rotateCreature(numba):
 	#rotate according to dir
