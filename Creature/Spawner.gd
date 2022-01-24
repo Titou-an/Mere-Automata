@@ -27,8 +27,10 @@ func _ready():
 	
 func _physics_process(delta):
 	timer += delta
+	if Input.is_action_pressed("ui_up"):
+		createCreature()
 	if (timer > timer_limit):
-	#if Input.is_action_pressed("ui_up"):
+	
 		timer = 0
 		createCreature()
 func createCreature():
