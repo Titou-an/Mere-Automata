@@ -59,7 +59,7 @@ func process_motion(delta):
 	
 	vel.x = dir.x * MOV_SPD
 	vel.z = dir.z * MOV_SPD
-	vel.y = dir.y * MOV_SPD
+	vel.y = dir.y * MOV_SPD * 0.5
 	
 	
 	vel = move_and_slide(vel, Vector3.UP, false)

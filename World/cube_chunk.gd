@@ -117,7 +117,7 @@ func _draw_mesh(surface_tool, block_pos, block_id):
 	var other_pos = block_pos + Vector3.LEFT
 	var other_id = 0
 	if other_pos.x == -1:
-		other_id = world_builder.get_global_position(other_pos + chunk_pos * CHUNK_SIZE)
+		other_id = world_builder.get_global_position_id(other_pos + chunk_pos * CHUNK_SIZE)
 	elif data.has(other_pos):
 		other_id = data[other_pos]
 	if block_id != other_id and is_transparent(other_id):
@@ -126,7 +126,7 @@ func _draw_mesh(surface_tool, block_pos, block_id):
 	other_pos = block_pos + Vector3.RIGHT
 	other_id = 0
 	if other_pos.x == CHUNK_SIZE:
-		other_id = world_builder.get_global_position(other_pos + chunk_pos * CHUNK_SIZE)
+		other_id = world_builder.get_global_position_id(other_pos + chunk_pos * CHUNK_SIZE)
 	elif data.has(other_pos):
 		other_id = data[other_pos]
 	if block_id != other_id and is_transparent(other_id):
@@ -135,7 +135,7 @@ func _draw_mesh(surface_tool, block_pos, block_id):
 	other_pos = block_pos + Vector3.FORWARD
 	other_id = 0
 	if other_pos.z == -1:
-		other_id = world_builder.get_global_position(other_pos + chunk_pos * CHUNK_SIZE)
+		other_id = world_builder.get_global_position_id(other_pos + chunk_pos * CHUNK_SIZE)
 	elif data.has(other_pos):
 		other_id = data[other_pos]
 	if block_id != other_id and is_transparent(other_id):
@@ -144,7 +144,7 @@ func _draw_mesh(surface_tool, block_pos, block_id):
 	other_pos = block_pos + Vector3.BACK
 	other_id = 0
 	if other_pos.z == CHUNK_SIZE:
-		other_id = world_builder.get_global_position(other_pos + chunk_pos * CHUNK_SIZE)
+		other_id = world_builder.get_global_position_id(other_pos + chunk_pos * CHUNK_SIZE)
 	elif data.has(other_pos):
 		other_id = data[other_pos]
 	if block_id != other_id and is_transparent(other_id):
@@ -153,7 +153,7 @@ func _draw_mesh(surface_tool, block_pos, block_id):
 	other_pos = block_pos + Vector3.UP
 	other_id = 0
 	if other_pos.y == CHUNK_SIZE:
-		other_id = world_builder.get_global_position(other_pos + chunk_pos * CHUNK_SIZE)
+		other_id = world_builder.get_global_position_id(other_pos + chunk_pos * CHUNK_SIZE)
 	elif data.has(other_pos):
 		other_id = data[other_pos]
 	if block_id != other_id and is_transparent(other_id):
@@ -162,7 +162,7 @@ func _draw_mesh(surface_tool, block_pos, block_id):
 	other_pos = block_pos + Vector3.DOWN
 	other_id = 0
 	if other_pos.y == -1:
-		other_id = world_builder.get_global_position(other_pos + chunk_pos * CHUNK_SIZE)
+		other_id = world_builder.get_global_position_id(other_pos + chunk_pos * CHUNK_SIZE)
 	elif data.has(other_pos):
 		other_id = data[other_pos]
 	if block_id != other_id and is_transparent(other_id):

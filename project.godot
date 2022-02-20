@@ -19,10 +19,15 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
-"base": "StaticBody",
+"base": "Reference",
 "class": "Hex_Chunk",
 "language": "GDScript",
-"path": "res://World/hex_chunk.gd"
+"path": "res://World/Textures/hex_chunk.gd"
+}, {
+"base": "StaticBody",
+"class": "Hex_Chunk2",
+"language": "GDScript",
+"path": "res://World/hex_chunk2.gd"
 }, {
 "base": "Resource",
 "class": "TerrainGenerator",
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "Cube_Chunk": "",
 "GitAPI": "",
 "Hex_Chunk": "",
+"Hex_Chunk2": "",
 "TerrainGenerator": ""
 }
 
@@ -97,6 +103,21 @@ toggle_debug={
 action_reload={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
+action_hex_test={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777248,"unicode":0,"echo":false,"script":null)
+ ]
+}
+action_hex_map={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777249,"unicode":0,"echo":false,"script":null)
+ ]
+}
+action_cube_map={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777250,"unicode":0,"echo":false,"script":null)
  ]
 }
 

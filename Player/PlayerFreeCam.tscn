@@ -4,7 +4,7 @@
 [ext_resource path="res://GUI/DebugController.tscn" type="PackedScene" id=2]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.573193
+radius = 0.241996
 height = 1.72826
 
 [node name="PlayerFreeCam" type="KinematicBody"]
