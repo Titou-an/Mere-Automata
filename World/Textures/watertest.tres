@@ -1,7 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=7 format=2]
+[gd_resource type="ShaderMaterial" load_steps=6 format=2]
 
 [ext_resource path="res://World/Textures/Water/Water_N_A.png" type="Texture" id=1]
-[ext_resource path="res://World/Textures/Water/Foam.png" type="Texture" id=2]
 [ext_resource path="res://World/Textures/Water/Water_N_B.png" type="Texture" id=3]
 [ext_resource path="res://World/Textures/Water/Water_UV.png" type="Texture" id=4]
 [ext_resource path="res://World/Textures/Water/Caustic.png" type="TextureArray" id=5]
@@ -21,7 +20,7 @@ THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMP
 
 // For this shader min. GODOT 3.1.1 is required, because 3.1 has a depth buffer bug!
 shader_type 	spatial;
-render_mode 	cull_back,diffuse_burley,specular_schlick_ggx, blend_mix;
+render_mode 	depth_draw_alpha_prepass,cull_back,diffuse_burley,specular_schlick_ggx;
 
 
 // Wave settings:
@@ -191,13 +190,12 @@ shader_param/uv_sampler_scale = Vector2( 0.2, 0.2 )
 shader_param/uv_sampler_strength = 0.04
 shader_param/foam_level = 1.872
 shader_param/refraction = 0.04
-shader_param/color_deep = Color( 0.0627451, 0.54902, 0.717647, 1 )
-shader_param/color_shallow = Color( 0.564706, 0.909804, 1, 1 )
-shader_param/beers_law = 0.818
-shader_param/depth_offset = -0.811
+shader_param/color_deep = Color( 0.054902, 0.47451, 0.619608, 1 )
+shader_param/color_shallow = Color( 0.509804, 0.898039, 1, 1 )
+shader_param/beers_law = 2.0
+shader_param/depth_offset = -0.821
 shader_param/projector = null
 shader_param/uv_sampler = ExtResource( 4 )
 shader_param/normalmap_a_sampler = ExtResource( 1 )
 shader_param/normalmap_b_sampler = ExtResource( 3 )
-shader_param/foam_sampler = ExtResource( 2 )
 shader_param/caustic_sampler = ExtResource( 5 )

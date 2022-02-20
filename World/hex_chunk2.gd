@@ -6,6 +6,13 @@ const TEXTURE_TILE_WIDTH = 8
 
 const TEXTURE_TILE_SIZE = 1.0 / TEXTURE_TILE_WIDTH
 
+const GRASS =  preload("res://Objects/Grass/grass.tscn")
+const TREE = preload("res://Objects/Tree/tree_oak.tscn")
+const WORLD_OBJECTS = {10: GRASS, 11:TREE}
+const WORLD_MATERIAL = preload("res://World/Textures/material.tres")
+
+const TRANSP_ID = [0,2,10,11]
+
 var data = {}
 var chunk_pos = Vector3()
 
@@ -55,7 +62,9 @@ func _generate_collider():
 	collision_mask = 0xFFFFF
 	for block_pos in data.keys():
 		var block_id = data[block_pos]
-		_create_mesh_collider(block_pos)
+		
+		if block_id != 10 or block_id != 11:
+			_create_mesh_collider(block_pos)
 
 func _generate_mesh():
 	
@@ -79,7 +88,7 @@ func _generate_mesh():
 	var mi = MeshInstance.new()
 	mi.mesh = array_mesh
 	
-	mi.material_override = preload("res://World/Textures/material.tres")
+	mi.material_override = WORLD_MATERIAL
 	add_child(mi)
 	
 	
@@ -95,7 +104,7 @@ func _generate_water():
 	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
 	for block_pos in data.keys(): #Changed from data.keys
-		var top_water = false
+		var is_top_water = false
 		
 		var block_id = data[block_pos]
 		if block_id != 2:
@@ -108,11 +117,10 @@ func _generate_water():
 			other_id = world_builder.get_global_position_id(other_pos + chunk_pos * CHUNK_SIZE)
 		elif data.has(other_pos):
 			other_id = data[other_pos]
-			print(other_id)
 		if other_id !=2:
-			top_water = true
+			is_top_water = true
 		
-		_draw_mesh(surface_tool, block_pos, block_id, top_water)
+		_draw_mesh(surface_tool, block_pos, block_id, is_top_water)
 	
 	surface_tool.generate_normals()
 	surface_tool.generate_tangents()
@@ -124,25 +132,45 @@ func _generate_water():
 	mi.material_override = preload("res://World/Textures/watertest.tres")
 	add_child(mi)
 
-func _draw_mesh(surface_tool, block_pos, block_id,top_water):
+func _draw_mesh(surface_tool, block_pos, block_id,is_top_water):
 	
 	var verts = {}
 	var odd = int(block_pos.z)%2
 	if  odd:
-		verts = calculate_verts((block_pos + (Vector3.RIGHT/2)) * Vector3(1,1,hex_offset), top_water)
+		verts = calculate_verts((block_pos + (Vector3.RIGHT/2)) * Vector3(1,1,hex_offset), is_top_water)
 	else:
-		verts = calculate_verts(block_pos * Vector3(1,1,hex_offset), top_water)
+		verts = calculate_verts(block_pos * Vector3(1,1,hex_offset), is_top_water)
 	
 	var uvs = calculate_uvs(block_id)
 	var top_uvs = calculate_hex_uvs(block_id)
 	var bottom_uvs = calculate_hex_uvs(block_id)
 	
 	
+	if block_id == 10 or block_id == 11:
+		
+		var pos = block_pos
+		var object = WORLD_OBJECTS[block_id].instance()
+		
+		if odd:
+			pos = (block_pos + Vector3(1,0,0.5)) * Vector3(1,1,hex_offset)
+		else:
+			pos = (block_pos + Vector3(0.5,0,0.5)) * Vector3(1,1,hex_offset)
+		
+		object.transform.origin = pos
+		
+		var scale_offset = 4
+		if block_id == 10:
+			scale_offset = rand_range(0.7,0.9)
+		
+		object.scale = Vector3(scale_offset,scale_offset * rand_range(1,1.25),scale_offset)
+		object.rotate_y(rand_range(0,2*PI))
+		
+		add_child(object)
+		return
 	
 	if block_id == 3: # Grass.
 		top_uvs = calculate_hex_uvs(0)
 		bottom_uvs = calculate_hex_uvs(2)
-	
 	
 	var other_pos = block_pos + Vector3.LEFT
 	var other_id = 0
@@ -292,12 +320,12 @@ func _create_mesh_collider(block_pos):
 	
 	add_child(collider)
 
-static func calculate_verts(block_pos, top_water):
+static func calculate_verts(block_pos, is_top_water):
 	
 	var hex_side = (sqrt(3)/3)
 	var hex_sqr = hex_side/2
 	
-	if top_water:
+	if is_top_water:
 		return[
 			Vector3(block_pos.x + 0.5, block_pos.y, block_pos.z),
 			Vector3(block_pos.x, block_pos.y, block_pos.z + hex_sqr),
@@ -375,7 +403,7 @@ static func calculate_hex_uvs(block_id):
 	]
 
 static func is_transparent(block_id):
-	return block_id == 0 or block_id == 2 or block_id == 6
+	return TRANSP_ID.has(block_id)
 
 func get_poly():
 	return poly_count

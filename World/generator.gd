@@ -50,7 +50,7 @@ static func single_cube():
 
 static func hill_terrain(noise, chunk_pos):
 	var data = {}
-	
+	randomize()
 	
 	for x in range(CHUNK_SIZE):
 		for z in range(CHUNK_SIZE):
@@ -62,8 +62,10 @@ static func hill_terrain(noise, chunk_pos):
 				data[vec] = 3
 				
 				var rand = randf()
-				if rand < 80:
+				if rand < 0.33:
 					data[vec + Vector3.UP] = 10
+				elif rand < 0.35:
+					data[vec + Vector3.UP] = 11
 			
 			for y in (top_h):
 				vec = Vector3(x,y,z)
