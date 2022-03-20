@@ -34,10 +34,8 @@ func _ready():
 	_generate_collider()
 	
 	thread = Thread.new()
-	thread2 = Thread.new()
 	
 	thread.start(self, "_generate_mesh")
-	thread2.start(self, "_generate_water")
 	
 
 func _generate_collider():
@@ -78,6 +76,7 @@ func _generate_mesh():
 	mi.material_override = preload("res://World/Textures/material.tres")
 	add_child(mi)
 	
+	_generate_water()
 
 func _generate_water():
 	
@@ -101,7 +100,7 @@ func _generate_water():
 	var mi = MeshInstance.new()
 	mi.mesh = array_mesh
 	
-	mi.material_override = preload("res://World/Textures/water.tres")
+	mi.material_override = preload("res://World/Textures/watertest.tres")
 	add_child(mi)
 
 func _draw_mesh(surface_tool, block_pos, block_id):

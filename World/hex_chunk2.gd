@@ -45,10 +45,8 @@ func _ready():
 	_generate_collider()
 	
 	thread = Thread.new()
-	thread2 = Thread.new()
 	
 	thread.start(self, "_generate_mesh")
-	thread2.start(self, "_generate_water")
 	
 
 func _generate_collider():
@@ -91,6 +89,7 @@ func _generate_mesh():
 	mi.material_override = WORLD_MATERIAL
 	add_child(mi)
 	
+	_generate_water()
 	
 	
 
@@ -162,7 +161,7 @@ func _draw_mesh(surface_tool, block_pos, block_id,is_top_water):
 		if block_id == 10:
 			scale_offset = rand_range(0.7,0.9)
 		
-		object.scale = Vector3(scale_offset,scale_offset * rand_range(1,1.25),scale_offset)
+		object.scale = Vector3(scale_offset,scale_offset * rand_range(0.7,1.25),scale_offset)
 		object.rotate_y(rand_range(0,2*PI))
 		
 		add_child(object)
