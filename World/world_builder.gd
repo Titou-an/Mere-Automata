@@ -3,8 +3,10 @@ extends Node
 #const CHUNK_MIDPOINT = Vector3(0.5, 0.5, 0.5) * Cube_Chunk.CHUNK_SIZE
 #const CHUNK_END_SIZE = Cube_Chunk.CHUNK_SIZE - 1
 
+
 #var hex_offset = round((sqrt(3)/2)*1000)/1000
 const hex_offset = 0.866
+
 var chunk_data = {}
 var _chunks = {}
 
@@ -29,10 +31,6 @@ func _ready():
 				var chunk_pos = Vector3(x,y,z)
 				var data = TerrainGenerator.hill_terrain(noise,chunk_pos * Cube_Chunk.CHUNK_SIZE)
 				chunk_data[chunk_pos] = data
-	
-
-
-
 
 func clean_up():
 	
