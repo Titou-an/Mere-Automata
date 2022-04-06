@@ -8,12 +8,18 @@ const hex_offset = 0.866
 var chunk_data = {}
 var _chunks = {}
 
+var thread = null
+
 var noise = OpenSimplexNoise.new()
 export var world_seed = 1
 
 var chunk_x = 2
 var chunk_y = 1
 var chunk_z = 2
+
+
+var progress = 0
+onready var prog_bar = get_node("CanvasLayer/ProgressBar")
 
 
 func _ready():
@@ -32,8 +38,6 @@ func _ready():
 	
 
 
-
-
 func clean_up():
 	
 	for chunk_position_key in _chunks.keys():
@@ -42,11 +46,9 @@ func clean_up():
 			thread.wait_to_finish()
 	_chunks = {}
 
-	set_process(false)
-	
+	#set_process(false)
 	for c in get_children():
 		c.free()
-	
 	
 
 func get_global_position_id(block_global_position):
@@ -85,21 +87,26 @@ func gen_hex_test():
 	add_child(chunk)
 
 func gen_hex_map():
+	clean_up()
 	
-	for x in range(chunk_x):
-		for z in range(chunk_z):
-			for y in range(chunk_y):
-				var chunk_pos = Vector3(x,y,z)
-				var data = TerrainGenerator.hill_terrain(noise,chunk_pos * Cube_Chunk.CHUNK_SIZE)
-				chunk_data[chunk_pos] = data
-	
-	for i in chunk_data:
-		var chunk = Hex_Chunk2.new(chunk_data[i])
-		chunk.chunk_pos = i
-		_chunks[i] = chunk
+	progress = 0
+	for chunk_pos in chunk_data:
+		var chunk = Hex_Chunk2.new(chunk_data[chunk_pos])
+		chunk.chunk_pos = chunk_pos
+		_chunks[chunk_pos] = chunk
 		add_child(chunk)
+#		thread = Thread.new()
+#		thread.start(self, "load_chunk", i)
+		
 		
 	
+func load_chunk(chunk_pos):
+	var chunk = Hex_Chunk2.new(chunk_data[chunk_pos])
+	chunk.chunk_pos = chunk_pos
+	_chunks[chunk_pos] = chunk
+	add_child(chunk)
+	#progress = chunk_pos/chunk_data.size()
+	#print(progress)
 
 func gen_cube_map():
 	clean_up()

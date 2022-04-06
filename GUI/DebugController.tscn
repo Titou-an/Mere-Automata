@@ -14,20 +14,15 @@ pause_mode = 2
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -286.0
-margin_bottom = 80.0
-grow_horizontal = 0
-grow_vertical = 0
+margin_bottom = 97.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0.607843 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.0
-margin_bottom = 20.0
+margin_bottom = 11.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -58,9 +53,9 @@ __meta__ = {
 anchor_left = 0.018
 anchor_right = 1.0
 margin_left = 4.85199
-margin_top = 79.0
+margin_top = 82.0
 margin_right = -5.14801
-margin_bottom = 95.0
+margin_bottom = 98.0
 custom_fonts/font = SubResource( 1 )
 text = "Build Version:"
 __meta__ = {

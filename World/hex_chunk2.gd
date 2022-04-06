@@ -43,10 +43,7 @@ func _ready():
 	name = str(chunk_pos * Vector3(1,1,hex_offset))
 	
 	_generate_collider()
-	
-	thread = Thread.new()
-	
-	thread.start(self, "_generate_mesh")
+	_generate_mesh()
 	
 
 func _generate_collider():
