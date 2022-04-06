@@ -71,5 +71,5 @@ func _input(event):
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
 	
 	var camera_rot = rotattion_helper.rotation_degrees
-	camera_rot.x = clamp(camera_rot.x, -80, 80)
+	camera_rot.x = clamp(camera_rot.x, -70, 70)
 	rotattion_helper.rotation_degrees = camera_rot

@@ -9,6 +9,7 @@ const hex_offset = 0.866
 static func empty():
 	return {}
 
+
 static func single():
 	#var hex_offset = round((sqrt(3)/2)*1000)/1000
 	
@@ -31,6 +32,7 @@ static func single():
 	data[Vector3(1,2,0)] = 3
 	print (data)
 	return data
+
 
 static func single_cube():
 	
@@ -78,6 +80,7 @@ static func hill_terrain(noise, chunk_pos):
 			
 	return data
 
+
 static func hex_hill_terrain(noise, chunk_pos):
 	var data = {}
 	#var hex_offset = round((sqrt(3)/2)*1000)/1000
@@ -108,3 +111,4 @@ static func hex_hill_terrain(noise, chunk_pos):
 					data[vec] = 2
 			
 	return data
+
