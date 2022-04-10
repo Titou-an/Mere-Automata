@@ -6,8 +6,9 @@ const TEXTURE_TILE_WIDTH = 8
 
 const TEXTURE_TILE_SIZE = 1.0 / TEXTURE_TILE_WIDTH
 
-const GRASS =  preload("res://Objects/Grass/grass.tscn")
 const TREE = preload("res://Objects/Tree/tree_oak.tscn")
+const GRASS =  preload("res://Objects/Grass/grass.tscn")
+
 const WORLD_OBJECTS = {10: GRASS, 11:TREE}
 const WORLD_MATERIAL = preload("res://World/Textures/material.tres")
 
@@ -58,8 +59,9 @@ func _generate_collider():
 	for block_pos in data.keys():
 		var block_id = data[block_pos]
 		
-		if block_id != 10 or block_id != 11:
-			_create_mesh_collider(block_pos)
+		if !block_id == 2:
+			if block_id != 10 and block_id != 11:
+				_create_mesh_collider(block_pos)
 
 func _generate_mesh():
 	

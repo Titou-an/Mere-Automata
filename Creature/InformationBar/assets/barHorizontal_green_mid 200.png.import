@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/barHorizontal_green_mid 200.png-f1d03af63e2b581d24c17d055fa8f380.s3tc.stex"
-path.etc2="res://.import/barHorizontal_green_mid 200.png-f1d03af63e2b581d24c17d055fa8f380.etc2.stex"
+path.s3tc="res://.import/barHorizontal_green_mid 200.png-084f874b5cbaa02c402a2053d25ddae4.s3tc.stex"
+path.etc2="res://.import/barHorizontal_green_mid 200.png-084f874b5cbaa02c402a2053d25ddae4.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Creature/assets/barHorizontal_green_mid 200.png"
-dest_files=[ "res://.import/barHorizontal_green_mid 200.png-f1d03af63e2b581d24c17d055fa8f380.s3tc.stex", "res://.import/barHorizontal_green_mid 200.png-f1d03af63e2b581d24c17d055fa8f380.etc2.stex" ]
+source_file="res://Creature/InformationBar/assets/barHorizontal_green_mid 200.png"
+dest_files=[ "res://.import/barHorizontal_green_mid 200.png-084f874b5cbaa02c402a2053d25ddae4.s3tc.stex", "res://.import/barHorizontal_green_mid 200.png-084f874b5cbaa02c402a2053d25ddae4.etc2.stex" ]
 
 [params]
 

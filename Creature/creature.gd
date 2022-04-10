@@ -1,7 +1,11 @@
 extends KinematicBody
+
 var rng = RandomNumberGenerator.new()
 export var gravity := 9.8
 export var speedWeight := 0.85
+
+var targ_list = {}
+
 var _velocity := Vector3()
 var numba = 0
 var jump = 5
@@ -12,24 +16,22 @@ var timer_limit = 2
 var deg
 onready var bar = $Sprite3D/Viewport/HealthBar2D
 
-func _ready():
-	print("sup")
-	
-	
-	
 func _physics_process(delta):
 	if energy <= 0:
 		death()
+	
 	if self.transform.origin.y < 0:
 		death()
 	
 	
-	rotateCreature(numba)
+	
 	enConv = energy
 	energy -= speedWeight/10
 	energyUpdate()
+	
 	_velocity.y -= gravity * delta
 	_velocity = move_and_slide(_velocity, Vector3.UP)
+	
 	if is_on_wall():
 		
 		_velocity.y = jump
@@ -38,6 +40,8 @@ func _physics_process(delta):
 	
 	timer += delta
 	
+	rotateCreature(numba)
+	
 	#Nothing to do, move in a random direction
 	if (timer > timer_limit):
 		
@@ -45,6 +49,7 @@ func _physics_process(delta):
 		rng.randomize()
 		numba = round(rng.randf_range(0, 7))
 		moveCreature(numba)
+		
 	
 func moveCreature(numba):
 	#move in dir
@@ -104,6 +109,12 @@ func rotateCreature(numba):
 	
 func death():
 	self.queue_free()
+
 func energyUpdate():
 	bar.update_bar(energy, 100)
+	
+
+
+func _on_Area_area_entered(area):
+	targ_list[area] = area.global_transform.origin
 	

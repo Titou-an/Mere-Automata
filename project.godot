@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "StaticBody",
 "class": "Cube_Chunk",
 "language": "GDScript",
 "path": "res://World/cube_chunk.gd"
@@ -48,6 +48,10 @@ config/name="CoolEvoSim"
 run/main_scene="res://World/World.tscn"
 config/icon="res://icon.png"
 config/build_version="OwO Dev Build"
+
+[autoload]
+
+world_gen="*res://World/world_generator.gd"
 
 [gdnative]
 
@@ -118,6 +122,11 @@ action_hex_map={
 action_cube_map={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777250,"unicode":0,"echo":false,"script":null)
+ ]
+}
+create_food={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777233,"unicode":0,"echo":false,"script":null)
  ]
 }
 

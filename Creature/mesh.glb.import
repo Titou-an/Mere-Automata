@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/animu.glb-c3a93aad087eb22be0e56eb0e2c864b3.scn"
+path="res://.import/mesh.glb-522e6e93e35cee12399dfebcd1fbd0f8.scn"
 
 [deps]
 
-source_file="res://Creature/animu.glb"
-dest_files=[ "res://.import/animu.glb-c3a93aad087eb22be0e56eb0e2c864b3.scn" ]
+source_file="res://Creature/mesh.glb"
+dest_files=[ "res://.import/mesh.glb-522e6e93e35cee12399dfebcd1fbd0f8.scn" ]
 
 [params]
 

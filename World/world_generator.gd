@@ -1,5 +1,4 @@
 extends Node
-
 #const CHUNK_MIDPOINT = Vector3(0.5, 0.5, 0.5) * Cube_Chunk.CHUNK_SIZE
 #const CHUNK_END_SIZE = Cube_Chunk.CHUNK_SIZE - 1
 
@@ -19,7 +18,8 @@ var chunk_z = 2
 
 
 var progress = 0
-onready var prog_bar = get_node("CanvasLayer/ProgressBar")
+#onready var prog_bar = get_node("CanvasLayer/ProgressBar")
+
 
 
 func _ready():
@@ -63,20 +63,6 @@ func get_global_position_id(block_global_position):
 
 func get_noise():
 	return noise
-
-func _input(event):
-	
-	if event.is_action_pressed("action_reload"):
-		clean_up()
-	
-	if event.is_action_pressed("action_hex_test"):
-		gen_hex_test()
-		
-	if event.is_action_pressed("action_hex_map"):
-		gen_hex_map()
-	
-	if event.is_action_pressed("action_cube_map"):
-		gen_cube_map()
 
 func gen_hex_test():
 	clean_up()
