@@ -65,7 +65,11 @@ func _input(event):
 	
 
 func clear_fd():
-	for c in get_node("food").get_children():
-			c.queue_free()
+	for f in get_tree().get_nodes_in_group("food"):
+			f.clean()
+		
+	for c in get_tree().get_nodes_in_group("creatures"):
+		c.targ_list.clear()
+		
 	food_arr.clear()
 
