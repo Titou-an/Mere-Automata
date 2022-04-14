@@ -20,5 +20,5 @@ func _on_Area_body_entered(body):
 func clean():
 	self.queue_free()
 	for creature in get_tree().get_nodes_in_group("creatures"):
-				if creature.targ_list.has(area):
-					creature.remove_tg(area)
+				if creature.fd_list.has(area):
+					creature.fd_list.erase(area)

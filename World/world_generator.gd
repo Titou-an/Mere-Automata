@@ -1,4 +1,6 @@
+class_name world_gen
 extends Node
+
 #const CHUNK_MIDPOINT = Vector3(0.5, 0.5, 0.5) * Cube_Chunk.CHUNK_SIZE
 #const CHUNK_END_SIZE = Cube_Chunk.CHUNK_SIZE - 1
 

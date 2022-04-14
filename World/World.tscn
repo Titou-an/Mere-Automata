@@ -47,7 +47,7 @@ environment = SubResource( 2 )
 transform = Transform( 0.898725, -0.141549, 0.415038, -0.0833791, 0.874042, 0.478642, -0.430513, -0.464773, 0.773721, 0, 0, 0 )
 shadow_enabled = true
 
-[node name="food" type="Node" parent="."]
+[node name="Food" type="Node" parent="."]
 
 [node name="WorldGenerator" type="Node" parent="."]
 script = ExtResource( 3 )

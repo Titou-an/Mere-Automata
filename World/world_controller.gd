@@ -12,23 +12,23 @@ var food_arr = []
 func _input(event):
 	
 	if event.is_action_pressed("action_reload"):
-		world_gen.clean_up()
+		WorldGen.clean_up()
 	
 	if event.is_action_pressed("action_hex_test"):
-		world_gen.gen_hex_test()
+		WorldGen.gen_hex_test()
 		
 	if event.is_action_pressed("action_hex_map"):
-		world_gen.gen_hex_map()
+		WorldGen.gen_hex_map()
 	
 	if event.is_action_pressed("action_cube_map"):
-		world_gen.gen_cube_map()
+		WorldGen.gen_cube_map()
 	
 	if event.is_action_pressed("action_reload"):
-		world_gen.clean_up()
+		WorldGen.clean_up()
 	
 	if event.is_action_pressed("create_food"):
 		clear_fd()
-		var chunk_data = world_gen.chunk_data
+		var chunk_data = WorldGen.chunk_data
 		
 		for x in range(food_ammount):
 			var fd = food.instance()
@@ -57,7 +57,7 @@ func _input(event):
 								pos = (origin + rand_pos + Vector3(0.5,1,0.5)) * Vector3(1,1,hex_offset)
 							food_arr.append(rand_pos)
 							fd.transform.origin = pos
-							get_node("food").add_child(fd)
+							get_node("Food").add_child(fd)
 							break
 				else:
 					break
@@ -69,7 +69,7 @@ func clear_fd():
 			f.clean()
 		
 	for c in get_tree().get_nodes_in_group("creatures"):
-		c.targ_list.clear()
+		c.fd_list.clear()
 		
 	food_arr.clear()
 

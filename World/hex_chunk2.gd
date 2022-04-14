@@ -54,8 +54,8 @@ func _generate_collider():
 		collision_mask = 0
 		return
 	
-	collision_layer = 0xFFFFF
-	collision_mask = 0xFFFFF
+	collision_layer = 1
+	collision_mask = 1
 	for block_pos in data.keys():
 		var block_id = data[block_pos]
 		

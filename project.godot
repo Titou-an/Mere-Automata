@@ -32,14 +32,20 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "TerrainGenerator",
 "language": "GDScript",
-"path": "res://World/generator.gd"
+"path": "res://World/terrain_generator.gd"
+}, {
+"base": "Node",
+"class": "world_gen",
+"language": "GDScript",
+"path": "res://World/world_generator.gd"
 } ]
 _global_script_class_icons={
 "Cube_Chunk": "",
 "GitAPI": "",
 "Hex_Chunk": "",
 "Hex_Chunk2": "",
-"TerrainGenerator": ""
+"TerrainGenerator": "",
+"world_gen": ""
 }
 
 [application]
@@ -51,7 +57,7 @@ config/build_version="OwO Dev Build"
 
 [autoload]
 
-world_gen="*res://World/world_generator.gd"
+WorldGen="*res://World/world_generator.gd"
 
 [gdnative]
 
