@@ -9,6 +9,7 @@ func _ready():
 func _process(delta):
 	$FPS_Label.text = "FPS: " + str(Engine.get_frames_per_second())
 	$Memory_Label.text = "Memory: " + "%3.2f" % (OS.get_static_memory_usage() / 1048576.0) + " MiB"
+	$Count_Label.text = "Creature count: " +  String(Spawner.count)
 
 func _input(event):
 	

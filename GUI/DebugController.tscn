@@ -22,7 +22,7 @@ modulate = Color( 1, 1, 1, 0.607843 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.0
-margin_bottom = 11.0
+margin_bottom = 23.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -53,9 +53,9 @@ __meta__ = {
 anchor_left = 0.018
 anchor_right = 1.0
 margin_left = 4.85199
-margin_top = 82.0
+margin_top = 97.0
 margin_right = -5.14801
-margin_bottom = 98.0
+margin_bottom = 113.0
 custom_fonts/font = SubResource( 1 )
 text = "Build Version:"
 __meta__ = {
@@ -77,3 +77,13 @@ margin_top = 63.0
 margin_bottom = 79.0
 custom_fonts/font = SubResource( 1 )
 text = "Godot version:"
+
+[node name="Count_Label" type="Label" parent="."]
+anchor_left = 0.018
+anchor_right = 1.0
+margin_left = 4.852
+margin_top = 79.0
+margin_right = -5.14801
+margin_bottom = 95.0
+custom_fonts/font = SubResource( 1 )
+text = "Creature count: "

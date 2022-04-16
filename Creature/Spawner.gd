@@ -3,13 +3,16 @@ extends Node
 
 const hex_offset = 0.866
 
+
 var xcord
 var zcord
 var numba
 var timer = 0
 var timer_limit = 2
 var color
+
 var count = 0
+
 var rng = RandomNumberGenerator.new()
 var bound_x = WorldGen.chunk_x * Hex_Chunk2.CHUNK_SIZE - 1
 var bound_z = (WorldGen.chunk_z * Hex_Chunk2.hex_offset * Hex_Chunk2.CHUNK_SIZE) - 1
@@ -38,8 +41,17 @@ func createCreature():
 	rng.randomize()
 	numba = rng.randf_range(0, 10.0)
 	rng.randomize()
-	crt.speedWeight = rng.randf_range(0.1, 0.90)
+	
+	crt.genes["speedWeight"] = rng.randf_range(0.1, 0.90)
 	crt.rotation = Vector3(0, numba , 0)
 	
 	add_child(crt)
+	count += 1
+
+func give_birth(pos,genes):
+	var crt = creature.instance()
+	
+	crt.transform.origin = pos
+	add_child(crt)
+	
 	count += 1

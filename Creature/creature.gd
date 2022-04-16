@@ -3,26 +3,32 @@ extends KinematicBody
 var rng = RandomNumberGenerator.new()
 export var gravity := 9.8
 export var speedWeight := 0.85
+export var repro_cost := 40
+var repro_treshold = 70
 var bound_x = WorldGen.chunk_x * Hex_Chunk2.CHUNK_SIZE
 var bound_z = (WorldGen.chunk_z * Hex_Chunk2.hex_offset * Hex_Chunk2.CHUNK_SIZE)
 
 onready var vision = $Vision/CollisionShape
 var vision_coll = CollisionShape.new()
 
-export var species = 0
-var diet = 0
-export var vis_radius := 2.0
-export var speed = 2
+export var genes = {
+	"species" : 0,
+	"diet" : 0,
+	"vis_radius" : 2.0,
+	"speed" : 2
+}
 
 var fd_list = {}
 var crt_list = {}
 var target = Vector3()
-var state = 0
+var repro_state = false
+var wait_state = false
 
 var _velocity := Vector3()
 var numb = 0
 var jump = 5
-var energy = 100
+var energy = 50
+var speed = 0
 
 var timer = 0
 var timer_limit = 2
@@ -31,10 +37,12 @@ var deg
 onready var bar = $Sprite3D/Viewport/HealthBar2D
 
 func _ready():
+	speed = genes["speed"]
+	
 	rng.randomize()
-	vis_radius = rng.randf_range(2,4)
+	genes["vis_radius"] = rng.randf_range(2,4)
 	vision.shape = SphereShape.new()
-	vision.shape.radius = vis_radius
+	vision.shape.radius = genes["vis_radius"]
 
 func _physics_process(delta):
 	
@@ -56,45 +64,53 @@ func _physics_process(delta):
 		_velocity.y = jump
 		moveCreature(numb)
 		timer = 0
-
-	if !crt_list.empty():
-		var closest_crt = crt_list.keys()[0]
-		
-		if closest_crt.species == self.species:
-			if energy > 70 and closest_crt.energy > 70:
-				target = closest_crt.global_transform.origin
-				
-				_velocity.x = transform.origin.direction_to(target).x * speed
-				_velocity.z = transform.origin.direction_to(target).z * speed
-				rotateCreature(target)
-#		else:
-#			if diet != 0:
-	if !fd_list.empty():
-		
-		#If there is food in the radius of the creature
-		target = fd_list.values()[0]
-		
-		_velocity.x = transform.origin.direction_to(target).x * speed
-		_velocity.z = transform.origin.direction_to(target).z * speed
-		rotateCreature(target)
-		
-	else:
-		
-		
-	# Nothing to do, move in a random direction
-		if (timer > timer_limit):
-			
-			timer = 0
-			rng.randomize()
-			numb = round(rng.randi_range(0, 7))
-			
-			moveCreature(numb)
-			
-		if !((_velocity + transform.origin).x < bound_x and (_velocity + transform.origin).x > 0):
-			_velocity.x = 0
-		if !((_velocity + transform.origin).z < bound_z and (_velocity + transform.origin).z > 0):
-			_velocity.z = 0
 	
+	if wait_state:
+		if timer > timer_limit:
+			timer = 0
+			wait_state = false
+	else:
+		if energy > repro_treshold:
+			repro_state = true
+		else:
+			repro_state = false
+		
+		if !crt_list.empty():
+			var closest_crt = crt_list.keys()[0]
+			
+			if closest_crt.genes["species"] == genes["species"]:
+				if repro_state and closest_crt.repro_state:
+					target = closest_crt.global_transform.origin
+					
+					_velocity.x = transform.origin.direction_to(target).x * speed
+					_velocity.z = transform.origin.direction_to(target).z * speed
+					rotateCreature(target)
+	#		else:
+	#			if diet != 0:
+		if !fd_list.empty():
+			
+			#If there is food in the radius of the creature
+			target = fd_list.values()[0]
+			
+			_velocity.x = transform.origin.direction_to(target).x * speed
+			_velocity.z = transform.origin.direction_to(target).z * speed
+			rotateCreature(target)
+			
+		else:
+			# Nothing to do, move in a random direction
+			if (timer > timer_limit):
+				
+				timer = 0
+				rng.randomize()
+				numb = round(rng.randi_range(0, 7))
+				
+				moveCreature(numb)
+				
+			if !((_velocity + transform.origin).x < bound_x and (_velocity + transform.origin).x > 0):
+				_velocity.x = 0
+			if !((_velocity + transform.origin).z < bound_z and (_velocity + transform.origin).z > 0):
+				_velocity.z = 0
+		
 	timer += delta
 	
 	
@@ -104,43 +120,10 @@ func _physics_process(delta):
 	
 	# Energy update
 	energy -= (speedWeight)/10
-	energyUpdate()
+	energyUpdate(energy)
 	
 
 func moveCreature(numb):
-	#move in dir
-#	if numb == 0:
-#		x_mov = lerp(5, 0, speedWeight)
-#		z_mov = 0
-#
-#	elif numb == 1:
-#		z_mov = lerp(5, 0, speedWeight)
-#		x_mov= 0
-#
-#	elif numb == 2:
-#		x_mov = lerp(-5, 0, speedWeight)
-#		z_mov = 0
-#
-#	elif numb == 3:
-#		z_mov = lerp(-5, 0, speedWeight)
-#		x_mov = 0
-#
-#	elif numb == 4:
-#		x_mov = lerp((5 * sqrt(2)/2), 0, speedWeight)
-#		z_mov = lerp((5 * sqrt(2)/2), 0, speedWeight)
-#
-#	elif numb == 5:
-#		z_mov = lerp((5 * sqrt(2)/2), 0, speedWeight)
-#		x_mov = lerp((-5 * sqrt(2)/2), 0, speedWeight)
-#
-#	elif numb == 6:
-#		x_mov = lerp((5 * sqrt(2)/2), 0, speedWeight)
-#		z_mov = lerp((-5 * sqrt(2)/2), 0, speedWeight)
-#
-#	else:
-#		z_mov = lerp((-5 * sqrt(2)/2), 0, speedWeight)
-#		x_mov = lerp((-5 * sqrt(2)/2), 0, speedWeight)
-#
 	var mov = (
 		Vector2(1,0) if numb == 0 
 		else Vector2(0,1) if numb == 1
@@ -177,9 +160,11 @@ func rotateCreature(target):
 	
 func death():
 	self.queue_free()
+	
+	Spawner.count -= 1
 
-func energyUpdate():
-	bar.update_bar(energy, 100)
+func energyUpdate(new_energy):
+	bar.update_bar(new_energy, 100)
 	
 func get_energy():
 	return energy
@@ -207,3 +192,20 @@ func _on_Vision_body_entered(body):
 
 func _on_Vision_body_exited(body):
 	crt_list.erase(body)
+
+
+func _on_ReproductionArea_body_entered(body):
+	if repro_state == true:
+		if body.repro_state == true:
+			repro_state = false
+			body.repro_state = false
+			wait_state = true
+			body.wait_state = true
+			Spawner.give_birth(transform.origin, genes)
+			crt_list.erase(body)
+			
+			energy -= repro_cost
+			energyUpdate(energy)
+
+func stop_wait(delta):
+	pass

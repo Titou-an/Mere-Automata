@@ -58,6 +58,7 @@ config/build_version="OwO Dev Build"
 [autoload]
 
 WorldGen="*res://World/world_generator.gd"
+Spawner="*res://Creature/Spawner.gd"
 
 [gdnative]
 
