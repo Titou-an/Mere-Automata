@@ -84,7 +84,7 @@ func _physics_process(delta):
 					
 					_velocity.x = transform.origin.direction_to(target).x * speed
 					_velocity.z = transform.origin.direction_to(target).z * speed
-					rotateCreature(target)
+					rotateCreature(target, delta)
 	#		else:
 	#			if diet != 0:
 		if !fd_list.empty():
@@ -94,7 +94,7 @@ func _physics_process(delta):
 			
 			_velocity.x = transform.origin.direction_to(target).x * speed
 			_velocity.z = transform.origin.direction_to(target).z * speed
-			rotateCreature(target)
+			rotateCreature(target, delta)
 			
 		else:
 			# Nothing to do, move in a random direction
@@ -121,7 +121,7 @@ func _physics_process(delta):
 	# Energy update
 	energy -= (speedWeight)/10
 	energyUpdate(energy)
-	
+	rotateCreature(target, delta)
 
 func moveCreature(numb):
 	var mov = (
@@ -138,25 +138,31 @@ func moveCreature(numb):
 	_velocity.x = mov.x
 	_velocity.z = mov.y
 	
-func rotateCreature(target):
+func rotateCreature(target, delta):
 	#rotate according to dir
-#	deg = (
-#		0 if numb == 0
-#		else 270 if numb == 1
-#		else 180 if numb == 2
-#		else 90 if numb == 3
-#		else 315 if numb == 4
-#		else 225 if numb == 5
-#		else 45 if numb == 6
-#		else 135
-#	)
-
-	#lerp(self.rotation_degrees.y,deg,0.1)
+	deg = (
+		270 if numb == 0
+		else 180 if numb == 1
+		else 90 if numb == 2
+		else 0 if numb == 3
+		else 225 if numb == 4
+		else 135 if numb == 5
+		else 315 if numb == 6
+		else 45
+	)
 	
-	#rotation.y = lerp_angle(rotation.y,deg2rad(deg),0.1)
-	
-	var targ_rot = global_transform.origin.angle_to(target)
-	rotation.y = lerp_angle(rotation.y, targ_rot,0.1)
+	if(fd_list.empty()):
+		#lerp(self.rotation_degrees.y,deg,0.1)
+		rotation.y = lerp_angle(rotation.y,deg2rad(deg),0.1)
+		rotation.x = lerp_angle(rotation.x, 0, 0.1)
+		rotation.z = lerp_angle(rotation.z, 0, 0.1)
+	else: 
+		var t = self.global_transform
+		var l = t.looking_at(target, Vector3.UP)
+		var a = Quat(t.basis)
+		var b = Quat(l.basis)
+		var c = a.slerp(b, 3 * delta)
+		self.global_transform.basis = Basis(c)
 	
 func death():
 	self.queue_free()

@@ -41,7 +41,7 @@ transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0
 shape = SubResource( 10 )
 
 [node name="mesh" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+transform = Transform( -2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0, 0 )
 
 [node name="Circle" parent="mesh" index="0"]
 material/0 = ExtResource( 3 )
