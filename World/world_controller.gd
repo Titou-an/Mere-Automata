@@ -6,31 +6,39 @@ const hex_offset = 0.866
 
 var water_lvl = 5
 var food = preload("res://Objects/Food/food.tscn")
-export var food_ammount = 50
+export var food_amount = 50
 var food_arr = []
+
+
+var chunk_x = 3
+var chunk_y = 1
+var chunk_z = 3
+
+onready var world_generator = $World_Generator
+onready var spawner = $Spawner
 
 func _input(event):
 	
 	if event.is_action_pressed("action_reload"):
-		WorldGen.clean_up()
+		world_generator.clean_up()
 	
 	if event.is_action_pressed("action_hex_test"):
-		WorldGen.gen_hex_test()
+		world_generator.gen_hex_test()
 		
 	if event.is_action_pressed("action_hex_map"):
-		WorldGen.gen_hex_map()
+		world_generator.gen_hex_map()
 	
 	if event.is_action_pressed("action_cube_map"):
-		WorldGen.gen_cube_map()
+		world_generator.gen_cube_map()
 	
 	if event.is_action_pressed("action_reload"):
-		WorldGen.clean_up()
+		world_generator.clean_up()
 	
 	if event.is_action_pressed("create_food"):
 		clear_fd()
-		var chunk_data = WorldGen.chunk_data
+		var chunk_data = world_generator.chunk_data
 		
-		for x in range(food_ammount):
+		for x in range(food_amount):
 			var fd = food.instance()
 			
 			var pos = Vector3.ZERO
@@ -62,7 +70,8 @@ func _input(event):
 				else:
 					break
 			
-	
+	if event.is_action_pressed("ui_up"):
+		spawner.createCreature()
 
 func clear_fd():
 	for f in get_tree().get_nodes_in_group("food"):

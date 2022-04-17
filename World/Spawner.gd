@@ -1,3 +1,4 @@
+class_name Spawner
 extends Node
 # var dec
 
@@ -14,21 +15,11 @@ var color
 var count = 0
 
 var rng = RandomNumberGenerator.new()
-var bound_x = WorldGen.chunk_x * Hex_Chunk2.CHUNK_SIZE - 1
-var bound_z = (WorldGen.chunk_z * Hex_Chunk2.hex_offset * Hex_Chunk2.CHUNK_SIZE) - 1
+onready var bound_x =  get_parent().chunk_x * Hex_Chunk2.CHUNK_SIZE - 1
+onready var bound_z =  (get_parent().chunk_z * Hex_Chunk2.hex_offset * Hex_Chunk2.CHUNK_SIZE) - 1
 
 var creature = preload("res://Creature/Creature.tscn")
-	
-	
-func _physics_process(delta):
-#	timer += delta
 
-	if Input.is_action_just_pressed("ui_up"):
-		createCreature()
-	
-#	if (timer > timer_limit):
-#		timer = 0
-#		createCreature()
 
 func createCreature():
 	var crt = creature.instance()
@@ -48,7 +39,7 @@ func createCreature():
 	add_child(crt)
 	count += 1
 
-func give_birth(pos,genes):
+func give_birth(pos,genesA, genesB):
 	var crt = creature.instance()
 	
 	crt.transform.origin = pos

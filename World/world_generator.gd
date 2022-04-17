@@ -1,4 +1,4 @@
-class_name world_gen
+
 extends Node
 
 #const CHUNK_MIDPOINT = Vector3(0.5, 0.5, 0.5) * Cube_Chunk.CHUNK_SIZE
@@ -14,14 +14,13 @@ var thread = null
 var noise = OpenSimplexNoise.new()
 export var world_seed = 1
 
-var chunk_x = 2
-var chunk_y = 1
-var chunk_z = 2
+onready var chunk_x = get_parent().chunk_x
+onready var chunk_y = get_parent().chunk_y
+onready var chunk_z = get_parent().chunk_z
 
 
 var progress = 0
 #onready var prog_bar = get_node("CanvasLayer/ProgressBar")
-
 
 
 func _ready():

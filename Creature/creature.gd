@@ -5,8 +5,10 @@ export var gravity := 9.8
 export var speedWeight := 0.85
 export var repro_cost := 40
 var repro_treshold = 70
-var bound_x = WorldGen.chunk_x * Hex_Chunk2.CHUNK_SIZE
-var bound_z = (WorldGen.chunk_z * Hex_Chunk2.hex_offset * Hex_Chunk2.CHUNK_SIZE)
+
+onready var spawner = get_parent()
+onready var bound_x = spawner.bound_x + 1
+onready var bound_z = spawner.bound_z + 1
 
 onready var vision = $Vision/CollisionShape
 var vision_coll = CollisionShape.new()
@@ -167,7 +169,7 @@ func rotateCreature(target, delta):
 func death():
 	self.queue_free()
 	
-	Spawner.count -= 1
+	spawner.count -= 1
 
 func energyUpdate(new_energy):
 	bar.update_bar(new_energy, 100)
@@ -207,7 +209,7 @@ func _on_ReproductionArea_body_entered(body):
 			body.repro_state = false
 			wait_state = true
 			body.wait_state = true
-			Spawner.give_birth(transform.origin, genes)
+			spawner.give_birth(transform.origin, genes, body.genes)
 			crt_list.erase(body)
 			
 			energy -= repro_cost

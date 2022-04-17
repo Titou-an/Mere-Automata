@@ -29,23 +29,23 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://World/hex_chunk2.gd"
 }, {
+"base": "Node",
+"class": "Spawner",
+"language": "GDScript",
+"path": "res://World/Spawner.gd"
+}, {
 "base": "Resource",
 "class": "TerrainGenerator",
 "language": "GDScript",
 "path": "res://World/terrain_generator.gd"
-}, {
-"base": "Node",
-"class": "world_gen",
-"language": "GDScript",
-"path": "res://World/world_generator.gd"
 } ]
 _global_script_class_icons={
 "Cube_Chunk": "",
 "GitAPI": "",
 "Hex_Chunk": "",
 "Hex_Chunk2": "",
-"TerrainGenerator": "",
-"world_gen": ""
+"Spawner": "",
+"TerrainGenerator": ""
 }
 
 [application]
@@ -54,11 +54,6 @@ config/name="CoolEvoSim"
 run/main_scene="res://World/World.tscn"
 config/icon="res://icon.png"
 config/build_version="OwO Dev Build"
-
-[autoload]
-
-WorldGen="*res://World/world_generator.gd"
-Spawner="*res://Creature/Spawner.gd"
 
 [gdnative]
 

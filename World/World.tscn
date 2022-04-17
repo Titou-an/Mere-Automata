@@ -2,8 +2,7 @@
 
 [ext_resource path="res://World/world_controller.gd" type="Script" id=1]
 [ext_resource path="res://Player/PlayerFreeCam.tscn" type="PackedScene" id=2]
-[ext_resource path="res://World/world_generator.gd" type="Script" id=3]
-[ext_resource path="res://Creature/Spawner.gd" type="Script" id=4]
+[ext_resource path="res://World/Spawner.gd" type="Script" id=3]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.235294, 0.533333, 1, 1 )
@@ -36,9 +35,123 @@ adjustment_brightness = 0.94
 adjustment_contrast = 1.07
 adjustment_saturation = 0.99
 
+[sub_resource type="GDScript" id=3]
+script/source = "
+extends Node
+
+#const CHUNK_MIDPOINT = Vector3(0.5, 0.5, 0.5) * Cube_Chunk.CHUNK_SIZE
+#const CHUNK_END_SIZE = Cube_Chunk.CHUNK_SIZE - 1
+
+#var hex_offset = round((sqrt(3)/2)*1000)/1000
+const hex_offset = 0.866
+var chunk_data = {}
+var _chunks = {}
+
+var thread = null
+
+var noise = OpenSimplexNoise.new()
+export var world_seed = 1
+
+onready var chunk_x = get_parent().chunk_x
+onready var chunk_y = get_parent().chunk_y
+onready var chunk_z = get_parent().chunk_z
+
+
+var progress = 0
+#onready var prog_bar = get_node(\"CanvasLayer/ProgressBar\")
+
+
+func _ready():
+	noise.seed = world_seed
+	noise.octaves = 3
+	noise.period = 15
+	noise.persistence = 0.2
+	
+	
+	for x in range(chunk_x):
+		for z in range(chunk_z):
+			for y in range(chunk_y):
+				var chunk_pos = Vector3(x,y,z)
+				var data = TerrainGenerator.hill_terrain(noise,chunk_pos * Cube_Chunk.CHUNK_SIZE)
+				chunk_data[chunk_pos] = data
+	
+
+
+func clean_up():
+	
+	for chunk_position_key in _chunks.keys():
+		var thread = _chunks[chunk_position_key].thread
+		if thread:
+			thread.wait_to_finish()
+	_chunks = {}
+
+	#set_process(false)
+	for c in get_children():
+		c.free()
+	
+
+func get_global_position_id(block_global_position):
+	var chunk_position = (block_global_position / Cube_Chunk.CHUNK_SIZE).floor()
+	
+	if chunk_data.has(chunk_position):
+		var c_data = chunk_data[chunk_position]
+		var sub_position = block_global_position.posmod(Cube_Chunk.CHUNK_SIZE)
+		if c_data.has(sub_position):
+			return c_data[sub_position]
+	return 0
+
+func get_noise():
+	return noise
+
+func gen_hex_test():
+	clean_up()
+	
+	var chunk = Hex_Chunk2.new(TerrainGenerator.single_cube())
+	chunk.chunk_pos = Vector3.ZERO
+	_chunks[Vector3.ZERO] = chunk
+	add_child(chunk)
+
+func gen_hex_map():
+	clean_up()
+	
+	progress = 0
+	for chunk_pos in chunk_data:
+		var chunk = Hex_Chunk2.new(chunk_data[chunk_pos])
+		chunk.chunk_pos = chunk_pos
+		_chunks[chunk_pos] = chunk
+		add_child(chunk)
+#		thread = Thread.new()
+#		thread.start(self, \"load_chunk\", i)
+		
+		
+	
+func load_chunk(chunk_pos):
+	var chunk = Hex_Chunk2.new(chunk_data[chunk_pos])
+	chunk.chunk_pos = chunk_pos
+	_chunks[chunk_pos] = chunk
+	add_child(chunk)
+	#progress = chunk_pos/chunk_data.size()
+	#print(progress)
+
+func gen_cube_map():
+	clean_up()
+
+
+	for i in chunk_data:
+		var chunk = Cube_Chunk.new(chunk_data[i])
+		chunk.chunk_pos = i
+		_chunks[i] = chunk
+		add_child(chunk)
+
+func _exit_tree():
+	for chunk_position_key in _chunks.keys():
+		var thread = _chunks[chunk_position_key].thread
+		if thread:
+			thread.wait_to_finish()
+"
+
 [node name="World" type="Spatial"]
 script = ExtResource( 1 )
-food_ammount = 25
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
@@ -47,14 +160,14 @@ environment = SubResource( 2 )
 transform = Transform( 0.898725, -0.141549, 0.415038, -0.0833791, 0.874042, 0.478642, -0.430513, -0.464773, 0.773721, 0, 0, 0 )
 shadow_enabled = true
 
-[node name="Food" type="Node" parent="."]
-
-[node name="WorldGenerator" type="Node" parent="."]
-script = ExtResource( 3 )
-world_seed = 76
-
 [node name="Spawner" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="World_Generator" type="Node" parent="."]
+script = SubResource( 3 )
+world_seed = 1416
+
+[node name="Food" type="Node" parent="."]
 
 [node name="PlayerFreeCam" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.17587, 7.80404, 12.7568 )
