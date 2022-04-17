@@ -29,11 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://World/hex_chunk2.gd"
 }, {
-"base": "Node",
-"class": "Spawner",
-"language": "GDScript",
-"path": "res://World/Spawner.gd"
-}, {
 "base": "Resource",
 "class": "TerrainGenerator",
 "language": "GDScript",
@@ -44,7 +39,6 @@ _global_script_class_icons={
 "GitAPI": "",
 "Hex_Chunk": "",
 "Hex_Chunk2": "",
-"Spawner": "",
 "TerrainGenerator": ""
 }
 

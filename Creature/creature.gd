@@ -29,7 +29,7 @@ var wait_state = false
 var _velocity := Vector3()
 var numb = 0
 var jump = 5
-var energy = 50
+var energy = 69
 var speed = 0
 
 var timer = 0
@@ -209,7 +209,7 @@ func _on_ReproductionArea_body_entered(body):
 			body.repro_state = false
 			wait_state = true
 			body.wait_state = true
-			spawner.give_birth(transform.origin, genes, body.genes)
+			spawner.give_birth(transform.origin, body.genes)
 			crt_list.erase(body)
 			
 			energy -= repro_cost

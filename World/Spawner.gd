@@ -1,4 +1,3 @@
-class_name Spawner
 extends Node
 # var dec
 
@@ -19,7 +18,20 @@ onready var bound_x =  get_parent().chunk_x * Hex_Chunk2.CHUNK_SIZE - 1
 onready var bound_z =  (get_parent().chunk_z * Hex_Chunk2.hex_offset * Hex_Chunk2.CHUNK_SIZE) - 1
 
 var creature = preload("res://Creature/Creature.tscn")
+var hearts = preload("res://Particles/Hearts.tscn")
+	
+	
+func _physics_process(delta):
+#	timer += delta
 
+	if Input.is_action_just_pressed("ui_up"):
+		createCreature()
+		print("d")
+		
+	
+#	if (timer > timer_limit):
+#		timer = 0
+#		createCreature()
 
 func createCreature():
 	var crt = creature.instance()
@@ -39,10 +51,12 @@ func createCreature():
 	add_child(crt)
 	count += 1
 
-func give_birth(pos,genesA, genesB):
+func give_birth(pos,genes):
 	var crt = creature.instance()
-	
+	var hrt = hearts.instance()
 	crt.transform.origin = pos
+	hrt.transform.origin = pos
+	add_child(hrt)
 	add_child(crt)
 	
 	count += 1
