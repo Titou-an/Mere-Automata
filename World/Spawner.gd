@@ -3,6 +3,7 @@ extends Node
 
 const hex_offset = 0.866
 
+signal spawn_creature
 
 var xcord
 var zcord
@@ -18,21 +19,8 @@ onready var bound_x =  get_parent().chunk_x * Hex_Chunk2.CHUNK_SIZE - 1
 onready var bound_z =  (get_parent().chunk_z * Hex_Chunk2.hex_offset * Hex_Chunk2.CHUNK_SIZE) - 1
 
 var creature = preload("res://Creature/Creature.tscn")
-var hearts = preload("res://Particles/Hearts.tscn")
 	
 	
-func _physics_process(delta):
-#	timer += delta
-
-	if Input.is_action_just_pressed("ui_up"):
-		createCreature()
-		print("d")
-		
-	
-#	if (timer > timer_limit):
-#		timer = 0
-#		createCreature()
-
 func createCreature():
 	var crt = creature.instance()
 	#creature.
@@ -51,12 +39,26 @@ func createCreature():
 	add_child(crt)
 	count += 1
 
+func createCreatureAtPos(pos):
+	var crt = creature.instance()
+	#creature.
+	
+	crt.global_transform.origin = pos
+	
+	rng.randomize()
+	numba = rng.randf_range(0, 10.0)
+	rng.randomize()
+	
+	crt.genes["speedWeight"] = rng.randf_range(0.1, 0.90)
+	crt.rotation = Vector3(0, numba , 0)
+	
+	add_child(crt)
+	count += 1
+
 func give_birth(pos,genes):
 	var crt = creature.instance()
-	var hrt = hearts.instance()
 	crt.transform.origin = pos
-	hrt.transform.origin = pos
-	add_child(hrt)
 	add_child(crt)
+	
 	
 	count += 1

@@ -1,0 +1,219 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://GUI/scr_hotbar.gd" type="Script" id=1]
+[ext_resource path="res://GUI/Assets/hotbar_slot.png" type="Texture" id=2]
+[ext_resource path="res://GUI/Assets/add_slot.png" type="Texture" id=3]
+[ext_resource path="res://GUI/Assets/remove_slot.png" type="Texture" id=4]
+[ext_resource path="res://GUI/Assets/edit_slot.png" type="Texture" id=5]
+[ext_resource path="res://GUI/Assets/species_slot.png" type="Texture" id=6]
+[ext_resource path="res://GUI/Assets/graph_slot.png" type="Texture" id=7]
+[ext_resource path="res://GUI/Assets/time_slot.png" type="Texture" id=8]
+[ext_resource path="res://GUI/Assets/menu_slot.png" type="Texture" id=9]
+[ext_resource path="res://GUI/fonts/arial/ARIAL.TTF" type="DynamicFontData" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+use_filter = true
+font_data = ExtResource( 10 )
+
+[node name="HotBar" type="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -200.0
+margin_top = -82.0
+margin_right = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="HbSlots" type="GridContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -181.0
+margin_top = -82.0
+margin_right = 181.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 2
+columns = 7
+
+[node name="Slot" type="TextureRect" parent="HbSlots"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HbSlots/Slot"]
+modulate = Color( 1, 1, 1, 0.372549 )
+show_behind_parent = true
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 47.0
+margin_bottom = 47.0
+
+[node name="TextureRect" type="TextureRect" parent="HbSlots/Slot"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="Slot2" type="TextureRect" parent="HbSlots"]
+margin_left = 52.0
+margin_right = 102.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HbSlots/Slot2"]
+modulate = Color( 1, 1, 1, 0.372549 )
+show_behind_parent = true
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 47.0
+margin_bottom = 47.0
+
+[node name="TextureRect" type="TextureRect" parent="HbSlots/Slot2"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Slot3" type="TextureRect" parent="HbSlots"]
+margin_left = 104.0
+margin_right = 154.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HbSlots/Slot3"]
+modulate = Color( 1, 1, 1, 0.372549 )
+show_behind_parent = true
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 47.0
+margin_bottom = 47.0
+
+[node name="TextureRect" type="TextureRect" parent="HbSlots/Slot3"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Slot4" type="TextureRect" parent="HbSlots"]
+margin_left = 156.0
+margin_right = 206.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HbSlots/Slot4"]
+modulate = Color( 1, 1, 1, 0.372549 )
+show_behind_parent = true
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 47.0
+margin_bottom = 47.0
+
+[node name="TextureRect" type="TextureRect" parent="HbSlots/Slot4"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="Slot5" type="TextureRect" parent="HbSlots"]
+margin_left = 208.0
+margin_right = 258.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HbSlots/Slot5"]
+modulate = Color( 1, 1, 1, 0.372549 )
+show_behind_parent = true
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 47.0
+margin_bottom = 47.0
+
+[node name="TextureRect" type="TextureRect" parent="HbSlots/Slot5"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 8 )
+expand = true
+
+[node name="Slot6" type="TextureRect" parent="HbSlots"]
+margin_left = 260.0
+margin_right = 310.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HbSlots/Slot6"]
+modulate = Color( 1, 1, 1, 0.372549 )
+show_behind_parent = true
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 47.0
+margin_bottom = 47.0
+
+[node name="TextureRect" type="TextureRect" parent="HbSlots/Slot6"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="Slot7" type="TextureRect" parent="HbSlots"]
+margin_left = 312.0
+margin_right = 362.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HbSlots/Slot7"]
+modulate = Color( 1, 1, 1, 0.372549 )
+show_behind_parent = true
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 47.0
+margin_bottom = 47.0
+
+[node name="TextureRect" type="TextureRect" parent="HbSlots/Slot7"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="Selection" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -61.5
+margin_top = -33.0
+margin_right = 61.5
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Nothing Selected"
+align = 1
+valign = 1

@@ -1,4 +1,3 @@
-
 extends Node
 
 #const CHUNK_MIDPOINT = Vector3(0.5, 0.5, 0.5) * Cube_Chunk.CHUNK_SIZE

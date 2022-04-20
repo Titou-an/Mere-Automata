@@ -2,6 +2,9 @@ extends KinematicBody
 
 onready var camera = $RotationHelper/Camera
 onready var rotattion_helper = $RotationHelper
+onready var spawner = get_node("/root/World/Spawner")
+
+signal spawn_creature
 
 const MOV_SPD = 10
 
@@ -50,6 +53,43 @@ func process_input(delta):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
+	# Hide user interface
+	if Input.is_action_just_pressed("toggle_ui"):
+		get_node("UI").visible = !get_node("UI").visible
+	
+	# trigger 
+	if Input.is_action_just_pressed("trigger_item"):
+		var selected = $UI/Hotbar.selected
+		
+		if selected == 0:
+			var ray = $RotationHelper/RayCast
+			ray.force_raycast_update()
+			if ray.is_colliding():
+				spawner.createCreatureAtPos(ray.get_collision_point() + Vector3(0,0.5,0))
+		elif selected == 1:
+			var ray = $RotationHelper/RayCast
+			ray.force_raycast_update()
+			
+			if ray.is_colliding():
+				var body = ray.get_collider()
+				
+				if body.has_method("death"):
+					body.death()
+				
+		elif selected == 2:
+			pass
+		elif selected == 3:
+			pass
+		elif selected == 4:
+			Engine.time_scale += 0.5
+			
+			if Engine.time_scale > 2:
+				Engine.time_scale = 0.5
+		elif selected == 5:
+			pass
+		elif selected == 6:
+			pass
+	
 
 func process_motion(delta):
 	 
@@ -66,6 +106,7 @@ func process_motion(delta):
 	
 
 func _input(event):
+	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotattion_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * -1))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
@@ -73,3 +114,7 @@ func _input(event):
 	var camera_rot = rotattion_helper.rotation_degrees
 	camera_rot.x = clamp(camera_rot.x, -70, 70)
 	rotattion_helper.rotation_degrees = camera_rot
+
+
+func _on_Spawner_spawn_creature():
+	pass # Replace with function body.
