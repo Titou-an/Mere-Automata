@@ -87,7 +87,7 @@ func _generate_mesh():
 	
 	mi.material_override = WORLD_MATERIAL
 	add_child(mi)
-	mi.owner = get_node("/root/World")
+	mi.owner = get_node("/root/Main/World")
 	
 	_generate_water()
 	
@@ -130,7 +130,7 @@ func _generate_water():
 	
 	mi.material_override = preload("res://World/Textures/watertest.tres")
 	add_child(mi)
-	mi.owner = get_node("/root/World")
+	mi.owner = get_node("/root/Main/World")
 
 func _draw_mesh(surface_tool, block_pos, block_id,is_top_water):
 	
@@ -166,7 +166,7 @@ func _draw_mesh(surface_tool, block_pos, block_id,is_top_water):
 		object.rotate_y(rand_range(0,2*PI))
 		
 		add_child(object)
-		object.owner = get_node("/root/World")
+		object.owner = get_node("/root/Main/World")
 		return
 	
 	if block_id == 3: # Grass.

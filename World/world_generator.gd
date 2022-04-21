@@ -11,7 +11,7 @@ var _chunks = {}
 var thread = null
 
 var noise = OpenSimplexNoise.new()
-export var world_seed = 1
+var world_seed = 1
 
 onready var chunk_x = get_parent().chunk_x
 onready var chunk_y = get_parent().chunk_y
@@ -81,7 +81,7 @@ func gen_hex_map():
 		chunk.chunk_pos = chunk_pos
 		_chunks[chunk_pos] = chunk
 		add_child(chunk)
-		chunk.owner = get_node("/root/World")
+		chunk.owner = get_node("/root/Main/World")
 #		thread = Thread.new()
 #		thread.start(self, "load_chunk", i)
 		

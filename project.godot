@@ -45,9 +45,13 @@ _global_script_class_icons={
 [application]
 
 config/name="CoolEvoSim"
-run/main_scene="res://World/World.tscn"
+run/main_scene="res://Main/Main.tscn"
 config/icon="res://icon.png"
 config/build_version="OwO Dev Build"
+
+[autoload]
+
+Settings="*res://Menu/settings.gd"
 
 [display]
 

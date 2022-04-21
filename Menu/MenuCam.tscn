@@ -3,7 +3,7 @@
 [ext_resource path="res://GUI/fonts/arial/ARIAL.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://Menu/main_menu.gd" type="Script" id=2]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=23]
 size = 20
 use_filter = true
 font_data = ExtResource( 1 )
@@ -57,7 +57,7 @@ margin_top = 11.0
 margin_right = 200.0
 margin_bottom = 41.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "Create New World"
 flat = true
 
@@ -66,7 +66,7 @@ margin_top = 56.0
 margin_right = 200.0
 margin_bottom = 86.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 disabled = true
 text = "Settings"
 flat = true
@@ -76,7 +76,7 @@ margin_top = 101.0
 margin_right = 200.0
 margin_bottom = 131.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "Exit"
 flat = true
 
@@ -118,7 +118,7 @@ alignment = 1
 margin_left = 17.0
 margin_right = 63.0
 margin_bottom = 24.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "Seed"
 valign = 1
 
@@ -133,7 +133,7 @@ placeholder_text = "Input Custom Seed"
 margin_top = 61.0
 margin_right = 300.0
 margin_bottom = 85.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "World Size"
 align = 1
 valign = 1
@@ -149,7 +149,7 @@ alignment = 1
 margin_left = 64.0
 margin_right = 108.0
 margin_bottom = 30.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 toggle_mode = true
 pressed = true
 group = SubResource( 2 )
@@ -159,7 +159,7 @@ text = "2x2"
 margin_left = 128.0
 margin_right = 172.0
 margin_bottom = 30.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 toggle_mode = true
 group = SubResource( 2 )
 text = "3x3"
@@ -168,7 +168,7 @@ text = "3x3"
 margin_left = 192.0
 margin_right = 236.0
 margin_bottom = 30.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 toggle_mode = true
 group = SubResource( 2 )
 text = "4x4"
@@ -178,7 +178,7 @@ margin_top = 145.0
 margin_right = 300.0
 margin_bottom = 175.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "Create World"
 flat = true
 
@@ -187,7 +187,7 @@ margin_top = 190.0
 margin_right = 300.0
 margin_bottom = 220.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "Back"
 flat = true
 
@@ -222,7 +222,7 @@ margin_top = 11.0
 margin_right = 200.0
 margin_bottom = 41.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "Create New World"
 flat = true
 
@@ -231,7 +231,7 @@ margin_top = 56.0
 margin_right = 200.0
 margin_bottom = 86.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "Settings"
 flat = true
 
@@ -240,7 +240,7 @@ margin_top = 101.0
 margin_right = 200.0
 margin_bottom = 131.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 23 )
 text = "Exit"
 flat = true
 

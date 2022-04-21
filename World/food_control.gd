@@ -1,6 +1,6 @@
 extends Node
 
-const hex_offset = 0.866
+const HEX_OFFSET = 0.866
 const CHUNK_SIZE = Hex_Chunk2.CHUNK_SIZE
 const water_lvl = TerrainGenerator.water_lvl
 export var FOOD_MIN = 50
@@ -58,9 +58,9 @@ func add_rand_food():
 				var odd = int(rand_pos.z)%2
 				
 				if odd:
-					pos = (origin + rand_pos + Vector3(1,1,0.5)) * Vector3(1,1,hex_offset)
+					pos = (origin + rand_pos + Vector3(1,1,0.5)) * Vector3(1,1,HEX_OFFSET)
 				else:
-					pos = (origin + rand_pos + Vector3(0.5,1,0.5)) * Vector3(1,1,hex_offset)
+					pos = (origin + rand_pos + Vector3(0.5,1,0.5)) * Vector3(1,1,HEX_OFFSET)
 				
 				food_arr.append(rand_pos)
 				

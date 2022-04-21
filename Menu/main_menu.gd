@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 signal replace_scene
 signal quit
@@ -6,9 +6,10 @@ signal quit
 var res_loader: ResourceInteractiveLoader = null
 var loading_thread: Thread = null
 
-onready var title = $DefaultButtons
-onready var start = $StartGame
-onready var loading = $Loading
+onready var ui  = $UI
+onready var title = ui.get_node("DefaultButtons")
+onready var start = ui.get_node("StartGame")
+onready var loading = ui.get_node("Loading")
 
 onready var ws_2x2 = start.get_node("Panel/StartButtons/WorldSize/2x2")
 onready var ws_3x3 = start.get_node("Panel/StartButtons/WorldSize/3x3")
@@ -33,17 +34,25 @@ func _on_Back_pressed():
 
 
 func _on_CreateWorld_pressed():
-	var world_seed = str2var($StartGame/Panel/StartButtons/SeedSettings/LineEdit.text)
+	
+	start.get_node("Panel/StartButtons/CreateWorld").disabled = true
+	start.get_node("Panel/StartButtons/Back").disabled = true
+	
+	var world_seed = str2var(start.get_node("Panel/StartButtons/SeedSettings/LineEdit").text)
 	
 	if typeof(world_seed) != 2:
-		world_seed = 1
+		Settings.world_seed = world_seed
+	else:
+		Settings.world_seed = 1
 	
 	if ws_2x2.pressed:
-		world_size = 0
+		Settings.world_size = Settings.WorldSizes.S2X2
 	elif ws_3x3.pressed:
-		world_size = 1
+		Settings.world_size = Settings.WorldSizes.S3X3
 	elif ws_3x3.pressed:
-		world_size = 2
+		Settings.world_size = Settings.WorldSizes.S4X4
+	
+	Settings.save_settings()
 	
 	loading.show()
 	
@@ -70,6 +79,8 @@ func interactive_load(loader):
 		else:
 			print("Error while loading level: " + str(status))
 			loading.hide()
+			start.get_node("Panel/StartButtons/CreateWorld").disabled = false
+			start.get_node("Panel/StartButtons/Back").disabled = false
 			break
 
 func _on_Timer_timeout():

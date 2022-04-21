@@ -52,7 +52,6 @@ script = ExtResource( 3 )
 
 [node name="World_Generator" type="Node" parent="."]
 script = ExtResource( 5 )
-world_seed = 1447
 
 [node name="Food_Control" type="Node" parent="."]
 script = ExtResource( 4 )

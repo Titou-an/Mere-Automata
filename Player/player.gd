@@ -2,7 +2,7 @@ extends KinematicBody
 
 onready var camera = $RotationHelper/Camera
 onready var rotattion_helper = $RotationHelper
-onready var spawner = get_node("/root/World/Spawner")
+onready var spawner = get_node("/root/Main/World/Spawner")
 
 const MOV_SPD = 10
 

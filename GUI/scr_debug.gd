@@ -9,8 +9,8 @@ func _ready():
 func _process(delta):
 	$FPS_Label.text = "FPS: " + str(Engine.get_frames_per_second())
 	$Memory_Label.text = "Memory: " + "%3.2f" % (OS.get_static_memory_usage() / 1048576.0) + " MiB"
-	$Count_Label.text = "Creature count: " +  String(get_node("/root/World").spawner.count)
-	$Food_Count_Label.text = "Food count: " + String(get_node("/root/World").food_parent.food_amnt)
+	$Count_Label.text = "Creature count: " +  String(get_node("/root/Main/World").spawner.count)
+	$Food_Count_Label.text = "Food count: " + String(get_node("/root/Main/World").food_parent.food_amnt)
 
 func _input(event):
 	
@@ -34,13 +34,6 @@ func _input(event):
 	if event.is_action_pressed("debug_pause"):
 		get_tree().paused = !get_tree().paused
 		
-	#------------------------------------------------------------------
-	# Toggle Fullscreen
-	
-	if event.is_action_pressed("toggle_flscr"):
-		OS.window_fullscreen = !OS.window_fullscreen
-		
-	#------------------------------------------------------------------
 	
 
 func saveGame():
