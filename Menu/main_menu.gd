@@ -41,9 +41,9 @@ func _on_CreateWorld_pressed():
 	var world_seed = str2var(start.get_node("Panel/StartButtons/SeedSettings/LineEdit").text)
 	
 	if typeof(world_seed) != 2:
-		Settings.world_seed = world_seed
-	else:
 		Settings.world_seed = 1
+	else:
+		Settings.world_seed = world_seed
 	
 	if ws_2x2.pressed:
 		Settings.world_size = Settings.WorldSizes.S2X2

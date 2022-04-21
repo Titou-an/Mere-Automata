@@ -1,9 +1,17 @@
 extends Control
 
 func _ready():
-	 $OS_Label.text = "OS: " + OS.get_name()
-	 $Build_Label.text = "Build version: " + ProjectSettings.get_setting("application/config/build_version")
-	 $Engine_Label.text = "Godot version: " + Engine.get_version_info()["string"]
+	$OS_Label.text = "OS: " + OS.get_name()
+	$Build_Label.text = "Build version: " + ProjectSettings.get_setting("application/config/build_version")
+	$Engine_Label.text = "Godot version: " + Engine.get_version_info()["string"]
+	$Seed_Label.text = "Seed: " + String(Settings.world_seed)
+	
+	if Settings.world_size == Settings.WorldSizes.S2X2:
+		$World_Size_Label.text = "World Size: 2x2"
+	elif Settings.world_size == Settings.WorldSizes.S3X3:
+		$World_Size_Label.text = "World Size: 3x3"
+	elif Settings.world_size == Settings.WorldSizes.S4X4:
+		$World_Size_Label.text = "World Size: 4x4"
 
 
 func _process(delta):

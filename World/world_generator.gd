@@ -11,7 +11,8 @@ var _chunks = {}
 var thread = null
 
 var noise = OpenSimplexNoise.new()
-var world_seed = 1
+
+onready var world_seed = get_parent().world_seed
 
 onready var chunk_x = get_parent().chunk_x
 onready var chunk_y = get_parent().chunk_y

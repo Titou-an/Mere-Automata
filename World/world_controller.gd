@@ -4,31 +4,30 @@ signal quit
 #warning-ignore:unused_signal
 signal replace_scene
 
-var chunk_x = 2
+var chunk_x = (
+	2 if Settings.world_size == Settings.WorldSizes.S2X2
+	else 3 if Settings.world_size == Settings.WorldSizes.S3X3
+	else 4
+)
+var chunk_z = (
+	2 if Settings.world_size == Settings.WorldSizes.S2X2
+	else 3 if Settings.world_size == Settings.WorldSizes.S3X3
+	else 4
+)
 var chunk_y = 1
-var chunk_z = 2
 
-export var world_seed = 1
+var world_seed = Settings.world_seed
 
-onready var world_generator = $World_Generator
-onready var spawner = $Spawner
-onready var food_parent = $Food_Control
+onready var world_generator = $World_Generator 
+var spawner  
+var food_parent 
 
 func _ready():
-	world_seed = Settings.world_seed
 	
-	if Settings.world_size == Settings.WorldSizes.S2X2:
-		chunk_x = 2
-		chunk_z = 2
-	elif Settings.world_size == Settings.WorldSizes.S3X3:
-		chunk_x = 3
-		chunk_z = 3
-	elif Settings.world_size == Settings.WorldSizes.S4X4:
-		chunk_x = 4
-		chunk_z = 4
 	
+	spawner = $Spawner 
+	food_parent = $Food_Control
 	food_parent.data = world_generator.chunk_data
-	
 	world_generator.gen_hex_map()
 
 func _input(event):
