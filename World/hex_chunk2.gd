@@ -87,6 +87,7 @@ func _generate_mesh():
 	
 	mi.material_override = WORLD_MATERIAL
 	add_child(mi)
+	mi.owner = get_node("/root/World")
 	
 	_generate_water()
 	
@@ -129,6 +130,7 @@ func _generate_water():
 	
 	mi.material_override = preload("res://World/Textures/watertest.tres")
 	add_child(mi)
+	mi.owner = get_node("/root/World")
 
 func _draw_mesh(surface_tool, block_pos, block_id,is_top_water):
 	
@@ -164,6 +166,7 @@ func _draw_mesh(surface_tool, block_pos, block_id,is_top_water):
 		object.rotate_y(rand_range(0,2*PI))
 		
 		add_child(object)
+		object.owner = get_node("/root/World")
 		return
 	
 	if block_id == 3: # Grass.
@@ -317,7 +320,7 @@ func _create_mesh_collider(block_pos):
 		collider.transform.origin = (block_pos * Vector3(1,1,hex_offset)) + Vector3.ONE / 2
 	
 	add_child(collider)
-
+	
 static func calculate_verts(block_pos, is_top_water):
 	
 	var hex_side = (sqrt(3)/3)

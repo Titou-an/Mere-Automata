@@ -34,7 +34,7 @@ var energy = 69
 var speed = 0
 
 var timer = 0
-var timer_limit = 2
+var timer_limit = 1
 
 var deg
 onready var bar = $Sprite3D/Viewport/HealthBar2D
@@ -68,16 +68,24 @@ func _physics_process(delta):
 		moveCreature(numb)
 		timer = 0
 	
-	if wait_state:
-		if timer > timer_limit:
-			timer = 0
-			wait_state = false
-	else:
-		if energy > repro_treshold:
-			repro_state = true
-		else:
-			repro_state = false
+	
+	if energy < repro_treshold:
+		repro_state = false
 		
+		if !fd_list.empty():
+			
+			#If there is food in the vision radius of the creature
+			target = fd_list.values()[0]
+			
+			_velocity.x = transform.origin.direction_to(target).x * speed
+			_velocity.z = transform.origin.direction_to(target).z * speed
+			rotateCreature(target, delta)
+		else:
+			explore()
+	
+	else:
+		
+		repro_state = true
 		if !crt_list.empty():
 			var closest_crt = crt_list.keys()[0]
 			
@@ -88,31 +96,12 @@ func _physics_process(delta):
 					_velocity.x = transform.origin.direction_to(target).x * speed
 					_velocity.z = transform.origin.direction_to(target).z * speed
 					rotateCreature(target, delta)
-	#		else:
-	#			if diet != 0:
-		if !fd_list.empty():
-			
-			#If there is food in the radius of the creature
-			target = fd_list.values()[0]
-			
-			_velocity.x = transform.origin.direction_to(target).x * speed
-			_velocity.z = transform.origin.direction_to(target).z * speed
-			rotateCreature(target, delta)
-			
+				else:
+					explore()
+			else:
+				explore()
 		else:
-			# Nothing to do, move in a random direction
-			if (timer > timer_limit):
-				
-				timer = 0
-				rng.randomize()
-				numb = round(rng.randi_range(0, 7))
-				
-				moveCreature(numb)
-				
-			if !((_velocity + transform.origin).x < bound_x and (_velocity + transform.origin).x > 0):
-				_velocity.x = 0
-			if !((_velocity + transform.origin).z < bound_z and (_velocity + transform.origin).z > 0):
-				_velocity.z = 0
+			explore()
 		
 	timer += delta
 	
@@ -141,7 +130,7 @@ func moveCreature(numb):
 	_velocity.x = mov.x
 	_velocity.z = mov.y
 	
-func rotateCreature(target, delta):
+func rotateCreature(target: Vector3, delta):
 	
 	if(fd_list.empty()):
 		#rotate according to dir
@@ -189,20 +178,16 @@ func remove_tg(area):
 func _on_Vision_area_entered(area):
 	fd_list[area] = area.global_transform.origin
 
-
 func _on_Vision_area_exited(area):
 	fd_list.erase(area)
-
 
 func _on_Vision_body_entered(body):
 	if body.is_in_group("creatures"):
 		if body != self:
 			crt_list[body] = body.global_transform.origin
 
-
 func _on_Vision_body_exited(body):
 	crt_list.erase(body)
-
 
 func _on_ReproductionArea_body_entered(body):
 	if repro_state == true:
@@ -221,3 +206,22 @@ func _on_ReproductionArea_body_entered(body):
 
 func stop_wait(delta):
 	pass
+
+func explore():
+	# Nothing to do, move in a random direction
+	
+	if !((_velocity + transform.origin).x < bound_x and (_velocity + transform.origin).x > 0):
+		_velocity.x = 0
+	if !((_velocity + transform.origin).z < bound_z and (_velocity + transform.origin).z > 0):
+		_velocity.z = 0
+	
+	if (timer > timer_limit):
+		
+		timer = 0
+		rng.randomize()
+		numb = round(rng.randi_range(0, 7))
+		
+		moveCreature(numb)
+		
+	
+

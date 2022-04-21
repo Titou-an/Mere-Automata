@@ -33,7 +33,7 @@ func _ready():
 		for z in range(chunk_z):
 			for y in range(chunk_y):
 				var chunk_pos = Vector3(x,y,z)
-				var data = TerrainGenerator.hill_terrain(noise,chunk_pos * Cube_Chunk.CHUNK_SIZE)
+				var data = TerrainGenerator.hill_terrain(noise,chunk_pos * Hex_Chunk2.CHUNK_SIZE)
 				chunk_data[chunk_pos] = data
 	
 
@@ -52,11 +52,11 @@ func clean_up():
 	
 
 func get_global_position_id(block_global_position):
-	var chunk_position = (block_global_position / Cube_Chunk.CHUNK_SIZE).floor()
+	var chunk_position = (block_global_position / Hex_Chunk2.CHUNK_SIZE).floor()
 	
 	if chunk_data.has(chunk_position):
 		var c_data = chunk_data[chunk_position]
-		var sub_position = block_global_position.posmod(Cube_Chunk.CHUNK_SIZE)
+		var sub_position = block_global_position.posmod(Hex_Chunk2.CHUNK_SIZE)
 		if c_data.has(sub_position):
 			return c_data[sub_position]
 	return 0
@@ -81,6 +81,7 @@ func gen_hex_map():
 		chunk.chunk_pos = chunk_pos
 		_chunks[chunk_pos] = chunk
 		add_child(chunk)
+		chunk.owner = get_node("/root/World")
 #		thread = Thread.new()
 #		thread.start(self, "load_chunk", i)
 		

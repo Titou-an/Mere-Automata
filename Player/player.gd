@@ -4,8 +4,6 @@ onready var camera = $RotationHelper/Camera
 onready var rotattion_helper = $RotationHelper
 onready var spawner = get_node("/root/World/Spawner")
 
-signal spawn_creature
-
 const MOV_SPD = 10
 
 var vel = Vector3()
@@ -95,7 +93,7 @@ func process_motion(delta):
 	 
 	vel = Vector3.ZERO
 	
-	dir.normalized()
+	dir = dir.normalized()
 	
 	vel.x = dir.x * MOV_SPD
 	vel.z = dir.z * MOV_SPD
@@ -115,6 +113,3 @@ func _input(event):
 	camera_rot.x = clamp(camera_rot.x, -70, 70)
 	rotattion_helper.rotation_degrees = camera_rot
 
-
-func _on_Spawner_spawn_creature():
-	pass # Replace with function body.

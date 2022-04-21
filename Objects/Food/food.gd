@@ -21,6 +21,7 @@ func _on_Area_body_entered(body):
 func clean():
 	get_parent().food_amnt -= 1
 	get_parent().food_arr.erase(pos)
+	
 	for creature in get_tree().get_nodes_in_group("creatures"):
 				if creature.fd_list.has(area):
 					creature.fd_list.erase(area)
