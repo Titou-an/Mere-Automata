@@ -1,25 +1,33 @@
 class_name Hex_Chunk2
 extends StaticBody
 
+
+const HEX_OFFSET = 0.866
 const CHUNK_SIZE = 16 #must be sync with generator
 const TEXTURE_TILE_WIDTH = 8
 
 const TEXTURE_TILE_SIZE = 1.0 / TEXTURE_TILE_WIDTH
 
-const TREE = preload("res://Objects/Tree/tree_oak.tscn")
-const GRASS =  preload("res://Objects/Grass/grass.tscn")
+#const TREE = preload("res://Objects/Tree/tree_oak.tscn")
+#const GRASS =  preload("res://Objects/Grass/tree_mm.tscn")
+#
+#const GRASS_MESH = preload("res://Objects/Grass/grass.obj")
+#const TREE_MESH = preload("res://Objects/Tree/tree_oak.mesh")
 
-const WORLD_OBJECTS = {10: GRASS, 11:TREE}
+enum World_Objects {GRASS = 10, TREE = 11}
+
 const WORLD_MATERIAL = preload("res://World/Textures/material.tres")
 
+#const GRASS_MATERIAL = preload("res://Objects/Grass/grass.material")
+
+# List of transparent blocks
 const TRANSP_ID = [0,2,10,11]
 
 var data = {}
 var chunk_pos = Vector3()
 
-var poly_count = 0
-
-const hex_offset = 0.866
+var grass_mm
+var tree_mm
 
 var thread
 var thread2
@@ -27,8 +35,10 @@ var thread2
 var block_mesh 
 onready var world_builder = get_parent()
 
-func _init(c_data):
+func _init(c_data, t_mm, g_mm):
 	data = c_data
+	grass_mm = g_mm
+	tree_mm = t_mm
 
 func _reload_chunks():
 	
@@ -40,8 +50,8 @@ func _reload_chunks():
 	_generate_mesh()
 
 func _ready():
-	transform.origin = chunk_pos * CHUNK_SIZE * Vector3(1,1,hex_offset)
-	name = str(chunk_pos * Vector3(1,1,hex_offset))
+	transform.origin = chunk_pos * CHUNK_SIZE * Vector3(1,1,HEX_OFFSET)
+	name = str(chunk_pos * Vector3(1,1,HEX_OFFSET))
 	
 	_generate_collider()
 	_generate_mesh()
@@ -76,6 +86,53 @@ func _generate_mesh():
 		var block_id = data[block_pos]
 		if block_id == 2:
 			continue
+		
+		if block_id == World_Objects.GRASS:
+			var odd = int(block_pos.z)%2
+			var pos = block_pos
+			
+			grass_mm.visible_instance_count += 1
+			
+			if odd:
+				pos = (block_pos + Vector3(1,0,0.5)) * Vector3(1,1,HEX_OFFSET) + transform.origin
+			else:
+				pos = (block_pos + Vector3(0.5,0,0.5)) * Vector3(1,1,HEX_OFFSET) + transform.origin
+			
+			var obj_transf = Transform()
+			
+			var scale_offset = rand_range(0.7,0.9)
+			
+			obj_transf = obj_transf.scaled(Vector3(scale_offset,scale_offset * rand_range(0.7,1.25),scale_offset)) 
+			obj_transf = obj_transf.rotated(Vector3.UP,rand_range(0,2*PI))
+			
+			obj_transf.origin = pos
+			
+			grass_mm.set_instance_transform(grass_mm.visible_instance_count - 1, obj_transf)
+			continue
+		elif block_id == World_Objects.TREE:
+			var odd = int(block_pos.z)%2
+			var pos = block_pos
+			
+			tree_mm.visible_instance_count += 1
+			
+			if odd:
+				pos = (block_pos + Vector3(1,0,0.5)) * Vector3(1,1,HEX_OFFSET) + transform.origin
+			else:
+				pos = (block_pos + Vector3(0.5,0,0.5)) * Vector3(1,1,HEX_OFFSET) + transform.origin
+			
+			var obj_transf = Transform()
+			
+			var scale_offset = 4
+			
+			obj_transf = obj_transf.scaled(Vector3(scale_offset,scale_offset * rand_range(0.7,1.25),scale_offset)) 
+			obj_transf = obj_transf.rotated(Vector3.UP,rand_range(0,2*PI))
+			
+			obj_transf.origin = pos
+			
+			tree_mm.set_instance_transform(tree_mm.visible_instance_count - 1, obj_transf)
+			continue
+			#object.owner = get_node("/root/Main/World")
+		
 		_draw_mesh(surface_tool, block_pos, block_id, false)
 	
 	surface_tool.generate_normals()
@@ -103,11 +160,12 @@ func _generate_water():
 	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
 	for block_pos in data.keys(): #Changed from data.keys
-		var is_top_water = false
-		
 		var block_id = data[block_pos]
+		
 		if block_id != 2:
 			continue
+		
+		var is_top_water = false
 		
 		var other_pos = block_pos + Vector3.UP
 		var other_id = 0
@@ -137,37 +195,14 @@ func _draw_mesh(surface_tool, block_pos, block_id,is_top_water):
 	var verts = {}
 	var odd = int(block_pos.z)%2
 	if  odd:
-		verts = calculate_verts((block_pos + (Vector3.RIGHT/2)) * Vector3(1,1,hex_offset), is_top_water)
+		verts = calculate_verts((block_pos + (Vector3.RIGHT/2)) * Vector3(1,1,HEX_OFFSET), is_top_water)
 	else:
-		verts = calculate_verts(block_pos * Vector3(1,1,hex_offset), is_top_water)
+		verts = calculate_verts(block_pos * Vector3(1,1,HEX_OFFSET), is_top_water)
 	
 	var uvs = calculate_uvs(block_id)
 	var top_uvs = calculate_hex_uvs(block_id)
 	var bottom_uvs = calculate_hex_uvs(block_id)
 	
-	
-	if block_id == 10 or block_id == 11:
-		
-		var pos = block_pos
-		var object = WORLD_OBJECTS[block_id].instance()
-		
-		if odd:
-			pos = (block_pos + Vector3(1,0,0.5)) * Vector3(1,1,hex_offset)
-		else:
-			pos = (block_pos + Vector3(0.5,0,0.5)) * Vector3(1,1,hex_offset)
-		
-		object.transform.origin = pos
-		
-		var scale_offset = 4
-		if block_id == 10:
-			scale_offset = rand_range(0.7,0.9)
-		
-		object.scale = Vector3(scale_offset,scale_offset * rand_range(0.7,1.25),scale_offset)
-		object.rotate_y(rand_range(0,2*PI))
-		
-		add_child(object)
-		object.owner = get_node("/root/Main/World")
-		return
 	
 	if block_id == 3: # Grass.
 		top_uvs = calculate_hex_uvs(0)
@@ -271,7 +306,6 @@ func _draw_mesh(surface_tool, block_pos, block_id,is_top_water):
 	
 
 func _draw_face(surface_tool, verts, uvs):
-	poly_count += 2
 	surface_tool.add_uv(uvs[1]); surface_tool.add_vertex(verts[1])
 	surface_tool.add_uv(uvs[2]); surface_tool.add_vertex(verts[2])
 	surface_tool.add_uv(uvs[3]); surface_tool.add_vertex(verts[3])
@@ -282,7 +316,6 @@ func _draw_face(surface_tool, verts, uvs):
 	
 
 func _draw_hex_face(surface_tool, verts, uvs):
-	poly_count += 6
 	surface_tool.add_uv(uvs[1]); surface_tool.add_vertex(verts[1])
 	surface_tool.add_uv(uvs[6]); surface_tool.add_vertex(verts[6])
 	surface_tool.add_uv(uvs[2]); surface_tool.add_vertex(verts[2])
@@ -315,9 +348,9 @@ func _create_mesh_collider(block_pos):
 	
 	if !int(block_pos.z)%2 == 0:
 		
-		collider.transform.origin = (block_pos * Vector3(1,1,hex_offset))  + Vector3(1,0.5,0.5)
+		collider.transform.origin = (block_pos * Vector3(1,1,HEX_OFFSET))  + Vector3(1,0.5,0.5)
 	else:
-		collider.transform.origin = (block_pos * Vector3(1,1,hex_offset)) + Vector3.ONE / 2
+		collider.transform.origin = (block_pos * Vector3(1,1,HEX_OFFSET)) + Vector3.ONE / 2
 	
 	add_child(collider)
 	
@@ -406,5 +439,3 @@ static func calculate_hex_uvs(block_id):
 static func is_transparent(block_id):
 	return TRANSP_ID.has(block_id)
 
-func get_poly():
-	return poly_count

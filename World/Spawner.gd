@@ -1,7 +1,7 @@
 extends Node
 # var dec
 
-const hex_offset = 0.866
+const HEX_OFFSET = 0.866
 
 signal spawn_creature
 
@@ -16,7 +16,7 @@ var count = 0
 
 var rng = RandomNumberGenerator.new()
 onready var bound_x =  get_parent().chunk_x * Hex_Chunk2.CHUNK_SIZE - 1
-onready var bound_z =  (get_parent().chunk_z * Hex_Chunk2.hex_offset * Hex_Chunk2.CHUNK_SIZE) - 1
+onready var bound_z =  (get_parent().chunk_z * Hex_Chunk2.HEX_OFFSET * Hex_Chunk2.CHUNK_SIZE) - 1
 
 var creature = preload("res://Creature/Creature.tscn")
 	
@@ -43,7 +43,7 @@ func createCreatureAtPos(pos):
 	var crt = creature.instance()
 	#creature.
 	
-	crt.global_transform.origin = pos
+	crt.transform.origin = pos
 	
 	rng.randomize()
 	numba = rng.randf_range(0, 10.0)

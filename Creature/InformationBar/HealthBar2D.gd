@@ -13,8 +13,9 @@ func update_bar(amount, full):
 	texture_progress = bar_green
 	if amount < 0.75 * full:
 		texture_progress = bar_yellow
-	if value < 0.45 * full:
+	elif value < 0.45 * full:
 		texture_progress = bar_red
+		
 	value = amount
 
 #func _on_HealthBar2D_gui_input(event):

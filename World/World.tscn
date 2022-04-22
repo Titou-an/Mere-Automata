@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://World/world_controller.gd" type="Script" id=1]
 [ext_resource path="res://Player/PlayerFreeCam.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/spawner.gd" type="Script" id=3]
 [ext_resource path="res://World/food_control.gd" type="Script" id=4]
 [ext_resource path="res://World/world_generator.gd" type="Script" id=5]
+[ext_resource path="res://GUI/PauseMenu.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.235294, 0.533333, 1, 1 )
@@ -58,3 +59,6 @@ script = ExtResource( 4 )
 
 [node name="PlayerFreeCam" parent="." instance=ExtResource( 2 )]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 10, 0 )
+
+[node name="PauseMenu" parent="." instance=ExtResource( 6 )]
+visible = false

@@ -29,6 +29,30 @@ func _process(delta):
 			selected = slots.size() -1
 		
 		
+	
+	if Input.is_key_pressed(KEY_1):
+		slots[selected].modulate = unselected
+		selected = 0
+	if Input.is_key_pressed(KEY_2):
+		slots[selected].modulate = unselected
+		selected = 1
+	if Input.is_key_pressed(KEY_3):
+		slots[selected].modulate = unselected
+		selected = 2
+	if Input.is_key_pressed(KEY_4):
+		slots[selected].modulate = unselected
+		selected = 3
+	if Input.is_key_pressed(KEY_5):
+		slots[selected].modulate = unselected
+		selected = 4
+	if Input.is_key_pressed(KEY_6):
+		slots[selected].modulate = unselected
+		selected = 5
+	if Input.is_key_pressed(KEY_7):
+		slots[selected].modulate = unselected
+		selected = 6
+	
+	
 	slots[selected].modulate = Color(1,1,1)
 	
 	sel_msg = (

@@ -7,7 +7,7 @@ enum WorldSizes {
 }
 
 var world_seed = 1
-var world_size = WorldSizes.S4X4
+var world_size = WorldSizes.S2X2
 
 func _ready():
 	load_settings()

@@ -44,51 +44,12 @@ func process_input(delta):
 	dir += cam_xform.basis.x * inputVec.x
 	dir.y += v_mov
 	
-	# Cursor capture
-	if Input.is_action_just_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	# Hide user interface
 	if Input.is_action_just_pressed("toggle_ui"):
 		get_node("UI").visible = !get_node("UI").visible
 	
-	# trigger 
-	if Input.is_action_just_pressed("trigger_item"):
-		var selected = $UI/Hotbar.selected
-		
-		if selected == 0:
-			var ray = $RotationHelper/RayCast
-			ray.force_raycast_update()
-			if ray.is_colliding():
-				spawner.createCreatureAtPos(ray.get_collision_point() + Vector3(0,0.5,0))
-		elif selected == 1:
-			var ray = $RotationHelper/RayCast
-			ray.force_raycast_update()
-			
-			if ray.is_colliding():
-				var body = ray.get_collider()
-				
-				if body.has_method("death"):
-					body.death()
-				
-		elif selected == 2:
-			pass
-		elif selected == 3:
-			pass
-		elif selected == 4:
-			Engine.time_scale += 0.5
-			
-			if Engine.time_scale > 2:
-				Engine.time_scale = 0.5
-		elif selected == 5:
-			pass
-		elif selected == 6:
-			pass
 	
-
 func process_motion(delta):
 	 
 	vel = Vector3.ZERO
