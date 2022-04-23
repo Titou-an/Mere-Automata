@@ -10,6 +10,7 @@ extends MeshInstance
 func _ready():
 	pass # Replace with function body.
 func colorChange(arr):
+	print(arr)
 	var newmat = SpatialMaterial.new()
 	newmat.albedo_color = Color(arr[0], arr[1], arr[2])
 	self.material_override = newmat

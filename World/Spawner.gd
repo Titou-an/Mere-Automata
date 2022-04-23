@@ -11,7 +11,7 @@ var numba
 var timer = 0
 var timer_limit = 2
 var color
-
+var maxi = 5
 var count = 0
 
 var rng = RandomNumberGenerator.new()
@@ -61,6 +61,7 @@ func give_birth(pos, genes1, genes2):
 	var clr = [0, 0, 0]
 	var rnd
 	var temp
+	var q
 	var r = 2
 	for x in genes:
 		randomize()
@@ -68,14 +69,22 @@ func give_birth(pos, genes1, genes2):
 		randomize()
 		if rnd == 0:
 			temp = genes1.values()
-			genes[x] = temp[r] + rand_range(0.01, 0.2)
+			q = temp[r] + rand_range(0.01, 0.2)
+			if q < maxi:
+				genes[x] = q
+			else:
+				genes[x] = maxi
 		else:
 			temp = genes2.values()
-			genes[x] = temp[r] + rand_range(0.01, 0.2)
+			q = temp[r] + rand_range(0.01, 0.2)
+			if q < maxi:
+				genes[x] = q
+			else:
+				genes[x] = maxi
 		r = r+1
-	clr[0] = genes[0]/5 * 255
-	clr[1] = genes[1]/5 * 255
-	clr[2] = genes[2]/5 * 255
+	clr[0] = genes[0]/5
+	clr[1] = genes[1]/5
+	clr[2] = genes[2]/5
 	crt.genes["vis_radius"] = genes[0]
 	crt.genes["speed"] = genes[1]
 	crt.genes["size"] = genes[2]
