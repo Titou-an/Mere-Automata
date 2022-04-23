@@ -184,7 +184,7 @@ func _on_ReproductionArea_body_entered(body):
 			body.repro_state = false
 			wait_state = true
 			body.wait_state = true
-			spawner.give_birth(transform.origin, body.genes)
+			spawner.give_birth(transform.origin, body.genes, self.genes)
 			crt_list.erase(body)
 			
 			hearts.restart()

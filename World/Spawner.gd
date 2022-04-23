@@ -55,8 +55,31 @@ func createCreatureAtPos(pos):
 	add_child(crt)
 	count += 1
 
-func give_birth(pos,genes):
+func give_birth(pos, genes1, genes2):
 	var crt = creature.instance()
+	var genes = [0, 1, 2]
+	var clr = [0, 0, 0]
+	var rnd
+	var temp
+	var r = 2
+	for x in genes:
+		randomize()
+		rnd = floor(rand_range(0, 2))
+		randomize()
+		if rnd == 0:
+			temp = genes1.values()
+			genes[x] = temp[r] + rand_range(0.01, 0.2)
+		else:
+			temp = genes2.values()
+			genes[x] = temp[r] + rand_range(0.01, 0.2)
+		r = r+1
+	clr[0] = genes[0]/5 * 255
+	clr[1] = genes[1]/5 * 255
+	clr[2] = genes[2]/5 * 255
+	crt.genes["vis_radius"] = genes[0]
+	crt.genes["speed"] = genes[1]
+	crt.genes["size"] = genes[2]
+	crt.get_node("mesh/Icosphere").colorChange(clr)
 	crt.transform.origin = pos
 	add_child(crt)
 	

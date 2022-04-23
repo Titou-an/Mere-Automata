@@ -49,7 +49,7 @@ func _on_CreateWorld_pressed():
 		Settings.world_size = Settings.WorldSizes.S2X2
 	elif ws_3x3.pressed:
 		Settings.world_size = Settings.WorldSizes.S3X3
-	elif ws_3x3.pressed:
+	elif ws_4x4.pressed:
 		Settings.world_size = Settings.WorldSizes.S4X4
 	
 	Settings.save_settings()
