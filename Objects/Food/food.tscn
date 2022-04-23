@@ -8,7 +8,9 @@ extents = Vector3( 1, 1.28308, 1 )
 [sub_resource type="CubeMesh" id=1]
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 1, 0, 0, 1 )
+albedo_color = Color( 1, 0.0627451, 0.0627451, 1 )
+metallic_specular = 1.0
+roughness = 0.0
 
 [node name="Food" type="Spatial" groups=["food"]]
 script = ExtResource( 1 )

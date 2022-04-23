@@ -118,7 +118,7 @@ margin_top = 58.0
 margin_right = 172.0
 margin_bottom = 82.0
 custom_fonts/font = SubResource( 1 )
-text = "Initial Energy"
+text = "Initial Energy %"
 valign = 1
 
 [node name="Speed" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Labels"]
@@ -348,7 +348,7 @@ margin_top = 58.0
 margin_right = 172.0
 margin_bottom = 82.0
 custom_fonts/font = SubResource( 1 )
-text = "Initial Energy"
+text = "Initial Energy %"
 valign = 1
 
 [node name="Speed" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Labels"]
@@ -559,4 +559,5 @@ text = "Cancel"
 flat = true
 
 [connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Kill" to="." method="_on_Kill_pressed"]
+[connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Apply" to="." method="_on_Apply_pressed"]
 [connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Back" to="." method="_on_Back_pressed"]

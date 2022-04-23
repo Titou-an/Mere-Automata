@@ -7,6 +7,7 @@
 size = 14
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
 font_data = ExtResource( 2 )
 
 [node name="DebugController" type="Control"]
@@ -33,9 +34,6 @@ margin_top = 8.0
 margin_bottom = 24.0
 custom_fonts/font = SubResource( 1 )
 text = "FPS: 60"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Memory_Label" type="Label" parent="."]
 anchor_right = 1.0

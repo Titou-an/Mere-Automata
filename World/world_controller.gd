@@ -124,10 +124,10 @@ func _input(event):
 	if event.is_action_pressed("create_food"):
 		food_parent.initialize_fd(world_generator.chunk_data)
 	
-	if event.is_action_pressed("ui_left"):
-		var menu_scene = PackedScene.new()
-		menu_scene.pack(get_tree().get_current_scene().get_node("World"))
-		ResourceSaver.save("res://Menu/background.tscn", menu_scene)
+#	if event.is_action_pressed("ui_left"):
+#		var menu_scene = PackedScene.new()
+#		menu_scene.pack(get_tree().get_current_scene().get_node("World"))
+#		ResourceSaver.save("res://Menu/background.tscn", menu_scene)
 
 	if event.is_action_pressed("ui_up"):
 		spawner.createCreature()

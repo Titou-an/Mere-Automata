@@ -2,6 +2,11 @@ extends Control
 
 onready var  player_ui = get_node("../../PlayerFreeCam/UI")
 
+onready var species1 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1
+onready var species2 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2
+
+
+
 
 func _on_Kill_pressed():
 	player_ui.visible = !player_ui.visible
@@ -19,3 +24,7 @@ func _on_Back_pressed():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
 	
+
+
+func _on_Apply_pressed():
+	pass # Replace with function body.

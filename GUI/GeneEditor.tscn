@@ -95,7 +95,7 @@ alignment = 1
 [node name="Labels" type="VBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/HBoxContainer/Genes/Genes"]
 margin_right = 138.0
 margin_bottom = 175.0
-custom_constants/separation = 5
+custom_constants/separation = 6
 
 [node name="Species" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/HBoxContainer/Genes/Genes/Labels"]
 margin_right = 138.0
@@ -105,41 +105,41 @@ text = "Species"
 valign = 1
 
 [node name="Energy" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/HBoxContainer/Genes/Genes/Labels"]
-margin_top = 29.0
+margin_top = 30.0
 margin_right = 138.0
-margin_bottom = 53.0
+margin_bottom = 54.0
 custom_fonts/font = SubResource( 1 )
-text = "Energy"
+text = "Energy %"
 valign = 1
 
 [node name="Speed" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/HBoxContainer/Genes/Genes/Labels"]
-margin_top = 58.0
+margin_top = 60.0
 margin_right = 138.0
-margin_bottom = 82.0
+margin_bottom = 84.0
 custom_fonts/font = SubResource( 1 )
 text = "Speed Value"
 valign = 1
 
 [node name="Vision" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/HBoxContainer/Genes/Genes/Labels"]
-margin_top = 87.0
+margin_top = 90.0
 margin_right = 138.0
-margin_bottom = 111.0
+margin_bottom = 114.0
 custom_fonts/font = SubResource( 1 )
 text = "Vision Radius"
 valign = 1
 
 [node name="Size" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/HBoxContainer/Genes/Genes/Labels"]
-margin_top = 116.0
+margin_top = 120.0
 margin_right = 138.0
-margin_bottom = 140.0
+margin_bottom = 144.0
 custom_fonts/font = SubResource( 1 )
 text = "Size Value"
 valign = 1
 
 [node name="Mutation" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/HBoxContainer/Genes/Genes/Labels"]
-margin_top = 145.0
+margin_top = 150.0
 margin_right = 138.0
-margin_bottom = 169.0
+margin_bottom = 174.0
 custom_fonts/font = SubResource( 1 )
 text = "Mutation Offset"
 valign = 1

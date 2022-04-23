@@ -116,7 +116,7 @@ func _physics_process(delta):
 	rotateCreature()
 	
 	# Energy update
-	energy -= (speedWeight)/10
+	energy -= (speedWeight)/10 * Engine.time_scale
 	energyUpdate(energy)
 
 func moveCreature(numb):
