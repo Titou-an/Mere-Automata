@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
-[ext_resource path="res://GUI/DebugController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://GUI/HotBar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GUI/Assets/crosshair001.png" type="Texture" id=4]
 
@@ -43,8 +42,5 @@ margin_bottom = 43.0
 texture = ExtResource( 4 )
 expand = true
 stretch_mode = 5
-
-[node name="DebugController" parent="UI" instance=ExtResource( 2 )]
-visible = false
 
 [node name="Hotbar" parent="UI" instance=ExtResource( 3 )]

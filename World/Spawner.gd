@@ -49,7 +49,7 @@ func createCreatureAtPos(pos):
 	numba = rng.randf_range(0, 10.0)
 	rng.randomize()
 	
-	crt.genes["speedWeight"] = rng.randf_range(0.1, 0.90)
+	#crt.genes["speedWeight"] = rng.randf_range(0.1, 0.90)
 	crt.rotation = Vector3(0, numba , 0)
 	
 	add_child(crt)

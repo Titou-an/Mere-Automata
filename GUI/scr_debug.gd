@@ -39,9 +39,9 @@ func _input(event):
 	#------------------------------------------------------------------
 	# Toggle Pause
 	
-	if event.is_action_pressed("debug_pause"):
-		get_tree().paused = !get_tree().paused
-		
+#	if event.is_action_pressed("debug_pause"):
+#		get_tree().paused = !get_tree().paused
+#
 	
 
 func saveGame():

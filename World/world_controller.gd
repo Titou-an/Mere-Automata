@@ -19,13 +19,18 @@ var chunk_y = 1
 var world_seed = Settings.world_seed
 
 onready var player = $PlayerFreeCam
-onready var hotbar = player.get_node("UI/Hotbar")
+onready var player_ui = player.get_node("UI")
+onready var hotbar = player_ui.get_node("Hotbar")
 
-onready var pause_menu = $PauseMenu
+onready var pause_menu = $World_GUI/PauseMenu
+onready var gene_editor = $World_GUI/GeneEditor
+onready var species_editor = $World_GUI/SpeciesTab
 
 onready var world_generator = $World_Generator 
 onready var spawner = $Spawner   
 onready var food_parent = $Food_Control 
+
+var input_enabled = true
 
 func _ready():
 	
@@ -34,45 +39,76 @@ func _ready():
 
 func _process(delta):
 	# trigger 
-	if Input.is_action_just_pressed("trigger_item"):
-		var selected = hotbar.selected
-		
-		if selected == 0:
-			var ray = player.get_node("RotationHelper/RayCast")
-			ray.force_raycast_update()
-			if ray.is_colliding():
-				spawner.createCreatureAtPos(ray.get_collision_point() + Vector3(0,0.5,0))
-		elif selected == 1:
-			var ray = player.get_node("RotationHelper/RayCast")
-			ray.force_raycast_update()
-			
-			if ray.is_colliding():
-				var body = ray.get_collider()
-				
-				if body.has_method("death"):
-					body.death()
-				
-		elif selected == 2:
-			pass
-		elif selected == 3:
-			pass
-		elif selected == 4:
-			Engine.time_scale += 0.5
-			
-			if Engine.time_scale > 3:
-				Engine.time_scale = 0.5
-		elif selected == 5:
-			pass
-		elif selected == 6:
-			pause_menu.show()
-			
-			if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			else:
-				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			
-			get_tree().paused = !get_tree().paused
 	
+	if input_enabled:
+		if Input.is_action_just_pressed("trigger_item"):
+			var selected = hotbar.selected
+			
+			if selected == 0:
+				var ray = player.get_node("RotationHelper/RayCast")
+				ray.force_raycast_update()
+				if ray.is_colliding():
+					spawner.createCreatureAtPos(ray.get_collision_point() + Vector3(0,0.5,0))
+					
+			elif selected == 1:
+				var ray = player.get_node("RotationHelper/RayCast")
+				ray.force_raycast_update()
+				
+				if ray.is_colliding():
+					var body = ray.get_collider()
+					
+					if body.has_method("death"):
+						body.death()
+					
+			elif selected == 2:
+				player_ui.hide()
+				species_editor.show()
+				
+				if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+					Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+				else:
+					Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				
+				get_tree().paused = !get_tree().paused
+		
+			elif selected == 3:
+				var ray = player.get_node("RotationHelper/RayCast")
+				ray.force_raycast_update()
+				
+				if ray.is_colliding():
+					var body = ray.get_collider()
+					
+					if body.has_method("death"):
+						player_ui.hide()
+						gene_editor.show()
+						
+						gene_editor.update_info(body)
+						
+						if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+							Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+						else:
+							Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+						
+						get_tree().paused = !get_tree().paused
+		
+			elif selected == 4:
+				Engine.time_scale += 0.5
+				
+				if Engine.time_scale > 3:
+					Engine.time_scale = 0.5
+			elif selected == 5:
+				pass
+			elif selected == 6:
+				player_ui.hide()
+				pause_menu.show()
+				
+				if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+					Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+				else:
+					Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				
+				get_tree().paused = !get_tree().paused
+		
 
 func _input(event):
 	

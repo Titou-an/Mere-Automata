@@ -1,0 +1,562 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://GUI/fonts/arial/ARIAL.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://GUI/species_editor.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.0470588, 0.0470588, 0.0470588, 0.505882 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 15
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="ButtonGroup" id=2]
+
+[sub_resource type="ButtonGroup" id=3]
+
+[node name="SpeciesTab" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SpeciesControl" type="HBoxContainer" parent="CenterContainer"]
+margin_left = 137.0
+margin_top = 25.0
+margin_right = 887.0
+margin_bottom = 575.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Panel" type="Panel" parent="CenterContainer/SpeciesControl"]
+margin_right = 750.0
+margin_bottom = 550.0
+rect_min_size = Vector2( 750, 550 )
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 4 )
+
+[node name="SpeciesSettings" type="VBoxContainer" parent="CenterContainer/SpeciesControl/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 15
+alignment = 1
+
+[node name="Title" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
+margin_top = 27.0
+margin_right = 750.0
+margin_bottom = 51.0
+custom_fonts/font = SubResource( 1 )
+text = "Species Settings"
+align = 1
+valign = 1
+
+[node name="Species" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
+margin_top = 66.0
+margin_right = 750.0
+margin_bottom = 387.0
+custom_constants/separation = 30
+alignment = 1
+
+[node name="Species1" type="VBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species"]
+margin_left = 25.0
+margin_right = 360.0
+margin_bottom = 321.0
+custom_constants/separation = 15
+
+[node name="Species1" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1"]
+margin_right = 335.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 1 )
+text = "Species 1"
+align = 1
+valign = 1
+
+[node name="Genes" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1"]
+margin_top = 39.0
+margin_right = 335.0
+margin_bottom = 237.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Labels" type="VBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes"]
+margin_left = 13.0
+margin_right = 185.0
+margin_bottom = 198.0
+custom_constants/separation = 5
+
+[node name="Enabled" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Labels"]
+margin_right = 172.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 1 )
+text = "Enabled"
+valign = 1
+
+[node name="Population" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Labels"]
+margin_top = 29.0
+margin_right = 172.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Population"
+valign = 1
+
+[node name="Energy" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Labels"]
+margin_top = 58.0
+margin_right = 172.0
+margin_bottom = 82.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Energy"
+valign = 1
+
+[node name="Speed" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Labels"]
+margin_top = 87.0
+margin_right = 172.0
+margin_bottom = 111.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Speed Value"
+valign = 1
+
+[node name="Vision" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Labels"]
+margin_top = 116.0
+margin_right = 172.0
+margin_bottom = 140.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Vision Radius"
+valign = 1
+
+[node name="Size" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Labels"]
+margin_top = 145.0
+margin_right = 172.0
+margin_bottom = 169.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Size Value"
+valign = 1
+
+[node name="Mutation" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Labels"]
+margin_top = 174.0
+margin_right = 172.0
+margin_bottom = 198.0
+custom_fonts/font = SubResource( 1 )
+text = "Mutation Offset"
+valign = 1
+
+[node name="Inputs" type="VBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes"]
+margin_left = 235.0
+margin_right = 321.0
+margin_bottom = 198.0
+custom_constants/separation = 5
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs"]
+margin_right = 86.0
+margin_bottom = 24.0
+pressed = true
+align = 2
+
+[node name="Population" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs"]
+margin_top = 29.0
+margin_right = 86.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Energy" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs"]
+margin_top = 58.0
+margin_right = 86.0
+margin_bottom = 82.0
+rect_min_size = Vector2( 50, 0 )
+text = "60"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs"]
+margin_top = 87.0
+margin_right = 86.0
+margin_bottom = 111.0
+
+[node name="Speed" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs/HBoxContainer"]
+margin_right = 58.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs/HBoxContainer"]
+margin_left = 62.0
+margin_right = 86.0
+margin_bottom = 24.0
+pressed = true
+align = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs"]
+margin_top = 116.0
+margin_right = 86.0
+margin_bottom = 140.0
+
+[node name="Vision" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs/HBoxContainer2"]
+margin_right = 58.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs/HBoxContainer2"]
+margin_left = 62.0
+margin_right = 86.0
+margin_bottom = 24.0
+pressed = true
+align = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs"]
+margin_top = 145.0
+margin_right = 86.0
+margin_bottom = 169.0
+
+[node name="Size" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs/HBoxContainer3"]
+margin_right = 58.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs/HBoxContainer3"]
+margin_left = 62.0
+margin_right = 86.0
+margin_bottom = 24.0
+pressed = true
+align = 2
+
+[node name="Mutation" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs"]
+margin_top = 174.0
+margin_right = 86.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Diet2" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1"]
+margin_top = 252.0
+margin_right = 335.0
+margin_bottom = 276.0
+custom_fonts/font = SubResource( 1 )
+text = "Diet"
+align = 1
+valign = 1
+
+[node name="Diet" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1"]
+margin_top = 291.0
+margin_right = 335.0
+margin_bottom = 321.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Herb" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Diet"]
+margin_right = 98.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 1 )
+toggle_mode = true
+pressed = true
+group = SubResource( 2 )
+text = "Herbivore"
+
+[node name="Carn" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Diet"]
+margin_left = 118.0
+margin_right = 216.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 1 )
+toggle_mode = true
+group = SubResource( 2 )
+text = "Carnivore"
+
+[node name="Omni" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Diet"]
+margin_left = 236.0
+margin_right = 335.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 1 )
+toggle_mode = true
+group = SubResource( 2 )
+text = "Omnivore"
+
+[node name="Species2" type="VBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species"]
+margin_left = 390.0
+margin_right = 725.0
+margin_bottom = 321.0
+custom_constants/separation = 15
+
+[node name="Species2" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2"]
+margin_right = 335.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 1 )
+text = "Species 2"
+align = 1
+valign = 1
+
+[node name="Genes" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2"]
+margin_top = 39.0
+margin_right = 335.0
+margin_bottom = 237.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Labels" type="VBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes"]
+margin_left = 13.0
+margin_right = 185.0
+margin_bottom = 198.0
+custom_constants/separation = 5
+
+[node name="Enabled" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Labels"]
+margin_right = 172.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 1 )
+text = "Enabled"
+valign = 1
+
+[node name="Population" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Labels"]
+margin_top = 29.0
+margin_right = 172.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Population"
+valign = 1
+
+[node name="Energy" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Labels"]
+margin_top = 58.0
+margin_right = 172.0
+margin_bottom = 82.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Energy"
+valign = 1
+
+[node name="Speed" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Labels"]
+margin_top = 87.0
+margin_right = 172.0
+margin_bottom = 111.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Speed Value"
+valign = 1
+
+[node name="Vision" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Labels"]
+margin_top = 116.0
+margin_right = 172.0
+margin_bottom = 140.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Vision Radius"
+valign = 1
+
+[node name="Size" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Labels"]
+margin_top = 145.0
+margin_right = 172.0
+margin_bottom = 169.0
+custom_fonts/font = SubResource( 1 )
+text = "Initial Size Value"
+valign = 1
+
+[node name="Mutation" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Labels"]
+margin_top = 174.0
+margin_right = 172.0
+margin_bottom = 198.0
+custom_fonts/font = SubResource( 1 )
+text = "Mutation Offset"
+valign = 1
+
+[node name="Inputs" type="VBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes"]
+margin_left = 235.0
+margin_right = 321.0
+margin_bottom = 198.0
+custom_constants/separation = 5
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs"]
+margin_right = 86.0
+margin_bottom = 24.0
+align = 2
+
+[node name="Population" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs"]
+margin_top = 29.0
+margin_right = 86.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Energy" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs"]
+margin_top = 58.0
+margin_right = 86.0
+margin_bottom = 82.0
+rect_min_size = Vector2( 50, 0 )
+text = "60"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs"]
+margin_top = 87.0
+margin_right = 86.0
+margin_bottom = 111.0
+
+[node name="Speed" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs/HBoxContainer"]
+margin_right = 58.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs/HBoxContainer"]
+margin_left = 62.0
+margin_right = 86.0
+margin_bottom = 24.0
+pressed = true
+align = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs"]
+margin_top = 116.0
+margin_right = 86.0
+margin_bottom = 140.0
+
+[node name="Vision" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs/HBoxContainer2"]
+margin_right = 58.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs/HBoxContainer2"]
+margin_left = 62.0
+margin_right = 86.0
+margin_bottom = 24.0
+pressed = true
+align = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs"]
+margin_top = 145.0
+margin_right = 86.0
+margin_bottom = 169.0
+
+[node name="Size" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs/HBoxContainer3"]
+margin_right = 58.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs/HBoxContainer3"]
+margin_left = 62.0
+margin_right = 86.0
+margin_bottom = 24.0
+pressed = true
+align = 2
+
+[node name="Mutation" type="LineEdit" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs"]
+margin_top = 174.0
+margin_right = 86.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 50, 0 )
+text = "1"
+align = 2
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Diet2" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2"]
+margin_top = 252.0
+margin_right = 335.0
+margin_bottom = 276.0
+custom_fonts/font = SubResource( 1 )
+text = "Diet"
+align = 1
+valign = 1
+
+[node name="Diet" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2"]
+margin_top = 291.0
+margin_right = 335.0
+margin_bottom = 321.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Herb" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Diet"]
+margin_right = 98.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 1 )
+toggle_mode = true
+pressed = true
+group = SubResource( 3 )
+text = "Herbivore"
+
+[node name="Carn" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Diet"]
+margin_left = 118.0
+margin_right = 216.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 1 )
+toggle_mode = true
+group = SubResource( 3 )
+text = "Carnivore"
+
+[node name="Omni" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Diet"]
+pause_mode = 2
+margin_left = 236.0
+margin_right = 335.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 1 )
+toggle_mode = true
+group = SubResource( 3 )
+text = "Omnivore"
+
+[node name="Kill" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
+margin_top = 402.0
+margin_right = 750.0
+margin_bottom = 432.0
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Kill All Creatures"
+flat = true
+
+[node name="Apply" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
+margin_top = 447.0
+margin_right = 750.0
+margin_bottom = 477.0
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Spawn Creatures"
+flat = true
+
+[node name="Back" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
+margin_top = 492.0
+margin_right = 750.0
+margin_bottom = 522.0
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Cancel"
+flat = true
+
+[connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Kill" to="." method="_on_Kill_pressed"]
+[connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Back" to="." method="_on_Back_pressed"]

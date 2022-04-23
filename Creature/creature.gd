@@ -14,11 +14,13 @@ onready var hearts = $Hearts
 onready var vision = $Vision/CollisionShape
 var vision_coll = CollisionShape.new()
 
-export var genes = {
+var genes = {
 	"species" : 0,
 	"diet" : 0,
 	"vis_radius" : 2.0,
-	"speed" : 2
+	"speed" : 2,
+	"size" : 1,
+	"mutation" : 0.5
 }
 
 var fd_list = {}
@@ -31,7 +33,6 @@ var _velocity := Vector3()
 var numb = 0
 var jump = 5
 var energy = 69
-var speed = 0
 
 var timer = 0
 var timer_limit = 1
@@ -40,12 +41,16 @@ var deg
 onready var bar = $Sprite3D/Viewport/HealthBar2D
 
 func _ready():
-	speed = genes["speed"]
+	scale = Vector3.ONE * genes["size"]
 	
-	rng.randomize()
-	genes["vis_radius"] = rng.randf_range(2,4)
 	vision.shape = SphereShape.new()
 	vision.shape.radius = genes["vis_radius"]
+
+func update_val():
+	
+	scale = Vector3.ONE * genes["size"]
+	vision.shape.radius = genes["vis_radius"]
+	
 
 func _physics_process(delta):
 	
@@ -77,12 +82,11 @@ func _physics_process(delta):
 			#If there is food in the vision radius of the creature
 			target = fd_list.values()[0]
 			
-			_velocity.x = transform.origin.direction_to(target).x * speed
-			_velocity.z = transform.origin.direction_to(target).z * speed
-			rotateCreature(target, delta)
+			_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
+			_velocity.z = transform.origin.direction_to(target).z * genes["speed"]
+			
 		else:
 			explore()
-	
 	else:
 		
 		repro_state = true
@@ -93,9 +97,9 @@ func _physics_process(delta):
 				if repro_state and closest_crt.repro_state:
 					target = closest_crt.global_transform.origin
 					
-					_velocity.x = transform.origin.direction_to(target).x * speed
-					_velocity.z = transform.origin.direction_to(target).z * speed
-					rotateCreature(target, delta)
+					_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
+					_velocity.z = transform.origin.direction_to(target).z * genes["speed"]
+					
 				else:
 					explore()
 			else:
@@ -108,12 +112,12 @@ func _physics_process(delta):
 	
 	#Apply Motion
 	
-	_velocity.y = move_and_slide(_velocity, Vector3.UP).y
+	_velocity = move_and_slide(_velocity, Vector3.UP)
+	rotateCreature()
 	
 	# Energy update
 	energy -= (speedWeight)/10
 	energyUpdate(energy)
-	rotateCreature(target, delta)
 
 func moveCreature(numb):
 	var mov = (
@@ -126,36 +130,20 @@ func moveCreature(numb):
 		else Vector2(1,-1) if numb == 6
 		else Vector2(-1,-1) 
 	)
-	mov = mov.normalized() * speed
+	
+	mov = mov.normalized() * genes["speed"]
 	_velocity.x = mov.x
 	_velocity.z = mov.y
 	
-func rotateCreature(target: Vector3, delta):
+func rotateCreature():
+#	var t = self.global_transform
+#	var l = t.looking_at(target, Vector3.UP)
+#	var a = Quat(t.basis)
+#	var b = Quat(l.basis)
+#	var c = a.slerp(b, 3 * delta)
+#	self.global_transform.basis = Basis(c)
 	
-	if(fd_list.empty()):
-		#rotate according to dir
-		deg = (
-			270 if numb == 0
-			else 180 if numb == 1
-			else 90 if numb == 2
-			else 0 if numb == 3
-			else 225 if numb == 4
-			else 135 if numb == 5
-			else 315 if numb == 6
-			else 45
-		)
-		#lerp(self.rotation_degrees.y,deg,0.1)
-		rotation.y = lerp_angle(rotation.y,deg2rad(deg),0.1)
-#		rotation.x = lerp_angle(rotation.x, 0, 0.1)
-#		rotation.z = lerp_angle(rotation.z, 0, 0.1)
-	else: 
-#		var t = self.global_transform
-#		var l = t.looking_at(target, Vector3.UP)
-#		var a = Quat(t.basis)
-#		var b = Quat(l.basis)
-#		var c = a.slerp(b, 3 * delta)
-#		self.global_transform.basis.y = Basis(c).y
-		rotation.y =  Vector2(transform.origin.x,transform.origin.z).angle_to_point(Vector2(target.x,target.z))
+	rotation.y = lerp_angle(rotation.y,Vector2().angle_to_point(Vector2(_velocity.z,_velocity.x)),0.1)
 	
 func death():
 	self.queue_free()
@@ -223,5 +211,16 @@ func explore():
 		
 		moveCreature(numb)
 		
+#	deg = (
+#			270 if numb == 0
+#			else 180 if numb == 1
+#			else 90 if numb == 2
+#			else 0 if numb == 3
+#			else 225 if numb == 4
+#			else 135 if numb == 5
+#			else 315 if numb == 6
+#			else 45
+#		)
+	#rotation.y = lerp_angle(rotation.y,deg2rad(deg),0.1)
 	
 

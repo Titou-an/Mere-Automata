@@ -89,5 +89,5 @@ func _on_Timer_timeout():
 func loading_done(loader):
 	loading_thread.wait_to_finish()
 	emit_signal("replace_scene", loader.get_resource())
-	print(1)
+	
 	res_loader = null
