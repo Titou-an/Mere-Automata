@@ -90,35 +90,33 @@ func give_birth(pos,genes1,genes2):
 	var rnd
 	var temp = []
 	var q : float
-	var r = 2
-
+	var genesChosen = [0, 0, 0]
 	var species = genes1["species"]
 	var max_mut = Settings.species1_genes["mutation"] if species == Settings.Species.SPECIES1 else Settings.species2_genes["mutation"]
-
+	randomize()
+	rnd = floor(rand_range(0, 2))
+	if rnd == 0:
+		genesChosen[0] = genes1["vision"]
+		genesChosen[1] = genes1["speed"]
+		genesChosen[2] = genes1["size"]
+	else:
+		genesChosen[0] = genes2["vision"]
+		genesChosen[1] = genes2["speed"]
+		genesChosen[2] = genes2["size"]
 	for x in genes:
 		randomize()
-		rnd = floor(rand_range(0, 2))
-		
-		randomize()
 		if rnd == 0:
-			temp = genes1.values()
-			q = temp[r] + rand_range(-1*max_mut, max_mut)
-			print(temp)
-			print(genes1)
+			q = genesChosen[x] + rand_range(-1*max_mut, max_mut)
 			if q < g_max:
 				genes[x] = q
 			else:
 				genes[x] = g_max
 		else:
-			temp = genes2.values()
-			q = temp[r] + rand_range(-1*max_mut, max_mut)
-			print(temp)
-			print(genes2)
+			q = genesChosen[x] + rand_range(-1*max_mut, max_mut)
 			if q < g_max:
 				genes[x] = q
 			else:
 				genes[x] = g_max
-		r += 1
 	
 	clr.x = genes[0]/g_max
 	clr.y = genes[1]/g_max
