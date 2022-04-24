@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Creature/creature.gd" type="Script" id=1]
 [ext_resource path="res://Creature/mesh.glb" type="PackedScene" id=2]
@@ -13,17 +13,6 @@
 [sub_resource type="CapsuleShape" id=10]
 radius = 0.49066
 height = 0.968586
-
-[sub_resource type="ViewportTexture" id=11]
-viewport_path = NodePath("Sprite3D/Viewport")
-
-[sub_resource type="SpatialMaterial" id=2]
-resource_local_to_scene = true
-render_priority = 1
-flags_transparent = true
-flags_unshaded = true
-params_billboard_mode = 1
-albedo_texture = SubResource( 11 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 15
@@ -64,9 +53,9 @@ material/0 = ExtResource( 4 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.10403, 0 )
-material_override = SubResource( 2 )
 cast_shadow = 0
 billboard = 1
+double_sided = false
 script = ExtResource( 5 )
 
 [node name="Viewport" type="Viewport" parent="Sprite3D"]

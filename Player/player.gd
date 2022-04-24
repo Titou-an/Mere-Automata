@@ -22,7 +22,7 @@ func _physics_process(delta):
 	process_input(delta)
 	process_motion(delta)
 
-func process_input(delta):
+func process_input(_delta):
 	
 	# Walking
 	dir = Vector3()
@@ -50,7 +50,7 @@ func process_input(delta):
 		get_node("UI").visible = !get_node("UI").visible
 	
 	
-func process_motion(delta):
+func process_motion(_delta):
 	 
 	vel = Vector3.ZERO
 	

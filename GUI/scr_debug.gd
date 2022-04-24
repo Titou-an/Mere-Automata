@@ -14,11 +14,11 @@ func _ready():
 		$World_Size_Label.text = "World Size: 4x4"
 
 
-func _process(delta):
+func _process(_delta):
 	$FPS_Label.text = "FPS: " + str(Engine.get_frames_per_second())
 	$Memory_Label.text = "Memory: " + "%3.2f" % (OS.get_static_memory_usage() / 1048576.0) + " MiB"
-	$Count_Label.text = "Creature count: " +  String(get_node("/root/Main/World").spawner.count)
-	$Food_Count_Label.text = "Food count: " + String(get_node("/root/Main/World").food_parent.food_amnt)
+	$Count_Label.text = "Creature count: " +  String(Settings.creature_count)
+	$Food_Count_Label.text = "Food count: " + String(Settings.food_count)
 
 func _input(event):
 	

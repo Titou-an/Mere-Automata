@@ -10,6 +10,7 @@ var bar_yellow = preload("res://Creature/InformationBar/assets/barHorizontal_yel
 func update_bar(amount, full):
 	if amount < full:
 		show()
+		
 	texture_progress = bar_green
 	if amount < 0.75 * full:
 		texture_progress = bar_yellow

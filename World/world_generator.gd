@@ -10,12 +10,13 @@ var thread = null
 
 var noise = OpenSimplexNoise.new()
 
-onready var world_seed = get_parent().world_seed
+onready var world_seed = Settings.world_seed
 
-onready var chunk_x = get_parent().chunk_x
-onready var chunk_y = get_parent().chunk_y
-onready var chunk_z = get_parent().chunk_z
+var chunk_x = Settings.world_size
+var chunk_z = Settings.world_size
+var chunk_y = 1
 
+# MultiMesh objects
 var grass_mm
 var tree_mm
 
@@ -33,10 +34,9 @@ func _ready():
 	noise.period = 15
 	noise.persistence = 0.2
 	
-	
-	for x in range(chunk_x):
-		for z in range(chunk_z):
-			for y in range(chunk_y):
+	for y in range(chunk_y):
+		for x in range(chunk_x):
+			for z in range(chunk_z):
 				var chunk_pos = Vector3(x,y,z)
 				var data = TerrainGenerator.hill_terrain(noise,chunk_pos * Hex_Chunk2.CHUNK_SIZE)
 				chunk_data[chunk_pos] = data
@@ -45,9 +45,9 @@ func _ready():
 func clean_up():
 	
 	for chunk_position_key in _chunks.keys():
-		var thread = _chunks[chunk_position_key].thread
-		if thread:
-			thread.wait_to_finish()
+		var del_thread = _chunks[chunk_position_key].thread
+		if del_thread:
+			del_thread.wait_to_finish()
 	_chunks = {}
 
 	#set_process(false)
@@ -136,7 +136,4 @@ func gen_cube_map():
 		add_child(chunk)
 
 func _exit_tree():
-	for chunk_position_key in _chunks.keys():
-		var thread = _chunks[chunk_position_key].thread
-		if thread:
-			thread.wait_to_finish()
+	clean_up()

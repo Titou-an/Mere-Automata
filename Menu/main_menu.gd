@@ -11,13 +11,22 @@ onready var title = ui.get_node("DefaultButtons")
 onready var start = ui.get_node("StartGame")
 onready var loading = ui.get_node("Loading")
 
+onready var seed_val = start.get_node("Panel/StartButtons/SeedSettings/Seed")
+onready var food_val = start.get_node("Panel/StartButtons/Food Settings/FoodAmount")
+onready var regen_val = start.get_node("Panel/StartButtons/Food Settings/FoodRegen")
+
 onready var ws_2x2 = start.get_node("Panel/StartButtons/WorldSize/2x2")
 onready var ws_3x3 = start.get_node("Panel/StartButtons/WorldSize/3x3")
 onready var ws_4x4 = start.get_node("Panel/StartButtons/WorldSize/4x4")
 
 onready var loading_progress = loading.get_node("ProgressBar")
 onready var loading_done_timer = loading.get_node("Timer")
+
 var world_size = 0
+
+func _ready():
+	food_val.placeholder_text = String(Settings.food_min)
+	regen_val.placeholder_text = String(Settings.food_regen)
 
 func _on_Exit_pressed():
 	get_tree().quit()
@@ -38,12 +47,18 @@ func _on_CreateWorld_pressed():
 	start.get_node("Panel/StartButtons/CreateWorld").disabled = true
 	start.get_node("Panel/StartButtons/Back").disabled = true
 	
-	var world_seed = str2var(start.get_node("Panel/StartButtons/SeedSettings/LineEdit").text)
+	var world_seed = str2var(seed_val.text)
+	var min_food = str2var(food_val.text)
+	var food_regen = str2var(regen_val.text)
 	
-	if typeof(world_seed) != 2:
-		Settings.world_seed = 1
-	else:
+	if typeof(world_seed) == TYPE_INT:
 		Settings.world_seed = world_seed
+	
+	if typeof(min_food) == TYPE_INT:
+		Settings.food_min = min_food
+	
+	if typeof(food_regen) == TYPE_INT:
+		Settings.food_regen = food_regen
 	
 	if ws_2x2.pressed:
 		Settings.world_size = Settings.WorldSizes.S2X2
@@ -51,8 +66,6 @@ func _on_CreateWorld_pressed():
 		Settings.world_size = Settings.WorldSizes.S3X3
 	elif ws_4x4.pressed:
 		Settings.world_size = Settings.WorldSizes.S4X4
-	
-	#Settings.save_settings()
 	
 	loading.show()
 	

@@ -179,12 +179,11 @@ custom_fonts/font = SubResource( 23 )
 text = "Seed"
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="UI/StartGame/Panel/StartButtons/SeedSettings"]
+[node name="Seed" type="LineEdit" parent="UI/StartGame/Panel/StartButtons/SeedSettings"]
 margin_left = 158.0
 margin_right = 358.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 200, 0 )
-placeholder_text = "Input Custom Seed"
 caret_blink = true
 caret_blink_speed = 0.5
 
@@ -225,7 +224,7 @@ margin_left = 371.0
 margin_right = 429.0
 margin_bottom = 24.0
 align = 2
-placeholder_text = "25"
+placeholder_text = "50"
 caret_blink = true
 caret_blink_speed = 0.5
 

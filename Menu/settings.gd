@@ -1,16 +1,76 @@
 extends Node
 
+
+# World Parameters
 enum WorldSizes {
-	S2X2 = 0
-	S3X3 = 1
-	S4X4 = 2
+	S2X2 = 2
+	S3X3 = 3
+	S4X4 = 4
 }
 
-var world_seed = 1
+var world_seed = 1447 # Seed value used for main menu background
+var food_min = 50
+var food_regen = 50
 var world_size = WorldSizes.S2X2
 
+# Simulation parameters
+enum Species {
+	SPECIES1 = 0,
+	SPECIES2 = 1
+}
+
+enum Diets {
+	HERBIVORE = 0,
+	CARNIVORE = 1,
+	OMNIVORE = 2
+}
+
+var food_count = 0
+var creature_count = 0
+
+var species1_genes = {
+	"species" : Species.SPECIES1,
+	"diet" : Diets.HERBIVORE,
+	"vision" : 2,
+	"speed" : 2,
+	"size" : 1,
+	"mutation" : 0.1
+}
+
+var species1_enabled_genes = {
+	"speed" : true,
+	"vision" : true,
+	"size" : true
+}
+
+
+var init_energy1 = 60 # Default energy value for species 1
+
+var init_population1 = 10 # Default population value for species 1
+
+
+var species2_genes = {
+	"species" : Species.SPECIES2,
+	"diet" : Diets.HERBIVORE,
+	"vision" : 2,
+	"speed" : 2,
+	"size" : 1,
+	"mutation" : 0.1
+}
+
+var species2_enabled_genes = {
+	"speed" : true,
+	"vision" : true,
+	"size" : true
+}
+
+var init_energy2 = 60 # Default energy value for species 2
+
+var init_population2 = 10 # Default population value for species 2
+
 func _ready():
-	load_settings()
+	pass
+	#load_settings()
 
 func _input(event):
 	
@@ -35,7 +95,6 @@ func save_settings():
 	}
 	f.store_line(to_json(d))
 	
-
 
 func load_settings():
 	var f = File.new()

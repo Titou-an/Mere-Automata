@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Food/food.gd" type="Script" id=1]
 
@@ -8,9 +8,63 @@ extents = Vector3( 1, 1.28308, 1 )
 [sub_resource type="CubeMesh" id=1]
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 1, 0.0627451, 0.0627451, 1 )
-metallic_specular = 1.0
-roughness = 0.0
+albedo_color = Color( 0.972549, 0.203922, 0.203922, 1 )
+roughness = 0.96
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Food:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.502416, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Food:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "spining"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Food:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.5, 0 ), Vector3( 0, 0.8, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Food:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 180, 0 ), Vector3( 0, 360, 0 ) ]
+}
 
 [node name="Food" type="Spatial" groups=["food"]]
 script = ExtResource( 1 )
@@ -29,5 +83,11 @@ transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.502416, 0 )
 cast_shadow = 0
 mesh = SubResource( 1 )
 material/0 = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spining"
+playback_speed = 0.5
+anims/RESET = SubResource( 4 )
+anims/spining = SubResource( 5 )
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]

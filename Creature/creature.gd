@@ -14,14 +14,7 @@ onready var hearts = $Hearts
 onready var vision = $Vision/CollisionShape
 var vision_coll = CollisionShape.new()
 
-var genes = {
-	"species" : 0,
-	"diet" : 0,
-	"vis_radius" : 2.0,
-	"speed" : 2,
-	"size" : 1,
-	"mutation" : 0.5
-}
+var genes = {}
 
 var fd_list = {}
 var crt_list = {}
@@ -44,12 +37,12 @@ func _ready():
 	scale = Vector3.ONE * genes["size"]
 	
 	vision.shape = SphereShape.new()
-	vision.shape.radius = genes["vis_radius"]
+	vision.shape.radius = genes["vision"]
 
 func update_val():
 	
 	scale = Vector3.ONE * genes["size"]
-	vision.shape.radius = genes["vis_radius"]
+	vision.shape.radius = genes["vision"]
 	
 
 func _physics_process(delta):
@@ -119,15 +112,15 @@ func _physics_process(delta):
 	energy -= (speedWeight)/10 * Engine.time_scale
 	energyUpdate(energy)
 
-func moveCreature(numb):
+func moveCreature(dir):
 	var mov = (
-		Vector2(1,0) if numb == 0 
-		else Vector2(0,1) if numb == 1
-		else Vector2(-1,0) if numb == 2
-		else Vector2(0,-1) if numb == 3
-		else Vector2(1,1) if numb == 4
-		else Vector2(-1,1) if numb == 5
-		else Vector2(1,-1) if numb == 6
+		Vector2(1,0) if dir == 0 
+		else Vector2(0,1) if dir == 1
+		else Vector2(-1,0) if dir == 2
+		else Vector2(0,-1) if dir == 3
+		else Vector2(1,1) if dir == 4
+		else Vector2(-1,1) if dir == 5
+		else Vector2(1,-1) if dir == 6
 		else Vector2(-1,-1) 
 	)
 	
@@ -148,7 +141,7 @@ func rotateCreature():
 func death():
 	self.queue_free()
 	
-	spawner.count -= 1
+	Settings.creature_count -= 1
 
 func energyUpdate(new_energy):
 	bar.update_bar(new_energy, 100)
@@ -156,8 +149,8 @@ func energyUpdate(new_energy):
 func get_energy():
 	return energy
 
-func set_energy(energy):
-	self.energy = energy
+func set_energy(new_energy):
+	self.energy = new_energy
 
 func remove_tg(area):
 	fd_list.erase(area)
@@ -184,16 +177,13 @@ func _on_ReproductionArea_body_entered(body):
 			body.repro_state = false
 			wait_state = true
 			body.wait_state = true
-			spawner.give_birth(transform.origin, body.genes)
+			spawner.give_birth(transform.origin, genes, body.genes)
 			crt_list.erase(body)
 			
 			hearts.restart()
 			
 			energy -= repro_cost
 			energyUpdate(energy)
-
-func stop_wait(delta):
-	pass
 
 func explore():
 	# Nothing to do, move in a random direction
@@ -223,4 +213,12 @@ func explore():
 #		)
 	#rotation.y = lerp_angle(rotation.y,deg2rad(deg),0.1)
 	
+func colorChange(color: Vector3):
+   
+	var newmat = SpatialMaterial.new()
+	newmat.albedo_color = Color(color.x, color.y, color.z)
+	$mesh/Icosphere.material_override = newmat
 
+func update_color():
+	
+	$mesh/Icosphere.material_override.albedo_color = Color(genes["vision"]/5.0, genes["speed"]/5.0, genes["size"]/5.0)

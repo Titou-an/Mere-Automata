@@ -37,7 +37,7 @@ func update_info(target):
 	
 	speed_val.text = var2str(target.genes["speed"])
 	
-	vis_radius_val.text = var2str(target.genes["vis_radius"])
+	vis_radius_val.text = var2str(target.genes["vision"])
 	
 	size_val.text = var2str(target.genes["size"])
 	
@@ -62,11 +62,14 @@ func apply_changes(target):
 	if typeof(str2var(speed_val.text)) == TYPE_REAL or typeof(str2var(speed_val.text)) == TYPE_INT:
 		target.genes["speed"] = str2var(speed_val.text)
 	if typeof(str2var(vis_radius_val.text)) == TYPE_REAL or typeof(str2var(vis_radius_val.text)) == TYPE_INT:
-		target.genes["vis_radius"] = str2var(vis_radius_val.text)
+		target.genes["vision"] = str2var(vis_radius_val.text)
 	if typeof(str2var(size_val.text)) == TYPE_REAL or typeof(str2var(size_val.text)) == TYPE_INT:
 		target.genes["size"] = str2var(size_val.text)
 	if typeof(str2var(mutation_val.text)) == TYPE_REAL or typeof(str2var(mutation_val.text)) == TYPE_INT:
 		target.genes["mutation"] = str2var(mutation_val.text)
+	
+	target.update_color()
+	
 	
 	if species_btn1.pressed:
 		target.genes["species"] = 0

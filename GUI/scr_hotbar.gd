@@ -14,7 +14,7 @@ func _ready():
 		s.modulate = unselected
 	
 
-func _process(delta):
+func _process(_delta):
 	
 	if Input.is_action_just_released("shift_item_down"):
 		slots[selected].modulate = unselected

@@ -1,9 +1,14 @@
 extends Spatial
 
-const regen = 50
+var regen = Settings.food_regen
 
 var pos = Vector3()
 onready var area = $Area
+
+func _ready():
+	randomize()
+	var offset = rand_range(0,$AnimationPlayer.current_animation_length)
+	$AnimationPlayer.advance(offset)
 
 func _on_Area_body_entered(body):
 	
@@ -19,7 +24,7 @@ func _on_Area_body_entered(body):
 		
 
 func clean():
-	get_parent().food_amnt -= 1
+	Settings.food_count -= 1
 	get_parent().food_arr.erase(pos)
 	
 	for creature in get_tree().get_nodes_in_group("creatures"):
