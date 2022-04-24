@@ -6,7 +6,7 @@ export var gravity := 9.8
 export var move_cost := 0.6
 
 export var repro_cost := 40
-export var repro_treshold = 0.70
+export var repro_treshold = 0.75
 var max_energy = 100
 
 onready var spawner = get_parent()
