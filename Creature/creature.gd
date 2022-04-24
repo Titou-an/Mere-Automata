@@ -3,7 +3,7 @@ extends KinematicBody
 var rng = RandomNumberGenerator.new()
 export var gravity := 9.8
 
-export var move_cost := 0.6
+export var move_cost := 0.3
 
 export var repro_cost := 40
 export var repro_treshold = 0.75
