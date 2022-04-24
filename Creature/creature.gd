@@ -5,9 +5,9 @@ export var gravity := 9.8
 
 export var move_cost := 0.3
 
-export var repro_cost := 40
+export var repro_cost := 40.0
 export var repro_treshold = 0.75
-var max_energy = 100
+var max_energy = 100.0
 
 onready var spawner = get_parent()
 onready var bound_x = spawner.bound_x + 1
@@ -28,9 +28,9 @@ var repro_state = false
 var _velocity := Vector3()
 var numb = 0
 var jump = 5
-var energy = 69
+var energy = 69.0
 
-var timer = 0
+var timer = 0.0
 var timer_limit = 1.5
 
 var deg
@@ -55,6 +55,8 @@ func update_val():
 	
 
 func _physics_process(delta):
+	
+	target = null
 	
 	# Decision Tree Based on Priority 
 	
@@ -214,11 +216,14 @@ func _on_ReproductionArea_body_entered(body):
 				repro_state = false
 				body.repro_state = false
 				
-				energy -= repro_cost
+				energy -= (repro_cost/100) * energy
 				energyUpdate(energy)
 				
-				spawner.give_birth(transform.origin, genes, body.genes)
+				body.energy -= (repro_cost/100) * body.energy
+				body.energyUpdate(body.energy)
+				
 				crt_list.erase(body)
+				spawner.give_birth(transform.origin, genes, body.genes)
 				
 				hearts.restart()
 				

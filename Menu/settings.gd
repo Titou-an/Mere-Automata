@@ -31,9 +31,9 @@ var creature_count = 0
 var species1_genes = {
 	"species" : Species.SPECIES1,
 	"diet" : Diets.HERBIVORE,
-	"vision" : 2,
-	"speed" : 2,
-	"size" : 1,
+	"vision" : 2.0,
+	"speed" : 2.0,
+	"size" : 1.0,
 	"mutation" : 0.1
 }
 
@@ -52,9 +52,9 @@ var init_population1 = 10 # Default population value for species 1
 var species2_genes = {
 	"species" : Species.SPECIES2,
 	"diet" : Diets.HERBIVORE,
-	"vision" : 2,
-	"speed" : 2,
-	"size" : 1,
+	"vision" : 2.0,
+	"speed" : 2.0,
+	"size" : 1.0,
 	"mutation" : 0.1
 }
 

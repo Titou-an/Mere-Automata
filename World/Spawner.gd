@@ -7,7 +7,7 @@ var xcord
 var zcord
 var numba
 var timer = 0
-var timer_limit = 2
+var timer_limit = 2.0
 var color
 
 var g_max = 5.0
@@ -83,8 +83,7 @@ func createCreatureAtPos(pos, genes):
 	
 
 func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
-	var crt = creature.instance()
-
+	
 	var genes = genes1.duplicate()
 	var clr = Vector3()
 	var rand
@@ -94,7 +93,7 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 	for g in Settings.species1_enabled_genes.keys():
 		
 		randomize()
-		rand = floor(rand_range(0, 2))
+		rand = randi() % 2
 		
 		randomize()
 		
@@ -109,7 +108,7 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 					genes[g] = genes1[g]
 					continue
 			
-			genes[g] = genes1[g] + rand_range(-max_mut, max_mut)
+			genes[g] = genes1[g] + rand_range(-1.0*max_mut, max_mut)
 			if genes[g] > g_max:
 				genes[g] = g_max
 			
@@ -124,7 +123,7 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 					genes[g] = genes2[g]
 					continue
 			
-			genes[g] = genes2[g] + rand_range(-max_mut, max_mut)
+			genes[g] = genes2[g] + rand_range(-1.0* max_mut, max_mut)
 			if genes[g] > g_max:
 				genes[g] = g_max
 	
@@ -132,15 +131,16 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 	clr.y = genes["speed"]/g_max
 	clr.z = genes["size"]/g_max
 	
+	var crt = creature.instance()
 	crt.genes = genes
 	
-	crt.colorChange(clr)
-
 	if crt.genes["species"] == Settings.Species.SPECIES1:
-		crt.energy = Settings.init_energy1 / (Settings.species1_genes["size"] * 100) * (genes["size"] * 100)
+		crt.energy = (Settings.init_energy1 / (Settings.species1_genes["size"] * 100)) * (genes["size"] * 100)
 	else:
-		crt.energy =  Settings.init_energy2 / (Settings.species2_genes["size"] * 100) * (genes["size"] * 100)
+		crt.energy =  (Settings.init_energy2 / (Settings.species2_genes["size"] * 100)) * (genes["size"] * 100)
 	
+	
+	crt.colorChange(clr)
 	crt.transform.origin = pos
 	
 	Settings.creature_count += 1
