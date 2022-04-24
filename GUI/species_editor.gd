@@ -77,15 +77,15 @@ func _ready():
 		omni1.pressed = true
 		
 	
-	init_pop_val2.placeholder_text = String(Settings.init_population1)
-	init_nrg_val2.placeholder_text =  String(Settings.init_energy1)
-	init_spd_val2.placeholder_text =  String(Settings.species1_genes["speed"])
-	init_vis_val2.placeholder_text =  String(Settings.species1_genes["vision"])
-	init_siz_val2.placeholder_text =  String(Settings.species1_genes["size"])
-	mut_val2.placeholder_text =  String(Settings.species1_genes["mutation"])
-	spd2_enabled.pressed = Settings.species1_enabled_genes["speed"]
-	vis2_enabled.pressed = Settings.species1_enabled_genes["vision"]
-	siz2_enabled.pressed = Settings.species1_enabled_genes["size"]
+	init_pop_val2.placeholder_text = String(Settings.init_population2)
+	init_nrg_val2.placeholder_text =  String(Settings.init_energy2)
+	init_spd_val2.placeholder_text =  String(Settings.species2_genes["speed"])
+	init_vis_val2.placeholder_text =  String(Settings.species2_genes["vision"])
+	init_siz_val2.placeholder_text =  String(Settings.species2_genes["size"])
+	mut_val2.placeholder_text =  String(Settings.species2_genes["mutation"])
+	spd2_enabled.pressed = Settings.species2_enabled_genes["speed"]
+	vis2_enabled.pressed = Settings.species2_enabled_genes["vision"]
+	siz2_enabled.pressed = Settings.species2_enabled_genes["size"]
 	
 	if Settings.species2_genes["diet"] == Settings.Diets.HERBIVORE:
 		herb2.pressed = true
@@ -183,8 +183,6 @@ func _on_Apply_pressed():
 	if sp2_enabled.pressed:
 		for crt in Settings.init_population2:
 			spawner.createCreatureRand(Settings.species2_genes)
-
-
 
 func _on_sp1Enabled_toggled(button_pressed):
 	

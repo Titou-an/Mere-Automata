@@ -27,8 +27,9 @@ func _ready():
 func _process(_delta):
 	
 	if initialized:
-		if Settings.food_count < food_min:
-			add_rand_food()
+		add_rand_food()
+#		if Settings.food_count < food_min:
+#			add_rand_food()
 	
 
 func initialize_fd():

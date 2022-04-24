@@ -2,9 +2,12 @@ extends KinematicBody
 
 var rng = RandomNumberGenerator.new()
 export var gravity := 9.8
-export var speedWeight := 0.85
+
+export var move_cost := 0.6
+
 export var repro_cost := 40
-var repro_treshold = 70
+export var repro_treshold = 0.70
+var max_energy = 100
 
 onready var spawner = get_parent()
 onready var bound_x = spawner.bound_x + 1
@@ -18,9 +21,9 @@ var genes = {}
 
 var fd_list = {}
 var crt_list = {}
+
 var target = Vector3()
 var repro_state = false
-var wait_state = false
 
 var _velocity := Vector3()
 var numb = 0
@@ -28,20 +31,26 @@ var jump = 5
 var energy = 69
 
 var timer = 0
-var timer_limit = 1
+var timer_limit = 1.5
 
 var deg
-onready var bar = $Sprite3D/Viewport/HealthBar2D
+onready var bar = $mesh/Sprite3D
 
 func _ready():
-	scale = Vector3.ONE * genes["size"]
+	$mesh.scale = (Vector3.ONE * genes["size"])/2
+	$CollisionShape.shape.height = genes["size"]
+	max_energy = genes["size"] * 100
+	
 	
 	vision.shape = SphereShape.new()
 	vision.shape.radius = genes["vision"]
 
 func update_val():
 	
-	scale = Vector3.ONE * genes["size"]
+	$mesh.scale = (Vector3.ONE * genes["size"])/2
+	$CollisionShape.shape.height = genes["size"]
+	max_energy = genes["size"] * 100
+	
 	vision.shape.radius = genes["vision"]
 	
 
@@ -57,37 +66,72 @@ func _physics_process(delta):
 	if self.transform.origin.y < 0:
 		death()
 	
-	
+	# Applies gravity
 	_velocity.y -= gravity * delta
 	
+	# Jumps in front of an obstacle
 	if is_on_wall():
 		
 		_velocity.y = jump
 		moveCreature(numb)
 		timer = 0
 	
-	
-	if energy < repro_treshold:
+	# If the the energy level is below the minimum to reproduce
+	if energy < (repro_treshold * max_energy):
 		repro_state = false
 		
-		if !fd_list.empty():
+		#If there is food in the vision radius of the creature
+		if genes["diet"] == Settings.Diets.HERBIVORE: # If creature is herbivore
+			if !fd_list.empty():
+				target = fd_list.values()[0]
+				
+				_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
+				_velocity.z = transform.origin.direction_to(target).z * genes["speed"]
+				
+			else:
+				# Random Exploration to find food
+				explore()
 			
-			#If there is food in the vision radius of the creature
-			target = fd_list.values()[0]
-			
-			_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
-			_velocity.z = transform.origin.direction_to(target).z * genes["speed"]
-			
-		else:
-			explore()
+		elif genes["diet"] == Settings.Diets.CARNIVORE:# If Creature is carnivore
+			if !crt_list.empty():
+				var closest_crt = crt_list.keys()[0]
+				if closest_crt.genes["species"] != genes["species"]:
+					target = closest_crt.global_transform.origin
+					
+					_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
+					_velocity.z = transform.origin.direction_to(target).z * genes["speed"]
+				else:
+					explore()
+			else:
+				explore()
+				
+		else: # If creature is omnivore
+			if !fd_list.empty():
+				target = fd_list.values()[0]
+				
+				_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
+				_velocity.z = transform.origin.direction_to(target).z * genes["speed"]
+				
+			elif !crt_list.empty():
+				var closest_crt = crt_list.keys()[0]
+				if closest_crt.genes["species"] != genes["species"]:
+					target = closest_crt.global_transform.origin
+					
+					_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
+					_velocity.z = transform.origin.direction_to(target).z * genes["speed"]
+				else:
+					explore()
+			else:
+				# Random Exploration to find food
+				explore()
 	else:
-		
 		repro_state = true
+		
 		if !crt_list.empty():
 			var closest_crt = crt_list.keys()[0]
 			
 			if closest_crt.genes["species"] == genes["species"]:
-				if repro_state and closest_crt.repro_state:
+				if closest_crt.repro_state:
 					target = closest_crt.global_transform.origin
 					
 					_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
@@ -109,7 +153,7 @@ func _physics_process(delta):
 	rotateCreature()
 	
 	# Energy update
-	energy -= (speedWeight)/10 * Engine.time_scale
+	energy -= (move_cost * genes["speed"])/10 * Engine.time_scale
 	energyUpdate(energy)
 
 func moveCreature(dir):
@@ -129,22 +173,15 @@ func moveCreature(dir):
 	_velocity.z = mov.y
 	
 func rotateCreature():
-#	var t = self.global_transform
-#	var l = t.looking_at(target, Vector3.UP)
-#	var a = Quat(t.basis)
-#	var b = Quat(l.basis)
-#	var c = a.slerp(b, 3 * delta)
-#	self.global_transform.basis = Basis(c)
-	
 	rotation.y = lerp_angle(rotation.y,Vector2().angle_to_point(Vector2(_velocity.z,_velocity.x)),0.1)
 	
 func death():
+	Settings.creature_count -= 1
 	self.queue_free()
 	
-	Settings.creature_count -= 1
 
 func energyUpdate(new_energy):
-	bar.update_bar(new_energy, 100)
+	bar.update(new_energy, max_energy)
 	
 func get_energy():
 	return energy
@@ -155,7 +192,6 @@ func set_energy(new_energy):
 func remove_tg(area):
 	fd_list.erase(area)
 	
-
 func _on_Vision_area_entered(area):
 	fd_list[area] = area.global_transform.origin
 
@@ -171,18 +207,26 @@ func _on_Vision_body_exited(body):
 	crt_list.erase(body)
 
 func _on_ReproductionArea_body_entered(body):
-	if repro_state == true:
-		if body.repro_state == true:
-			repro_state = false
-			body.repro_state = false
-			wait_state = true
-			body.wait_state = true
-			spawner.give_birth(transform.origin, genes, body.genes)
-			crt_list.erase(body)
-			
-			hearts.restart()
-			
-			energy -= repro_cost
+	
+	if body.genes["species"] == genes["species"]:
+		if repro_state == true:
+			if body.repro_state == true:
+				repro_state = false
+				body.repro_state = false
+				
+				energy -= repro_cost
+				energyUpdate(energy)
+				
+				spawner.give_birth(transform.origin, genes, body.genes)
+				crt_list.erase(body)
+				
+				hearts.restart()
+				
+				
+	else:
+		if genes["diet"] != Settings.Diets.HERBIVORE:
+			body.death()
+			energy += Settings.food_regen
 			energyUpdate(energy)
 
 func explore():
@@ -220,5 +264,4 @@ func colorChange(color: Vector3):
 	$mesh/Icosphere.material_override = newmat
 
 func update_color():
-	
 	$mesh/Icosphere.material_override.albedo_color = Color(genes["vision"]/5.0, genes["speed"]/5.0, genes["size"]/5.0)

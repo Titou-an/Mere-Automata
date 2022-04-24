@@ -12,7 +12,6 @@
 
 [sub_resource type="CapsuleShape" id=10]
 radius = 0.49066
-height = 0.968586
 
 [sub_resource type="DynamicFont" id=1]
 size = 15
@@ -51,27 +50,27 @@ material/0 = ExtResource( 3 )
 [node name="Icosphere" parent="mesh" index="2"]
 material/0 = ExtResource( 4 )
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.10403, 0 )
+[node name="Sprite3D" type="Sprite3D" parent="mesh"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.20806, 0 )
 cast_shadow = 0
 billboard = 1
 double_sided = false
 script = ExtResource( 5 )
 
-[node name="Viewport" type="Viewport" parent="Sprite3D"]
+[node name="Viewport" type="Viewport" parent="mesh/Sprite3D"]
 size = Vector2( 200, 26 )
 transparent_bg = true
 usage = 0
 render_target_v_flip = true
 
-[node name="HealthBar2D" type="TextureProgress" parent="Sprite3D/Viewport"]
+[node name="HealthBar2D" type="TextureProgress" parent="mesh/Sprite3D/Viewport"]
 margin_right = 40.0
 margin_bottom = 40.0
 value = 100.0
 texture_progress = ExtResource( 8 )
 script = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="Sprite3D/Viewport/HealthBar2D"]
+[node name="Label" type="Label" parent="mesh/Sprite3D/Viewport/HealthBar2D"]
 margin_left = 7.0
 margin_top = 1.0
 margin_right = 200.0

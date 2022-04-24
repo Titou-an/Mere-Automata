@@ -38,13 +38,13 @@ var species1_genes = {
 }
 
 var species1_enabled_genes = {
-	"speed" : true,
 	"vision" : true,
+	"speed" : true,
 	"size" : true
 }
 
 
-var init_energy1 = 60 # Default energy value for species 1
+var init_energy1 = 65 # Default energy value for species 1
 
 var init_population1 = 10 # Default population value for species 1
 
@@ -59,12 +59,12 @@ var species2_genes = {
 }
 
 var species2_enabled_genes = {
-	"speed" : true,
 	"vision" : true,
+	"speed" : true,
 	"size" : true
 }
 
-var init_energy2 = 60 # Default energy value for species 2
+var init_energy2 = 65 # Default energy value for species 2
 
 var init_population2 = 10 # Default population value for species 2
 

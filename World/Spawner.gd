@@ -34,16 +34,16 @@ func createCreatureRand(genes):
 	#crt.genes["speedWeight"] = rng.randf_range(0.1, 0.90)
 	crt.rotation.y = numba
 	
-	crt.genes = genes
+	crt.genes = genes.duplicate()
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
 		crt.energy = Settings.init_energy1
 	else:
 		crt.energy = Settings.init_energy2
 	
-	clr.x = genes["speed"]/g_max
-	clr.y = genes["vision"]/g_max
-	clr.z = genes["size"]/g_max
+	clr.x = crt.genes["speed"]/g_max
+	clr.y = crt.genes["vision"]/g_max
+	clr.z = crt.genes["size"]/g_max
 	
 	crt.colorChange(clr)
 	
@@ -64,16 +64,16 @@ func createCreatureAtPos(pos, genes):
 	#crt.genes["speedWeight"] = rng.randf_range(0.1, 0.90)
 	crt.rotation.y = numba
 	
-	crt.genes = genes
+	crt.genes = genes.duplicate()
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
 		crt.energy = Settings.init_energy1
 	else:
 		crt.energy = Settings.init_energy2
 	
-	clr.x = genes["speed"]/g_max
-	clr.y = genes["vision"]/g_max
-	clr.z = genes["size"]/g_max
+	clr.x = crt.genes["speed"]/g_max
+	clr.y = crt.genes["vision"]/g_max
+	clr.z = crt.genes["size"]/g_max
 	
 	
 	crt.colorChange(clr)
@@ -82,52 +82,58 @@ func createCreatureAtPos(pos, genes):
 	add_child(crt)
 	
 
-func give_birth(pos,genes1,genes2):
+func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 	var crt = creature.instance()
 
-	var genes = [0,1,2]
+	var genes = genes1.duplicate()
 	var clr = Vector3()
-	var rnd
-	var temp = []
-	var q : float
-	var genesChosen = [0, 0, 0]
-	var species = genes1["species"]
-	var max_mut = Settings.species1_genes["mutation"] if species == Settings.Species.SPECIES1 else Settings.species2_genes["mutation"]
-	randomize()
-	rnd = floor(rand_range(0, 2))
-	if rnd == 0:
-		genesChosen[0] = genes1["vision"]
-		genesChosen[1] = genes1["speed"]
-		genesChosen[2] = genes1["size"]
-	else:
-		genesChosen[0] = genes2["vision"]
-		genesChosen[1] = genes2["speed"]
-		genesChosen[2] = genes2["size"]
-	for x in genes:
+	var rand
+	
+	var max_mut = Settings.species1_genes["mutation"] if genes["species"] == Settings.Species.SPECIES1 else Settings.species2_genes["mutation"]
+	
+	for g in Settings.species1_enabled_genes.keys():
+		
 		randomize()
-		if rnd == 0:
-			q = genesChosen[x] + rand_range(-1*max_mut, max_mut)
-			if q < g_max:
-				genes[x] = q
+		rand = floor(rand_range(0, 2))
+		
+		randomize()
+		
+		if rand == 0:
+			
+			if genes["species"] == Settings.Species.SPECIES1:
+				if !Settings.species1_enabled_genes[g]:
+					genes[g] = genes1[g]
+					continue
 			else:
-				genes[x] = g_max
+				if !Settings.species2_enabled_genes[g]:
+					genes[g] = genes1[g]
+					continue
+			
+			genes[g] = genes1[g] + rand_range(-max_mut, max_mut)
+			if genes[g] > g_max:
+				genes[g] = g_max
+			
 		else:
-			q = genesChosen[x] + rand_range(-1*max_mut, max_mut)
-			if q < g_max:
-				genes[x] = q
+				
+			if genes["species"] == Settings.Species.SPECIES1:
+				if !Settings.species1_enabled_genes[g]:
+					genes[g] = genes2[g]
+					continue
 			else:
-				genes[x] = g_max
+				if !Settings.species2_enabled_genes[g]:
+					genes[g] = genes2[g]
+					continue
+			
+			genes[g] = genes2[g] + rand_range(-max_mut, max_mut)
+			if genes[g] > g_max:
+				genes[g] = g_max
 	
-	clr.x = genes[0]/g_max
-	clr.y = genes[1]/g_max
-	clr.z = genes[2]/g_max
+	clr.x = genes["vision"]/g_max
+	clr.y = genes["speed"]/g_max
+	clr.z = genes["size"]/g_max
 	
-	crt.genes["species"] = species
-	crt.genes["vision"] = genes[0]
-	crt.genes["speed"] = genes[1]
-	crt.genes["size"] = genes[2]
-	crt.genes["diet"] = genes1["diet"]
-	crt.genes["mutation"] = genes1["mutation"]
+	crt.genes = genes
+	
 	crt.colorChange(clr)
 
 	if crt.genes["species"] == Settings.Species.SPECIES1:
