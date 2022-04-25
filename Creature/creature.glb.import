@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/mesh.glb-522e6e93e35cee12399dfebcd1fbd0f8.scn"
+path="res://.import/creature.glb-2d13e4060382cbfe8333ab3ee00dbe81.scn"
 
 [deps]
 
-source_file="res://Creature/mesh.glb"
-dest_files=[ "res://.import/mesh.glb-522e6e93e35cee12399dfebcd1fbd0f8.scn" ]
+source_file="res://Creature/creature.glb"
+dest_files=[ "res://.import/creature.glb-2d13e4060382cbfe8333ab3ee00dbe81.scn" ]
 
 [params]
 

@@ -19,6 +19,9 @@ func _on_Resume_pressed():
 
 func _on_MainMenu_pressed():
 	
+	Settings.species1_count = 0
+	Settings.species2_count = 0
+	Settings.creature_count = 0
 	Engine.time_scale = 1
 	get_tree().paused = false
 	world_generator.clean_up()

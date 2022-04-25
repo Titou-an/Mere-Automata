@@ -68,11 +68,7 @@ transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107,
 [node name="DebugController" parent="." instance=ExtResource( 10 )]
 visible = false
 
-[node name="ChartLayer" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="ChartControl" parent="ChartLayer" instance=ExtResource( 11 )]
+[node name="ChartControl" parent="." instance=ExtResource( 11 )]
 
 [node name="World_GUI" type="Control" parent="."]
 pause_mode = 2

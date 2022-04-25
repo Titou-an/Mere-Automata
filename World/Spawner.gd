@@ -17,8 +17,8 @@ onready var bound_x =  Settings.world_size * Hex_Chunk2.CHUNK_SIZE - 1
 onready var bound_z =   (Settings.world_size * Hex_Chunk2.HEX_OFFSET * Hex_Chunk2.CHUNK_SIZE) - 1
 
 var creature = preload("res://Creature/Creature.tscn")
-	
-	
+
+
 func createCreatureRand(genes):
 	var crt = creature.instance()
 	var clr = Vector3()
@@ -37,8 +37,10 @@ func createCreatureRand(genes):
 	crt.genes = genes.duplicate()
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
+		Settings.species1_count += 1
 		crt.energy = Settings.init_energy1
 	else:
+		Settings.species2_count += 1
 		crt.energy = Settings.init_energy2
 	
 	clr.x = crt.genes["speed"]/g_max
@@ -67,8 +69,10 @@ func createCreatureAtPos(pos, genes):
 	crt.genes = genes.duplicate()
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
+		Settings.species1_count += 1
 		crt.energy = Settings.init_energy1
 	else:
+		Settings.species2_count += 1
 		crt.energy = Settings.init_energy2
 	
 	clr.x = crt.genes["speed"]/g_max
@@ -135,8 +139,10 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 	crt.genes = genes
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
+		Settings.species1_count += 1
 		crt.energy = (Settings.init_energy1 / (Settings.species1_genes["size"] * 100)) * (genes["size"] * 100)
 	else:
+		Settings.species2_count += 1
 		crt.energy =  (Settings.init_energy2 / (Settings.species2_genes["size"] * 100)) * (genes["size"] * 100)
 	
 	

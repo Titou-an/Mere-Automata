@@ -34,10 +34,19 @@ var timer = 0.0
 var timer_limit = 1.5
 
 var deg
-onready var bar = $mesh/Sprite3D
+onready var bar = $model/Sprite3D
+
+var species1_mesh = preload("res://Creature/creature.mesh")
+var species2_mesh = preload("res://Creature/creature2.mesh")
 
 func _ready():
-	$mesh.scale = (Vector3.ONE * genes["size"])/2
+	
+	if genes["species"] == Settings.Species.SPECIES1:
+		get_node("model/Body001").mesh = species1_mesh
+	else:
+		get_node("model/Body001").mesh = species2_mesh
+		
+	$model.scale = (Vector3.ONE * genes["size"])/2
 	$CollisionShape.shape.height = genes["size"]
 	max_energy = genes["size"] * 100
 	
@@ -47,7 +56,12 @@ func _ready():
 
 func update_val():
 	
-	$mesh.scale = (Vector3.ONE * genes["size"])/2
+	if genes["species"] == Settings.Species.SPECIES1:
+		get_node("model/Body001").mesh = species1_mesh
+	else:
+		get_node("model/Body001").mesh = species2_mesh
+		
+	$model.scale = (Vector3.ONE * genes["size"])/2
 	$CollisionShape.shape.height = genes["size"]
 	max_energy = genes["size"] * 100
 	
@@ -178,6 +192,11 @@ func rotateCreature():
 	rotation.y = lerp_angle(rotation.y,Vector2().angle_to_point(Vector2(_velocity.z,_velocity.x)),0.1)
 	
 func death():
+	if genes["species"] == Settings.Species.SPECIES1:
+		Settings.species1_count -= 1
+	else:
+		Settings.species2_count -= 1
+	
 	Settings.creature_count -= 1
 	self.queue_free()
 	
@@ -266,7 +285,7 @@ func colorChange(color: Vector3):
    
 	var newmat = SpatialMaterial.new()
 	newmat.albedo_color = Color(color.x, color.y, color.z)
-	$mesh/Icosphere.material_override = newmat
+	$model/Body001.material_override = newmat
 
 func update_color():
-	$mesh/Icosphere.material_override.albedo_color = Color(genes["vision"]/5.0, genes["speed"]/5.0, genes["size"]/5.0)
+	$model/Body001.material_override.albedo_color = Color(genes["vision"]/5.0, genes["speed"]/5.0, genes["size"]/5.0)

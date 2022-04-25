@@ -27,6 +27,8 @@ enum Diets {
 
 var food_count = 0
 var creature_count = 0
+var species1_count = 0
+var species2_count = 0
 
 var species1_genes = {
 	"species" : Species.SPECIES1,
