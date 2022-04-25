@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://chart.gd" type="Script" id=1]
+[ext_resource path="res://addons/GDCharts/script.gd" type="Script" id=2]
+[ext_resource path="res://GUI/fonts/arial/ARIAL.TTF" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[node name="Chart" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Chart" type="ReferenceRect" parent="."]
+margin_right = 428.0
+margin_bottom = 229.0
+script = ExtResource( 2 )
+label_font = SubResource( 1 )
+grid_color = Color( 1, 1, 1, 0.694118 )

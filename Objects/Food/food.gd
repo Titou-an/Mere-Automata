@@ -8,6 +8,7 @@ onready var area = $Area
 func _on_Area_body_entered(body):
 	
 	if body.has_method("get_energy"):
+<<<<<<< Updated upstream
 		if body.get_energy() < 100:
 			if body.get_energy() + regen > 100:
 				body.set_energy(100)
@@ -15,6 +16,16 @@ func _on_Area_body_entered(body):
 				body.set_energy(body.get_energy() + regen)
 			
 			clean()
+=======
+		if body.genes["species"] != Settings.Diets.CARNIVORE:
+			if body.get_energy() < body.max_energy:
+				if body.get_energy() + regen > body.max_energy:
+					body.set_energy(body.max_energy)
+				else:
+					body.set_energy(body.get_energy() + regen)
+				
+				clean()
+>>>>>>> Stashed changes
 			
 		
 
