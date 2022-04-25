@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "ReferenceRect",
+"class": "CGChart",
+"language": "GDScript",
+"path": "res://addons/ChartGraph/core/chart.gd"
+}, {
+"base": "CGChart",
+"class": "CGLine",
+"language": "GDScript",
+"path": "res://addons/ChartGraph/line_chart/line_chart.gd"
+}, {
 "base": "StaticBody",
 "class": "Cube_Chunk",
 "language": "GDScript",
@@ -35,6 +45,8 @@ _global_script_classes=[ {
 "path": "res://World/terrain_generator.gd"
 } ]
 _global_script_class_icons={
+"CGChart": "",
+"CGLine": "",
 "Cube_Chunk": "",
 "GitAPI": "",
 "Hex_Chunk": "",
@@ -44,8 +56,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Mere:Automata"
-config/description="A sandbox evolution and ecosystem simulator."
+config/name="CoolEvoSim"
 run/main_scene="res://Main/Main.tscn"
 config/icon="res://icon.png"
 config/build_version="OwO Dev Build"
@@ -53,11 +64,17 @@ config/build_version="OwO Dev Build"
 [autoload]
 
 Settings="*res://Menu/settings.gd"
+CGUtilities="*res://addons/ChartGraph/core/utilities.gd"
 
 [display]
 
+window/size/fullscreen=true
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/ChartGraph/plugin.cfg" )
 
 [gdnative]
 
@@ -133,6 +150,11 @@ action_hex_map={
 action_cube_map={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777250,"unicode":0,"echo":false,"script":null)
+ ]
+}
+create_food={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777233,"unicode":0,"echo":false,"script":null)
  ]
 }
 shift_item_up={

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://World/world_controller.gd" type="Script" id=1]
 [ext_resource path="res://Player/PlayerFreeCam.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://GUI/GeneEditor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://World/world_gui.gd" type="Script" id=9]
 [ext_resource path="res://GUI/DebugController.tscn" type="PackedScene" id=10]
+[ext_resource path="res://GUI/chart_control.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.235294, 0.533333, 1, 1 )
@@ -66,6 +67,12 @@ transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107,
 
 [node name="DebugController" parent="." instance=ExtResource( 10 )]
 visible = false
+
+[node name="ChartLayer" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ChartControl" parent="ChartLayer" instance=ExtResource( 11 )]
 
 [node name="World_GUI" type="Control" parent="."]
 pause_mode = 2
