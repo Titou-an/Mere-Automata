@@ -3,6 +3,15 @@
 Checkm8 Creationists
 
 
+## Installation
+
+To export and build
+
+```bash
+  cd project-dir
+  godot --export "Windows Desktop" some_name
+```
+    
 ## Features
 
 - L nerd
@@ -27,13 +36,3 @@ For support, just uninstall it's prob on us.
 - [@reretheplayer](https://www.github.com/Reretheplayer)
 - [@Titou-an](https://github.com/Titou-an)
 
-
-## Installation
-
-To export and build
-
-```bash
-  cd project-dir
-  godot --export "Windows Desktop" some_name
-```
-    
