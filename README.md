@@ -12,6 +12,11 @@ Checkm8 Creationists
 ![App Screenshot](https://media.discordapp.net/attachments/454097763903471622/967969331625488394/unknown.png?width=1202&height=676)
 
 
+## Support
+
+For support, just uninstall it's prob on us.
+
+
 ## Authors
 
 - [@reretheplayer](https://www.github.com/Reretheplayer)
