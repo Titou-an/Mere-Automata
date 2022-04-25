@@ -19,10 +19,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/ChartGraph/line_chart/line_chart.gd"
 }, {
+"base": "HBoxContainer",
+"class": "ContributorClass",
+"language": "GDScript",
+"path": "res://addons/github-integration/scripts/ContributorClass.gd"
+}, {
 "base": "StaticBody",
 "class": "Cube_Chunk",
 "language": "GDScript",
 "path": "res://World/cube_chunk.gd"
+}, {
+"base": "PanelContainer",
+"class": "GistItem",
+"language": "GDScript",
+"path": "res://addons/github-integration/scripts/GistItem.gd"
 }, {
 "base": "",
 "class": "GitAPI",
@@ -39,6 +49,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://World/hex_chunk2.gd"
 }, {
+"base": "HBoxContainer",
+"class": "InvitationItem",
+"language": "GDScript",
+"path": "res://addons/github-integration/scripts/InvitationItem.gd"
+}, {
+"base": "PanelContainer",
+"class": "RepositoryItem",
+"language": "GDScript",
+"path": "res://addons/github-integration/scripts/RepositoryItem.gd"
+}, {
 "base": "Resource",
 "class": "TerrainGenerator",
 "language": "GDScript",
@@ -47,10 +67,14 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "CGChart": "",
 "CGLine": "",
+"ContributorClass": "",
 "Cube_Chunk": "",
+"GistItem": "",
 "GitAPI": "",
 "Hex_Chunk": "",
 "Hex_Chunk2": "",
+"InvitationItem": "",
+"RepositoryItem": "",
 "TerrainGenerator": ""
 }
 
@@ -65,6 +89,10 @@ config/build_version="OwO Dev Build"
 
 Settings="*res://Menu/settings.gd"
 CGUtilities="*res://addons/ChartGraph/core/utilities.gd"
+PluginSettings="*res://addons/github-integration/scripts/PluginSettings.gd"
+IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
+UserData="*res://addons/github-integration/scripts/user_data.gd"
+RestHandler="*res://addons/github-integration/scenes/RestHandler.tscn"
 
 [display]
 
@@ -74,7 +102,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/ChartGraph/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/ChartGraph/plugin.cfg", "res://addons/github-integration/plugin.cfg" )
 
 [gdnative]
 

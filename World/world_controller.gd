@@ -11,6 +11,7 @@ onready var hotbar = player_ui.get_node("Hotbar")
 onready var pause_menu = $World_GUI/PauseMenu
 onready var gene_editor = $World_GUI/GeneEditor
 onready var species_editor = $World_GUI/SpeciesTab
+onready var chart_options = $World_GUI/ChartOptions
 
 onready var world_generator = $World_Generator 
 onready var spawner = $Spawner   
@@ -87,7 +88,15 @@ func _process(_delta):
 				if Engine.time_scale > 3:
 					Engine.time_scale = 0.5
 			elif selected == 5:
-				pass
+				player_ui.hide()
+				chart_options.show()
+				
+				if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+					Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+				else:
+					Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				
+				get_tree().paused = !get_tree().paused
 			elif selected == 6:
 				player_ui.hide()
 				pause_menu.show()

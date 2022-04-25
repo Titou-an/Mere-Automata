@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Creature/creature.gd" type="Script" id=1]
-[ext_resource path="res://Creature/creature2.mesh" type="ArrayMesh" id=2]
+[ext_resource path="res://Creature/creature.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://Creature/creature2.glb" type="PackedScene" id=3]
 [ext_resource path="res://Creature/InformationBar/HealthBar3D.gd" type="Script" id=5]
 [ext_resource path="res://Creature/InformationBar/HealthBar2D.gd" type="Script" id=6]

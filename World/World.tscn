@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://World/world_controller.gd" type="Script" id=1]
 [ext_resource path="res://Player/PlayerFreeCam.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://World/world_gui.gd" type="Script" id=9]
 [ext_resource path="res://GUI/DebugController.tscn" type="PackedScene" id=10]
 [ext_resource path="res://GUI/chart_control.tscn" type="PackedScene" id=11]
+[ext_resource path="res://GUI/ChartOptions.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.235294, 0.533333, 1, 1 )
@@ -83,4 +84,7 @@ visible = false
 visible = false
 
 [node name="SpeciesTab" parent="World_GUI" instance=ExtResource( 7 )]
+visible = false
+
+[node name="ChartOptions" parent="World_GUI" instance=ExtResource( 12 )]
 visible = false
