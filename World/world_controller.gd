@@ -26,7 +26,7 @@ func _ready():
 	
 	food_control.initialize_fd()
 
-func _process(_delta):
+func _physics_process(_delta):
 	# trigger 
 	
 	if input_enabled:

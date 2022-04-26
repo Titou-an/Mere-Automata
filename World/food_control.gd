@@ -3,7 +3,7 @@ extends Node
 const HEX_OFFSET = 0.866
 const CHUNK_SIZE = Hex_Chunk2.CHUNK_SIZE
 const water_lvl = TerrainGenerator.water_lvl
-var food_min = Settings.food_min
+var food_max = Settings.food_max
 export var food_cooldown = 1
 
 var data = {}
@@ -24,10 +24,13 @@ func _ready():
 	food_timer.connect("timeout",self,"add_rand_food")
 	
 
-func _process(_delta):
+func _physics_process(_delta):
+	
+	if Settings.food_count < 0:
+		Settings.food_coun = 0
 	
 	if initialized:
-		if Settings.food_count < food_min:
+		if Settings.food_count < food_max:
 			add_rand_food()
 	
 
@@ -36,7 +39,7 @@ func initialize_fd():
 	clear_fd()
 		
 	
-	while Settings.food_count < food_min:
+	while Settings.food_count < food_max:
 		add_rand_food()
 	
 	initialized = true

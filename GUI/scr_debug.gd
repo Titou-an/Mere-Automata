@@ -1,24 +1,31 @@
 extends Control
 
+onready var os_info = $Labels/OsInfo
+onready var sim_info = $Labels/SimInfo
+onready var engine_info = $Labels/EngineInfo
+
 func _ready():
-	$OS_Label.text = "OS: " + OS.get_name()
-	$Build_Label.text = "Build version: " + ProjectSettings.get_setting("application/config/build_version")
-	$Engine_Label.text = "Godot version: " + Engine.get_version_info()["string"]
-	$Seed_Label.text = "Seed: " + String(Settings.world_seed)
+	os_info.get_node("OS_Label").text = "OS: " + OS.get_name()
+	engine_info.get_node("Build_Label").text = "Build version: " + ProjectSettings.get_setting("application/config/build_version")
+	engine_info.get_node("Engine_Label").text = "Godot version: " + Engine.get_version_info()["string"]
+	sim_info.get_node("Seed_Label").text = "Seed: " + String(Settings.world_seed)
 	
 	if Settings.world_size == Settings.WorldSizes.S2X2:
-		$World_Size_Label.text = "World Size: 2x2"
+		sim_info.get_node("World_Size_Label").text = "World Size: 2x2"
 	elif Settings.world_size == Settings.WorldSizes.S3X3:
-		$World_Size_Label.text = "World Size: 3x3"
+		sim_info.get_node("World_Size_Label").text = "World Size: 3x3"
 	elif Settings.world_size == Settings.WorldSizes.S4X4:
-		$World_Size_Label.text = "World Size: 4x4"
+		sim_info.get_node("World_Size_Label").text = "World Size: 4x4"
 
 
 func _process(_delta):
-	$FPS_Label.text = "FPS: " + str(Engine.get_frames_per_second())
-	$Memory_Label.text = "Memory: " + "%3.2f" % (OS.get_static_memory_usage() / 1048576.0) + " MiB"
-	$Count_Label.text = "Creature count: " +  String(Settings.creature_count)
-	$Food_Count_Label.text = "Food count: " + String(Settings.food_count)
+	os_info.get_node("FPS_Label").text = "FPS: " + str(Engine.get_frames_per_second())
+	os_info.get_node("Memory_Label").text = "Memory: " + "%3.2f" % (OS.get_static_memory_usage() / 1048576.0) + " MiB"
+	sim_info.get_node("Count_Label").text = "Creature count: " +  String(Settings.creature_count)
+	sim_info.get_node("Count_Label2").text = "Species1 count: " +  String(Settings.species1_count)
+	sim_info.get_node("Count_Label3").text = "Species2 count: " +  String(Settings.species2_count)
+	sim_info.get_node("Food_Count_Label").text = "Food count: " + String(Settings.food_count)
+	
 
 func _input(event):
 	

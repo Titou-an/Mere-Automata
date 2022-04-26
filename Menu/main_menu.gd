@@ -25,8 +25,15 @@ onready var loading_done_timer = loading.get_node("Timer")
 var world_size = 0
 
 func _ready():
-	food_val.placeholder_text = String(Settings.food_min)
+	food_val.placeholder_text = String(Settings.food_max)
 	regen_val.placeholder_text = String(Settings.food_regen)
+	
+	if Settings.world_size == Settings.WorldSizes.S2X2:
+		ws_2x2.pressed = true
+	elif Settings.world_size == Settings.WorldSizes.S3X3:
+		ws_3x3.pressed = true
+	else:
+		ws_4x4.pressed = true
 
 func _on_Exit_pressed():
 	get_tree().quit()
@@ -48,14 +55,14 @@ func _on_CreateWorld_pressed():
 	start.get_node("Panel/StartButtons/Back").disabled = true
 	
 	var world_seed = str2var(seed_val.text)
-	var min_food = str2var(food_val.text)
+	var max_food = str2var(food_val.text)
 	var food_regen = str2var(regen_val.text)
 	
 	if typeof(world_seed) == TYPE_INT:
 		Settings.world_seed = world_seed
 	
-	if typeof(min_food) == TYPE_INT:
-		Settings.food_min = min_food
+	if typeof(max_food) == TYPE_INT:
+		Settings.food_max = max_food
 	
 	if typeof(food_regen) == TYPE_INT:
 		Settings.food_regen = food_regen
