@@ -6,13 +6,13 @@ var x = 0
 var data = {}
 
 func _ready():
-	chart_graph.initialize(chart_graph.LABELS_TO_SHOW.Y_LABEL,
+	chart_graph.initialize(chart_graph.LABELS_TO_SHOW.NO_LABEL,
 	{
-		Total = Color(1,0,1),
-		Species1 = Color(0,1,1),
-		Species2 = Color(1,1,0)
+		Total = Color(1,1,1),
+		Species1 = Color8(103,69,147),
+		Species2 = Color8(152,71,158),
 	})
-	#chart_graph.set_labels(7)
+	chart_graph.set_labels(6)
 
 func _on_Timer_timeout():
 	chart_graph.create_new_point({

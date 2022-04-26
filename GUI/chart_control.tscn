@@ -5,6 +5,8 @@
 [ext_resource path="res://GUI/fonts/arial/ARIAL.TTF" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
+size = 14
+use_filter = true
 font_data = ExtResource( 3 )
 
 [node name="ChartControl" type="Control"]
@@ -17,7 +19,8 @@ wait_time = 5.0
 autostart = true
 
 [node name="Chart" type="ReferenceRect" parent="."]
-margin_right = 386.0
+margin_top = 31.0
+margin_right = 427.0
 margin_bottom = 231.0
 script = ExtResource( 2 )
 limit_x_count = 50

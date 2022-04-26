@@ -8,8 +8,8 @@ onready var species1 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Spe
 onready var species2 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs
 
 # Enables Species
-onready var sp1_enabled = species1.get_node("sp1Enabled")
-onready var sp2_enabled = species2.get_node("sp2Enabled")
+onready var spc1_enabled = species1.get_node("sp1Enabled")
+onready var spc2_enabled = species2.get_node("sp2Enabled")
 
 # Initial Population Values
 onready var init_pop_val1 = species1.get_node("Population")
@@ -68,6 +68,7 @@ func _ready():
 	spd1_enabled.pressed = Settings.species1_enabled_genes["speed"]
 	vis1_enabled.pressed = Settings.species1_enabled_genes["vision"]
 	siz1_enabled.pressed = Settings.species1_enabled_genes["size"]
+	spc1_enabled.pressed = Settings.spc1_enabled
 	
 	if Settings.species1_genes["diet"] == Settings.Diets.HERBIVORE:
 		herb1.pressed = true
@@ -86,6 +87,7 @@ func _ready():
 	spd2_enabled.pressed = Settings.species2_enabled_genes["speed"]
 	vis2_enabled.pressed = Settings.species2_enabled_genes["vision"]
 	siz2_enabled.pressed = Settings.species2_enabled_genes["size"]
+	spc2_enabled.pressed = Settings.spc2_enabled
 	
 	if Settings.species2_genes["diet"] == Settings.Diets.HERBIVORE:
 		herb2.pressed = true
@@ -166,6 +168,7 @@ func _on_Apply_pressed():
 	else:
 		Settings.species2_genes["diet"] = Settings.Diets.OMNIVORE
 	
+	
 	Settings.species2_enabled_genes["speed"] = true if spd2_enabled.pressed else false
 	Settings.species2_enabled_genes["vision"] = true if vis2_enabled.pressed else false
 	Settings.species2_enabled_genes["size"] = true if siz2_enabled.pressed else false
@@ -176,16 +179,17 @@ func _on_Apply_pressed():
 	for c in get_tree().get_nodes_in_group("creatures"):
 		c.death()
 	
-	if sp1_enabled.pressed:
+	if spc1_enabled.pressed:
 		for crt in Settings.init_population1:
 			spawner.createCreatureRand(Settings.species1_genes)
 	
-	if sp2_enabled.pressed:
+	if spc2_enabled.pressed:
 		for crt in Settings.init_population2:
 			spawner.createCreatureRand(Settings.species2_genes)
 
 func _on_sp1Enabled_toggled(button_pressed):
 	
+	Settings.spc1_enabled = button_pressed
 	init_pop_val1.editable = button_pressed
 	init_nrg_val1.editable = button_pressed
 	init_spd_val1.editable = button_pressed
@@ -201,7 +205,7 @@ func _on_sp1Enabled_toggled(button_pressed):
 
 
 func _on_sp2Enabled_toggled(button_pressed):
-	
+	Settings.spc2_enabled = button_pressed
 	init_pop_val2.editable = button_pressed
 	init_nrg_val2.editable = button_pressed
 	init_spd_val2.editable = button_pressed

@@ -11,6 +11,7 @@ var timer_limit = 2.0
 var color
 
 var g_max = 5.0
+var g_min = 0.1
 
 var rng = RandomNumberGenerator.new()
 onready var bound_x =  Settings.world_size * Hex_Chunk2.CHUNK_SIZE - 1
@@ -43,8 +44,8 @@ func createCreatureRand(genes):
 		Settings.species2_count += 1
 		crt.energy = Settings.init_energy2
 	
-	clr.x = crt.genes["speed"]/g_max
-	clr.y = crt.genes["vision"]/g_max
+	clr.x = crt.genes["vision"]/g_max
+	clr.y = crt.genes["speed"]/g_max
 	clr.z = crt.genes["size"]/g_max
 	
 	crt.colorChange(clr)
@@ -75,8 +76,8 @@ func createCreatureAtPos(pos, genes):
 		Settings.species2_count += 1
 		crt.energy = Settings.init_energy2
 	
-	clr.x = crt.genes["speed"]/g_max
-	clr.y = crt.genes["vision"]/g_max
+	clr.x = crt.genes["vision"]/g_max
+	clr.y = crt.genes["speed"]/g_max
 	clr.z = crt.genes["size"]/g_max
 	
 	
@@ -115,6 +116,8 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 			genes[g] = genes1[g] + rand_range(-1.0*max_mut, max_mut)
 			if genes[g] > g_max:
 				genes[g] = g_max
+			elif genes[g] < g_min:
+				genes[g] = g_min
 			
 		else:
 				
@@ -130,8 +133,10 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 			genes[g] = genes2[g] + rand_range(-1.0* max_mut, max_mut)
 			if genes[g] > g_max:
 				genes[g] = g_max
+			elif genes[g] < g_min:
+				genes[g] = g_min
 	
-	clr.x = genes["vision"]/g_max
+	clr.x = genes["vision"]/(g_max *1.5)
 	clr.y = genes["speed"]/g_max
 	clr.z = genes["size"]/g_max
 	

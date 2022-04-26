@@ -34,13 +34,20 @@ func _process(_delta):
 			var selected = hotbar.selected
 			
 			if selected == 0:
-				var ray = player.get_node("RotationHelper/RayCast")
-				ray.force_raycast_update()
-				if ray.is_colliding():
-					randomize()
-					var genes = Settings.species1_genes if randi() % 2 else Settings.species2_genes
-					spawner.createCreatureAtPos(ray.get_collision_point() + Vector3(0,0.5,0),genes)
-					
+				if (int(Settings.spc1_enabled) + int(Settings.spc2_enabled)):
+					var ray = player.get_node("RotationHelper/RayCast")
+					ray.force_raycast_update()
+					if ray.is_colliding():
+						
+						var genes = (
+							Settings.species1_genes if (Settings.spc1_enabled and !Settings.spc2_enabled)
+							else Settings.species2_genes if (!Settings.spc1_enabled and Settings.spc2_enabled)
+							else Settings.species1_genes if randi() % 2 
+							else Settings.species2_genes
+						)
+						randomize()
+						spawner.createCreatureAtPos(ray.get_collision_point() + Vector3(0,0.5,0),genes)
+						
 			elif selected == 1:
 				var ray = player.get_node("RotationHelper/RayCast")
 				ray.force_raycast_update()

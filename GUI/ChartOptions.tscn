@@ -31,18 +31,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="SpeciesControl" type="HBoxContainer" parent="CenterContainer"]
-margin_left = 399.0
+margin_left = 387.0
 margin_top = 150.0
-margin_right = 624.0
+margin_right = 637.0
 margin_bottom = 450.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Panel" type="Panel" parent="CenterContainer/SpeciesControl"]
-margin_right = 225.0
+margin_right = 250.0
 margin_bottom = 300.0
-rect_min_size = Vector2( 225, 300 )
+rect_min_size = Vector2( 250, 300 )
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 1 )
 
@@ -53,49 +53,58 @@ custom_constants/separation = 15
 alignment = 1
 
 [node name="Title" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 65.0
-margin_right = 225.0
-margin_bottom = 89.0
+margin_top = 43.0
+margin_right = 250.0
+margin_bottom = 67.0
 custom_fonts/font = SubResource( 2 )
 text = "Chart Settings"
 align = 1
 valign = 1
 
 [node name="Genes" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 104.0
-margin_right = 225.0
-margin_bottom = 144.0
+margin_top = 82.0
+margin_right = 250.0
+margin_bottom = 122.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Species" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Genes"]
-margin_left = 17.0
+margin_left = 30.0
 margin_top = 8.0
-margin_right = 121.0
+margin_right = 134.0
 margin_bottom = 32.0
 custom_fonts/font = SubResource( 2 )
 text = "Show Chart"
 valign = 1
 
 [node name="ShowChart" type="CheckButton" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Genes"]
-margin_left = 131.0
-margin_right = 207.0
+margin_left = 144.0
+margin_right = 220.0
 margin_bottom = 40.0
 pressed = true
 
 [node name="Export" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 159.0
-margin_right = 225.0
-margin_bottom = 189.0
+margin_top = 137.0
+margin_right = 250.0
+margin_bottom = 167.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Export as CSV"
+text = "Export Population as CSV"
+flat = true
+
+[node name="Export2" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
+margin_top = 182.0
+margin_right = 250.0
+margin_bottom = 212.0
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Export Genes as CSV"
 flat = true
 
 [node name="Back" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 204.0
-margin_right = 225.0
-margin_bottom = 234.0
+margin_top = 227.0
+margin_right = 250.0
+margin_bottom = 257.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Cancel"
@@ -109,10 +118,12 @@ margin_right = 762.0
 margin_bottom = 500.0
 rect_min_size = Vector2( 500, 400 )
 access = 2
-current_dir = "/"
-current_path = "/"
+current_dir = "/Program Files (x86)/Steam"
+current_file = "new_data.csv"
+current_path = "/Program Files (x86)/Steam/new_data.csv"
 
 [connection signal="toggled" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Genes/ShowChart" to="." method="_on_ShowChart_toggled"]
 [connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Export" to="." method="_on_Export_pressed"]
+[connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Export2" to="." method="_on_Export2_pressed"]
 [connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Back" to="." method="_on_Back_pressed"]
 [connection signal="file_selected" from="CenterContainer/FileDialog" to="." method="_on_FileDialog_file_selected"]
