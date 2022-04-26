@@ -3,6 +3,7 @@ extends Control
 onready var  player_ui = get_node("../../PlayerFreeCam/UI")
 onready var spawner = get_node("../../Spawner")
 
+var rng = RandomNumberGenerator.new()
 
 onready var species1 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs
 onready var species2 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs
@@ -218,3 +219,80 @@ func _on_sp2Enabled_toggled(button_pressed):
 	herb2.disabled = !button_pressed
 	carn2.disabled = !button_pressed
 	omni2.disabled = !button_pressed
+
+
+func _on_ApplyRand_pressed():
+	player_ui.visible = !player_ui.visible
+	visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# Species 1 genes
+	
+	if typeof(str2var(init_nrg_val1.text)) == TYPE_REAL or typeof(str2var(init_nrg_val1.text)) == TYPE_INT:
+		Settings.init_energy1 = str2var(init_nrg_val1.text)
+	if typeof(str2var(init_pop_val1.text)) == TYPE_INT:
+		Settings.init_population1 = str2var(init_pop_val1.text)
+	if typeof(str2var(mut_val1.text)) == TYPE_REAL or typeof(str2var(mut_val1.text)) == TYPE_INT:
+		Settings.species1_genes["mutation"] = str2var(mut_val1.text)
+	
+	
+	if herb1.pressed:
+		Settings.species1_genes["diet"] = Settings.Diets.HERBIVORE
+	elif carn1.pressed:
+		Settings.species1_genes["diet"] = Settings.Diets.CARNIVORE
+	else:
+		Settings.species1_genes["diet"] = Settings.Diets.OMNIVORE
+	
+	
+	Settings.species1_enabled_genes["speed"] = true if spd1_enabled.pressed else false
+	Settings.species1_enabled_genes["vision"] = true if vis1_enabled.pressed else false
+	Settings.species1_enabled_genes["size"] = true if siz1_enabled.pressed else false
+	
+	# Species 2 genes
+	
+	if typeof(str2var(init_nrg_val2.text)) == TYPE_REAL or typeof(str2var(init_nrg_val2.text)) == TYPE_INT:
+		Settings.init_energy2 = str2var(init_nrg_val2.text)
+	if  typeof(str2var(init_pop_val2.text)) == TYPE_INT:
+		Settings.init_population2 = str2var(init_pop_val2.text)
+	if typeof(str2var(mut_val2.text)) == TYPE_REAL or typeof(str2var(mut_val2.text)) == TYPE_INT:
+		Settings.species2_genes["mutation"] = str2var(mut_val2.text)
+	
+	if herb2.pressed:
+		Settings.species2_genes["diet"] = Settings.Diets.HERBIVORE
+	elif carn2.pressed:
+		Settings.species2_genes["diet"] = Settings.Diets.CARNIVORE
+	else:
+		Settings.species2_genes["diet"] = Settings.Diets.OMNIVORE
+	
+	
+	Settings.species2_enabled_genes["speed"] = true if spd2_enabled.pressed else false
+	Settings.species2_enabled_genes["vision"] = true if vis2_enabled.pressed else false
+	Settings.species2_enabled_genes["size"] = true if siz2_enabled.pressed else false
+	
+	get_tree().paused = false
+	
+	
+	for c in get_tree().get_nodes_in_group("creatures"):
+		c.death()
+	
+	if spc1_enabled.pressed:
+		for crt in Settings.init_population1:
+			var genes = Settings.species1_genes.duplicate()
+			randomize()
+			
+			genes["speed"] = rand_range(0.5,2)
+			genes["vision"] = rand_range(0.5,2)
+			genes["size"]  = rand_range(0.5,2)
+			
+			spawner.createCreatureRand(genes)
+	
+	if spc2_enabled.pressed:
+		for crt in Settings.init_population2:
+			var genes = Settings.species2_genes.duplicate()
+			randomize()
+			
+			genes["speed"] = rand_range(0.1,5)
+			genes["vision"] = rand_range(0.1,7.5)
+			genes["size"]  = rand_range(0.1,5)
+			
+			spawner.createCreatureRand(genes)

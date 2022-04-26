@@ -27,10 +27,10 @@ func _ready():
 func _physics_process(_delta):
 	
 	if Settings.food_count < 0:
-		Settings.food_coun = 0
+		Settings.food_count = 0
 	
 	if initialized:
-		if Settings.food_count < food_max:
+		if food_max - Settings.food_count:
 			add_rand_food()
 	
 

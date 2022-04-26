@@ -56,18 +56,18 @@ custom_constants/separation = 15
 alignment = 1
 
 [node name="Title" type="Label" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 24.0
+margin_top = 2.0
 margin_right = 750.0
-margin_bottom = 48.0
+margin_bottom = 26.0
 custom_fonts/font = SubResource( 1 )
 text = "Species Settings"
 align = 1
 valign = 1
 
 [node name="Species" type="HBoxContainer" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 63.0
+margin_top = 41.0
 margin_right = 750.0
-margin_bottom = 390.0
+margin_bottom = 368.0
 custom_constants/separation = 30
 alignment = 1
 
@@ -181,6 +181,7 @@ margin_right = 86.0
 margin_bottom = 82.0
 rect_min_size = Vector2( 50, 0 )
 align = 2
+placeholder_text = "1"
 caret_blink = true
 caret_blink_speed = 0.5
 
@@ -543,27 +544,36 @@ group = SubResource( 3 )
 text = "Omnivore"
 
 [node name="Kill" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 405.0
+margin_top = 383.0
 margin_right = 750.0
-margin_bottom = 435.0
+margin_bottom = 413.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Kill All Creatures"
 flat = true
 
-[node name="Apply" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 450.0
+[node name="ApplyRand" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
+margin_top = 428.0
 margin_right = 750.0
-margin_bottom = 480.0
+margin_bottom = 458.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
-text = "Spawn Creatures"
+text = "Spawn Random Creatures"
+flat = true
+
+[node name="Apply" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
+margin_top = 473.0
+margin_right = 750.0
+margin_bottom = 503.0
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Spawn Creatures Set Genes"
 flat = true
 
 [node name="Back" type="Button" parent="CenterContainer/SpeciesControl/Panel/SpeciesSettings"]
-margin_top = 495.0
+margin_top = 518.0
 margin_right = 750.0
-margin_bottom = 525.0
+margin_bottom = 548.0
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Cancel"
@@ -572,5 +582,6 @@ flat = true
 [connection signal="toggled" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Genes/Inputs/sp1Enabled" to="." method="_on_sp1Enabled_toggled"]
 [connection signal="toggled" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Genes/Inputs/sp2Enabled" to="." method="_on_sp2Enabled_toggled"]
 [connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Kill" to="." method="_on_Kill_pressed"]
+[connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/ApplyRand" to="." method="_on_ApplyRand_pressed"]
 [connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Apply" to="." method="_on_Apply_pressed"]
 [connection signal="pressed" from="CenterContainer/SpeciesControl/Panel/SpeciesSettings/Back" to="." method="_on_Back_pressed"]
