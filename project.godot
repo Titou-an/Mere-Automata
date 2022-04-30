@@ -82,6 +82,7 @@ _global_script_class_icons={
 
 config/name="CoolEvoSim"
 run/main_scene="res://Main/Main.tscn"
+boot_splash/image="res://splash.png"
 config/icon="res://icon.png"
 config/build_version="OwO Dev Build"
 
