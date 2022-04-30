@@ -25,7 +25,7 @@ onready var loading_done_timer = loading.get_node("Timer")
 var world_size = 0
 
 func _ready():
-	food_val.placeholder_text = String(Settings.food_max)
+	food_val.placeholder_text = String(Settings.food_min)
 	regen_val.placeholder_text = String(Settings.food_regen)
 	
 	if Settings.world_size == Settings.WorldSizes.S2X2:
@@ -62,7 +62,7 @@ func _on_CreateWorld_pressed():
 		Settings.world_seed = world_seed
 	
 	if typeof(max_food) == TYPE_INT:
-		Settings.food_max = max_food
+		Settings.food_min = max_food
 	
 	if typeof(food_regen) == TYPE_INT:
 		Settings.food_regen = food_regen

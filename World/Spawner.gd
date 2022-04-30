@@ -39,10 +39,10 @@ func createCreatureRand(genes):
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
 		Settings.species1_count += 1
-		crt.energy = Settings.init_energy1
+		crt.energy = (Settings.init_energy1* crt.genes["size"])
 	else:
 		Settings.species2_count += 1
-		crt.energy = Settings.init_energy2
+		crt.energy = Settings.init_energy2 * crt.genes["size"]
 	
 	clr.x = crt.genes["vision"]/g_max
 	clr.y = crt.genes["speed"]/g_max
@@ -71,10 +71,10 @@ func createCreatureAtPos(pos, genes):
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
 		Settings.species1_count += 1
-		crt.energy = Settings.init_energy1
+		crt.energy = Settings.init_energy1 * crt.genes["size"]
 	else:
 		Settings.species2_count += 1
-		crt.energy = Settings.init_energy2
+		crt.energy = Settings.init_energy2 * crt.genes["size"]
 	
 	clr.x = crt.genes["vision"]/g_max
 	clr.y = crt.genes["speed"]/g_max
@@ -145,10 +145,10 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
 		Settings.species1_count += 1
-		crt.energy = (Settings.init_energy1 / (Settings.species1_genes["size"] * 100)) * (genes["size"] * 100)
+		crt.energy = (Settings.init_energy1* crt.genes["size"])
 	else:
 		Settings.species2_count += 1
-		crt.energy =  (Settings.init_energy2 / (Settings.species2_genes["size"] * 100)) * (genes["size"] * 100)
+		crt.energy =  (Settings.init_energy2 * crt.genes["size"])
 	
 	
 	crt.colorChange(clr)

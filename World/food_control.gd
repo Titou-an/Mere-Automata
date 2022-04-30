@@ -3,98 +3,95 @@ extends Node
 const HEX_OFFSET = 0.866
 const CHUNK_SIZE = Hex_Chunk2.CHUNK_SIZE
 const water_lvl = TerrainGenerator.water_lvl
-var food_max = Settings.food_max
+var food_min = Settings.food_min
 export var food_cooldown = 1
 
 var data = {}
 var food_arr = []
+var pos_arr = []
 var food = preload("res://Objects/Food/food.tscn")
 var initialized = false
-onready var food_timer = Timer.new()
+onready var food_timer = get_node("../FoodTimer")
 
+onready var mutex = Mutex.new()
 var pos = Vector3.ZERO
-var rand_index = 0
-var rand_chunk = {}
 var origin = Vector3()
-var rand_pos = Vector3()
 
-
-func _ready():
+func _ready(): 
 	food_timer.wait_time = food_cooldown
-	food_timer.connect("timeout",self,"add_rand_food")
+	create_pos_array()
 	
+func create_pos_array():
+	
+	for chunk in data.keys():
+		for block_pos in data[chunk].keys():
+			if block_pos.y >= water_lvl:
+				if data[chunk][block_pos] == 3:
+					
+					if data[chunk].has(block_pos + Vector3.UP):
+						if data[chunk][block_pos + Vector3.UP] == 11:
+							continue
+					var odd = int(block_pos.z)%2
+					
+					var temp_pos = block_pos
+					origin = chunk*Hex_Chunk2.CHUNK_SIZE
+					if odd:
+						temp_pos = (origin + block_pos + Vector3(1,1,0.5)) * Vector3(1,1,HEX_OFFSET)
+					else:
+						temp_pos = (origin + block_pos + Vector3(0.5,1,0.5)) * Vector3(1,1,HEX_OFFSET)
+					
+					
+					pos_arr.append(temp_pos)
 
-func _physics_process(_delta):
-	
-	if Settings.food_count < 0:
-		Settings.food_count = 0
-	
-	if initialized:
-		if food_max - Settings.food_count:
-			add_rand_food()
-	
 
 func initialize_fd():
 	
 	clear_fd()
-		
+	create_pos_array()
 	
-	while Settings.food_count < food_max:
+	while Settings.food_count < food_min:
 		add_rand_food()
 	
+	food_timer.start()
 	initialized = true
 
 func add_rand_food():
-	
-	rand_index = randi() % data.size()
-	rand_chunk = data.values()[rand_index]
-	origin = data.keys()[rand_index] * CHUNK_SIZE
-	rand_pos = rand_chunk.keys()[randi() % rand_chunk.size()]
-	
-	if rand_pos.y >= water_lvl:
+	while Settings.food_count <= food_min:
+		randomize()
+		var rand_pos = pos_arr[floor(rand_range(0,pos_arr.size()))]
+		
 		if !food_arr.has(rand_pos):
-			if rand_chunk[rand_pos] == 3:
-				
-				if rand_chunk.has(rand_pos + Vector3.UP):
-					if rand_chunk[rand_pos + Vector3.UP] == 11:
-						return
-				
-				var odd = int(rand_pos.z)%2
-				
-				if odd:
-					pos = (origin + rand_pos + Vector3(1,1,0.5)) * Vector3(1,1,HEX_OFFSET)
-				else:
-					pos = (origin + rand_pos + Vector3(0.5,1,0.5)) * Vector3(1,1,HEX_OFFSET)
-				
-				food_arr.append(rand_pos)
-				
-				var fd = food.instance()
-				
-				fd.transform.origin = pos
-				fd.pos = rand_pos
-				
-				Settings.food_count += 1
-				add_child(fd)
-				
-
+			
+			food_arr.append(rand_pos)
+			
+			var fd = food.instance()
+			
+			fd.transform.origin = rand_pos
+			fd.pos = rand_pos
+			
+			mutex.lock()
+			Settings.food_count += 1
+			mutex.unlock()
+			
+			add_child(fd)
+			break
+			
 func clear_fd():
 	
 	initialized = false
+	food_arr.clear()
+	pos_arr.clear()
 	
 	for f in get_children():
-		food_arr.erase(f.pos) 
-		
-		for creature in get_tree().get_nodes_in_group("creatures"):
-				if creature.fd_list.has(f.area):
-					creature.fd_list.erase(f.area)
-		
 		remove_child(f)
 		f.queue_free()
-		
-		Settings.food_count -= 1
 	
 	for c in get_tree().get_nodes_in_group("creatures"):
 		c.fd_list.clear()
 		
-	food_arr.clear()
+	
 	Settings.food_count = 0
+
+
+func _on_FoodTimer_timeout():
+	add_rand_food()

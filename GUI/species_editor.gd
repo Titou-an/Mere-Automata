@@ -58,6 +58,8 @@ onready var carn2 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Specie
 onready var omni1 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Diet/Omni
 onready var omni2 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Diet/Omni
 
+onready var chart = get_node("../../ChartControl/Chart")
+
 func _ready():
 	
 	init_pop_val1.placeholder_text = String(Settings.init_population1)
@@ -176,9 +178,10 @@ func _on_Apply_pressed():
 	
 	get_tree().paused = false
 	
-	
 	for c in get_tree().get_nodes_in_group("creatures"):
 		c.death()
+	
+	chart.clear_chart()
 	
 	if spc1_enabled.pressed:
 		for crt in Settings.init_population1:
@@ -187,7 +190,7 @@ func _on_Apply_pressed():
 	if spc2_enabled.pressed:
 		for crt in Settings.init_population2:
 			spawner.createCreatureRand(Settings.species2_genes)
-
+	
 func _on_sp1Enabled_toggled(button_pressed):
 	
 	Settings.spc1_enabled = button_pressed
@@ -274,14 +277,15 @@ func _on_ApplyRand_pressed():
 	
 	for c in get_tree().get_nodes_in_group("creatures"):
 		c.death()
-	
+		
+	chart.clear_chart()
 	if spc1_enabled.pressed:
 		for crt in Settings.init_population1:
 			var genes = Settings.species1_genes.duplicate()
 			randomize()
 			
 			genes["speed"] = rand_range(0.5,2)
-			genes["vision"] = rand_range(0.5,2)
+			genes["vision"] = rand_range(2,5)
 			genes["size"]  = rand_range(0.5,2)
 			
 			spawner.createCreatureRand(genes)
@@ -291,8 +295,10 @@ func _on_ApplyRand_pressed():
 			var genes = Settings.species2_genes.duplicate()
 			randomize()
 			
-			genes["speed"] = rand_range(0.1,5)
-			genes["vision"] = rand_range(0.1,7.5)
-			genes["size"]  = rand_range(0.1,5)
+			genes["speed"] = rand_range(0.5,2)
+			genes["vision"] = rand_range(2,5)
+			genes["size"]  = rand_range(0.5,2)
 			
 			spawner.createCreatureRand(genes)
+	
+	

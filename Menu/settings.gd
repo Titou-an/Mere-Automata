@@ -9,7 +9,7 @@ enum WorldSizes {
 }
 
 var world_seed = 1447 # Seed value used for main menu background
-var food_max = 50
+var food_min = 50
 var food_regen = 50
 var world_size = WorldSizes.S2X2
 

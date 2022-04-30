@@ -135,6 +135,13 @@ func _physics_process(delta):
 					
 					_velocity.x = transform.origin.direction_to(target).x * genes["speed"]
 					_velocity.z = transform.origin.direction_to(target).z * genes["speed"]
+					
+					
+					if !((_velocity + transform.origin).x < bound_x and (_velocity + transform.origin).x > 0):
+						_velocity.x = 0
+					if !((_velocity + transform.origin).z < bound_z and (_velocity + transform.origin).z > 0):
+						_velocity.z = 0
+					
 				else:
 					explore()
 			else:
@@ -250,16 +257,15 @@ func _on_ReproductionArea_body_entered(body):
 	else:
 		if genes["diet"] != Settings.Diets.HERBIVORE:
 			body.death()
-			energy += Settings.food_regen
+			if energy < max_energy:
+				if energy + Settings.food_regen > max_energy:
+					energy = max_energy
+				else:
+					energy += Settings.food_regen
 			energyUpdate(energy)
 
 func explore():
 	# Nothing to do, move in a random direction
-	
-	if !((_velocity + transform.origin).x < bound_x and (_velocity + transform.origin).x > 0):
-		_velocity.x = 0
-	if !((_velocity + transform.origin).z < bound_z and (_velocity + transform.origin).z > 0):
-		_velocity.z = 0
 	
 	if (timer > timer_limit):
 		
@@ -269,6 +275,12 @@ func explore():
 		
 		moveCreature(numb)
 		
+	
+	if !((_velocity + transform.origin).x < bound_x and (_velocity + transform.origin).x > 0):
+		_velocity.x = 0
+	if !((_velocity + transform.origin).z < bound_z and (_velocity + transform.origin).z > 0):
+		_velocity.z = 0
+	
 #	deg = (
 #			270 if numb == 0
 #			else 180 if numb == 1
@@ -280,6 +292,14 @@ func explore():
 #			else 45
 #		)
 	#rotation.y = lerp_angle(rotation.y,deg2rad(deg),0.1)
+
+func regen():
+	if energy < max_energy:
+		if energy + Settings.food_regen > max_energy:
+			energy = max_energy
+		else:
+			energy += Settings.food_regen
+		energyUpdate(energy)
 	
 func colorChange(color: Vector3):
    

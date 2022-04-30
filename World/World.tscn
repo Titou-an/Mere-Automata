@@ -88,3 +88,7 @@ visible = false
 
 [node name="ChartOptions" parent="World_GUI" instance=ExtResource( 12 )]
 visible = false
+
+[node name="FoodTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="FoodTimer" to="Food_Control" method="_on_FoodTimer_timeout"]

@@ -33,7 +33,6 @@ static func single():
 	print (data)
 	return data
 
-
 static func single_cube():
 	
 	var data = {}
