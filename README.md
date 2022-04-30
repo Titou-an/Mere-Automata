@@ -18,7 +18,7 @@ To export and build
 
 ## Screenshots
 
-![App Screenshot](https://media.discordapp.net/attachments/454097763903471622/967969331625488394/unknown.png?width=1202&height=676)
+![App Screenshot](https://cdn.discordapp.com/attachments/358063957329838093/970086017744912384/CoolEvoSim_DEBUG_2022-04-30_6_14_16_PM.png)
 
 
 ## Lessons Learned
