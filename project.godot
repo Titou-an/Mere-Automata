@@ -84,6 +84,7 @@ config/name="CoolEvoSim"
 run/main_scene="res://Main/Main.tscn"
 boot_splash/image="res://splash.png"
 config/icon="res://icon.png"
+config/windows_native_icon="res://win_icon.ico"
 config/build_version="OwO Dev Build"
 
 [autoload]

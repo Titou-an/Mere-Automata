@@ -256,12 +256,12 @@ func _on_ReproductionArea_body_entered(body):
 				
 	else:
 		if genes["diet"] != Settings.Diets.HERBIVORE:
-			body.death()
-			if energy < max_energy:
-				if energy + Settings.food_regen > max_energy:
+			if energy < (repro_treshold*max_energy):
+				if energy + body.energy > max_energy:
 					energy = max_energy
 				else:
-					energy += Settings.food_regen
+					energy += body.energy
+				body.death()
 			energyUpdate(energy)
 
 func explore():
