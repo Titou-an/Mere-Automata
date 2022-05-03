@@ -201,8 +201,10 @@ func rotateCreature():
 func death():
 	if genes["species"] == Settings.Species.SPECIES1:
 		Settings.species1_count -= 1
+		Settings.deaths1 += 1
 	else:
 		Settings.species2_count -= 1
+		Settings.deaths2 += 1
 	
 	Settings.creature_count -= 1
 	self.queue_free()

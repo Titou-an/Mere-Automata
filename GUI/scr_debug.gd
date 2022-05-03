@@ -25,7 +25,10 @@ func _process(_delta):
 	sim_info.get_node("Count_Label2").text = "Species1 count: " +  String(Settings.species1_count)
 	sim_info.get_node("Count_Label3").text = "Species2 count: " +  String(Settings.species2_count)
 	sim_info.get_node("Food_Count_Label").text = "Food count: " + String(get_tree().get_nodes_in_group("food").size())
-	
+	sim_info.get_node("Births_Label1").text = "Birth1 count: " + String(Settings.births1)
+	sim_info.get_node("Births_Label2").text = "Birth2 count: " + String(Settings.births2)
+	sim_info.get_node("Deaths_Label1").text = "Death1 count: " + String(Settings.deaths1)
+	sim_info.get_node("Deaths_Label2").text = "Death2 count: " + String(Settings.deaths2)
 
 func _input(event):
 	

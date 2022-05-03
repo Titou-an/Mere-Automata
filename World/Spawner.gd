@@ -144,9 +144,11 @@ func give_birth(pos : Vector3, genes1 : Dictionary, genes2 : Dictionary):
 	crt.genes = genes
 	
 	if crt.genes["species"] == Settings.Species.SPECIES1:
+		Settings.births1 +=1
 		Settings.species1_count += 1
 		crt.energy = (Settings.init_energy1* crt.genes["size"])
 	else:
+		Settings.births2 +=1
 		Settings.species2_count += 1
 		crt.energy =  (Settings.init_energy2 * crt.genes["size"])
 	

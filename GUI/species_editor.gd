@@ -58,7 +58,7 @@ onready var carn2 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Specie
 onready var omni1 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species1/Diet/Omni
 onready var omni2 = $CenterContainer/SpeciesControl/Panel/SpeciesSettings/Species/Species2/Diet/Omni
 
-onready var chart = get_node("../../ChartControl/Chart")
+onready var chart = get_node("../../ChartControl")
 
 func _ready():
 	
@@ -181,7 +181,12 @@ func _on_Apply_pressed():
 	for c in get_tree().get_nodes_in_group("creatures"):
 		c.death()
 	
-	chart.clear_chart()
+	chart.get_node("Chart").clear_chart()
+	Settings.births1 = 0 
+	Settings.births2 = 0
+	Settings.deaths1 = 0
+	Settings.deaths2 = 0
+	chart.x = 0
 	
 	if spc1_enabled.pressed:
 		for crt in Settings.init_population1:
@@ -207,7 +212,6 @@ func _on_sp1Enabled_toggled(button_pressed):
 	carn1.disabled = !button_pressed
 	omni1.disabled = !button_pressed
 
-
 func _on_sp2Enabled_toggled(button_pressed):
 	Settings.spc2_enabled = button_pressed
 	init_pop_val2.editable = button_pressed
@@ -222,7 +226,6 @@ func _on_sp2Enabled_toggled(button_pressed):
 	herb2.disabled = !button_pressed
 	carn2.disabled = !button_pressed
 	omni2.disabled = !button_pressed
-
 
 func _on_ApplyRand_pressed():
 	player_ui.visible = !player_ui.visible
@@ -278,7 +281,13 @@ func _on_ApplyRand_pressed():
 	for c in get_tree().get_nodes_in_group("creatures"):
 		c.death()
 		
-	chart.clear_chart()
+	chart.get_node("Chart").clear_chart()
+	Settings.births1 = 0 
+	Settings.births2 = 0
+	Settings.deaths1 = 0
+	Settings.deaths2 = 0
+	chart.x = 0
+	
 	if spc1_enabled.pressed:
 		for crt in Settings.init_population1:
 			var genes = Settings.species1_genes.duplicate()

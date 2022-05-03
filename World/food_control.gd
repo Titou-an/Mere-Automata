@@ -4,7 +4,7 @@ const HEX_OFFSET = 0.866
 const CHUNK_SIZE = Hex_Chunk2.CHUNK_SIZE
 const water_lvl = TerrainGenerator.water_lvl
 var food_min = Settings.food_min
-export var food_cooldown = 1
+export var food_cooldown = 0.75
 
 var data = {}
 var food_arr = []

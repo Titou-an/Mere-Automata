@@ -25,6 +25,12 @@ enum Diets {
 	OMNIVORE = 2
 }
 
+var births1 = 0.0
+var deaths1 = 0.0
+
+var births2 = 0.0
+var deaths2 = 0.0
+
 var food_count = 0
 var creature_count = 0
 var species1_count = 0
