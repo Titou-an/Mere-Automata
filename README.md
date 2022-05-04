@@ -6,8 +6,7 @@ Checkm8 Creationists
 ## Installation
 
 * Releases
-
-[v.1.0](https://github.com/Titou-an/Mere-Automata/releases/tag/v1.0)
+* [v.1.0](https://github.com/Titou-an/Mere-Automata/releases/tag/v1.0)
 
 * To export and build
 
