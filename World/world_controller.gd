@@ -118,12 +118,12 @@ func _physics_process(_delta):
 
 func _input(event):
 	
-	if event.is_action_pressed("action_hex_map"):
-		world_generator.gen_hex_map()
-	
-	if event.is_action_pressed("action_cube_map"):
-		world_generator.gen_cube_map()
-	
+#	if event.is_action_pressed("action_hex_map"):
+#		world_generator.gen_hex_map()
+#
+#	if event.is_action_pressed("action_cube_map"):
+#		world_generator.gen_cube_map()
+#
 	if event.is_action_pressed("action_reload"):
 		food_control.initialize_fd()
 	
@@ -131,6 +131,3 @@ func _input(event):
 #		var menu_scene = PackedScene.new()
 #		menu_scene.pack(get_tree().get_current_scene().get_node("World"))
 #		ResourceSaver.save("res://Menu/background.tscn", menu_scene)
-
-	if event.is_action_pressed("ui_up"):
-		spawner.createCreatureRand(Settings.species1_genes)
